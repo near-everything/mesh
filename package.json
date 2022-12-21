@@ -1,0 +1,21 @@
+{
+  "name": "everything-mesh",
+  "version": "0.0.1",
+  "description": "combines multiple external apis into everything",
+  "main": "index.js",
+  "scripts": {
+    "dev": "mesh dev",
+    "start": "mesh start",
+    "build": "mesh build"
+  },
+  "author": "@near-everything",
+  "license": "MIT",
+  "dependencies": {
+    "@envelop/auth0": "^4.0.4",
+    "@graphql-mesh/cli": "^0.82.5",
+    "@graphql-mesh/graphql": "^0.33.4",
+    "@graphql-mesh/transform-rename": "^0.14.3",
+    "@graphql-mesh/transform-type-merging": "^0.5.3",
+    "graphql": "^16.6.0"
+  }
+}
