@@ -84,6 +84,23 @@ input String_comparison_exp {
   _similar: String
 }
 
+scalar _text
+
+"""
+Boolean expression to compare columns of type "_text". All fields are combined with logical 'AND'.
+"""
+input _text_comparison_exp {
+  _eq: _text
+  _gt: _text
+  _gte: _text
+  _in: [_text!]
+  _is_null: Boolean
+  _lt: _text
+  _lte: _text
+  _neq: _text
+  _nin: [_text!]
+}
+
 scalar bigint
 
 """
@@ -1486,11 +1503,13 @@ type mb_views_nft_activities {
   action_receiver: String
   action_sender: String
   content_flag: String
+  copies: bigint
   description: String
   extra: String
   kind: String
   media: String
   media_hash: String
+  metadata_id: String
   """An object relationship"""
   nft_contract: nft_contracts
   nft_contract_id: String
@@ -1535,6 +1554,7 @@ type mb_views_nft_activities_aggregate_fields {
 
 """aggregate avg on columns"""
 type mb_views_nft_activities_avg_fields {
+  copies: Float
   price: Float
 }
 
@@ -1548,11 +1568,13 @@ input mb_views_nft_activities_bool_exp {
   action_receiver: String_comparison_exp
   action_sender: String_comparison_exp
   content_flag: String_comparison_exp
+  copies: bigint_comparison_exp
   description: String_comparison_exp
   extra: String_comparison_exp
   kind: String_comparison_exp
   media: String_comparison_exp
   media_hash: String_comparison_exp
+  metadata_id: String_comparison_exp
   nft_contract: nft_contracts_bool_exp
   nft_contract_id: String_comparison_exp
   price: numeric_comparison_exp
@@ -1571,11 +1593,13 @@ type mb_views_nft_activities_max_fields {
   action_receiver: String
   action_sender: String
   content_flag: String
+  copies: bigint
   description: String
   extra: String
   kind: String
   media: String
   media_hash: String
+  metadata_id: String
   nft_contract_id: String
   price: numeric
   receipt_id: String
@@ -1592,11 +1616,13 @@ type mb_views_nft_activities_min_fields {
   action_receiver: String
   action_sender: String
   content_flag: String
+  copies: bigint
   description: String
   extra: String
   kind: String
   media: String
   media_hash: String
+  metadata_id: String
   nft_contract_id: String
   price: numeric
   receipt_id: String
@@ -1613,11 +1639,13 @@ input mb_views_nft_activities_order_by {
   action_receiver: order_by
   action_sender: order_by
   content_flag: order_by
+  copies: order_by
   description: order_by
   extra: order_by
   kind: order_by
   media: order_by
   media_hash: order_by
+  metadata_id: order_by
   nft_contract: nft_contracts_order_by
   nft_contract_id: order_by
   price: order_by
@@ -1632,15 +1660,175 @@ input mb_views_nft_activities_order_by {
 }
 
 """
-select columns of table "mb_views.nft_activities"
+columns and relationships of "mb_views.nft_activities_rollup"
 """
-enum mb_views_nft_activities_select_column {
+type mb_views_nft_activities_rollup {
+  action_receiver: String
+  action_sender: String
+  content_flag: String
+  count: bigint
+  description: String
+  extra: String
+  kind: String
+  media: String
+  media_hash: String
+  metadata_id: String
+  """An object relationship"""
+  nft_contract: nft_contracts
+  nft_contract_id: String
+  price: numeric
+  receipt_id: String
+  reference: String
+  reference_blob(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  timestamp: timestamp
+  title: String
+  token_ids: _text
+  tx_sender: String
+}
+
+"""
+aggregated selection of "mb_views.nft_activities_rollup"
+"""
+type mb_views_nft_activities_rollup_aggregate {
+  aggregate: mb_views_nft_activities_rollup_aggregate_fields
+  nodes: [mb_views_nft_activities_rollup!]!
+}
+
+"""
+aggregate fields of "mb_views.nft_activities_rollup"
+"""
+type mb_views_nft_activities_rollup_aggregate_fields {
+  avg: mb_views_nft_activities_rollup_avg_fields
+  count(columns: [mb_views_nft_activities_rollup_select_column!], distinct: Boolean): Int!
+  max: mb_views_nft_activities_rollup_max_fields
+  min: mb_views_nft_activities_rollup_min_fields
+  stddev: mb_views_nft_activities_rollup_stddev_fields
+  stddev_pop: mb_views_nft_activities_rollup_stddev_pop_fields
+  stddev_samp: mb_views_nft_activities_rollup_stddev_samp_fields
+  sum: mb_views_nft_activities_rollup_sum_fields
+  var_pop: mb_views_nft_activities_rollup_var_pop_fields
+  var_samp: mb_views_nft_activities_rollup_var_samp_fields
+  variance: mb_views_nft_activities_rollup_variance_fields
+}
+
+"""aggregate avg on columns"""
+type mb_views_nft_activities_rollup_avg_fields {
+  count: Float
+  price: Float
+}
+
+"""
+Boolean expression to filter rows from the table "mb_views.nft_activities_rollup". All fields are combined with a logical 'AND'.
+"""
+input mb_views_nft_activities_rollup_bool_exp {
+  _and: [mb_views_nft_activities_rollup_bool_exp!]
+  _not: mb_views_nft_activities_rollup_bool_exp
+  _or: [mb_views_nft_activities_rollup_bool_exp!]
+  action_receiver: String_comparison_exp
+  action_sender: String_comparison_exp
+  content_flag: String_comparison_exp
+  count: bigint_comparison_exp
+  description: String_comparison_exp
+  extra: String_comparison_exp
+  kind: String_comparison_exp
+  media: String_comparison_exp
+  media_hash: String_comparison_exp
+  metadata_id: String_comparison_exp
+  nft_contract: nft_contracts_bool_exp
+  nft_contract_id: String_comparison_exp
+  price: numeric_comparison_exp
+  receipt_id: String_comparison_exp
+  reference: String_comparison_exp
+  reference_blob: jsonb_comparison_exp
+  timestamp: timestamp_comparison_exp
+  title: String_comparison_exp
+  token_ids: _text_comparison_exp
+  tx_sender: String_comparison_exp
+}
+
+"""aggregate max on columns"""
+type mb_views_nft_activities_rollup_max_fields {
+  action_receiver: String
+  action_sender: String
+  content_flag: String
+  count: bigint
+  description: String
+  extra: String
+  kind: String
+  media: String
+  media_hash: String
+  metadata_id: String
+  nft_contract_id: String
+  price: numeric
+  receipt_id: String
+  reference: String
+  timestamp: timestamp
+  title: String
+  tx_sender: String
+}
+
+"""aggregate min on columns"""
+type mb_views_nft_activities_rollup_min_fields {
+  action_receiver: String
+  action_sender: String
+  content_flag: String
+  count: bigint
+  description: String
+  extra: String
+  kind: String
+  media: String
+  media_hash: String
+  metadata_id: String
+  nft_contract_id: String
+  price: numeric
+  receipt_id: String
+  reference: String
+  timestamp: timestamp
+  title: String
+  tx_sender: String
+}
+
+"""
+Ordering options when selecting data from "mb_views.nft_activities_rollup".
+"""
+input mb_views_nft_activities_rollup_order_by {
+  action_receiver: order_by
+  action_sender: order_by
+  content_flag: order_by
+  count: order_by
+  description: order_by
+  extra: order_by
+  kind: order_by
+  media: order_by
+  media_hash: order_by
+  metadata_id: order_by
+  nft_contract: nft_contracts_order_by
+  nft_contract_id: order_by
+  price: order_by
+  receipt_id: order_by
+  reference: order_by
+  reference_blob: order_by
+  timestamp: order_by
+  title: order_by
+  token_ids: order_by
+  tx_sender: order_by
+}
+
+"""
+select columns of table "mb_views.nft_activities_rollup"
+"""
+enum mb_views_nft_activities_rollup_select_column {
   """column name"""
   action_receiver
   """column name"""
   action_sender
   """column name"""
   content_flag
+  """column name"""
+  count
   """column name"""
   description
   """column name"""
@@ -1651,6 +1839,127 @@ enum mb_views_nft_activities_select_column {
   media
   """column name"""
   media_hash
+  """column name"""
+  metadata_id
+  """column name"""
+  nft_contract_id
+  """column name"""
+  price
+  """column name"""
+  receipt_id
+  """column name"""
+  reference
+  """column name"""
+  reference_blob
+  """column name"""
+  timestamp
+  """column name"""
+  title
+  """column name"""
+  token_ids
+  """column name"""
+  tx_sender
+}
+
+"""aggregate stddev on columns"""
+type mb_views_nft_activities_rollup_stddev_fields {
+  count: Float
+  price: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type mb_views_nft_activities_rollup_stddev_pop_fields {
+  count: Float
+  price: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type mb_views_nft_activities_rollup_stddev_samp_fields {
+  count: Float
+  price: Float
+}
+
+"""
+Streaming cursor of the table "mb_views_nft_activities_rollup"
+"""
+input mb_views_nft_activities_rollup_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: mb_views_nft_activities_rollup_stream_cursor_value_input!
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input mb_views_nft_activities_rollup_stream_cursor_value_input {
+  action_receiver: String
+  action_sender: String
+  content_flag: String
+  count: bigint
+  description: String
+  extra: String
+  kind: String
+  media: String
+  media_hash: String
+  metadata_id: String
+  nft_contract_id: String
+  price: numeric
+  receipt_id: String
+  reference: String
+  reference_blob: jsonb
+  timestamp: timestamp
+  title: String
+  token_ids: _text
+  tx_sender: String
+}
+
+"""aggregate sum on columns"""
+type mb_views_nft_activities_rollup_sum_fields {
+  count: bigint
+  price: numeric
+}
+
+"""aggregate var_pop on columns"""
+type mb_views_nft_activities_rollup_var_pop_fields {
+  count: Float
+  price: Float
+}
+
+"""aggregate var_samp on columns"""
+type mb_views_nft_activities_rollup_var_samp_fields {
+  count: Float
+  price: Float
+}
+
+"""aggregate variance on columns"""
+type mb_views_nft_activities_rollup_variance_fields {
+  count: Float
+  price: Float
+}
+
+"""
+select columns of table "mb_views.nft_activities"
+"""
+enum mb_views_nft_activities_select_column {
+  """column name"""
+  action_receiver
+  """column name"""
+  action_sender
+  """column name"""
+  content_flag
+  """column name"""
+  copies
+  """column name"""
+  description
+  """column name"""
+  extra
+  """column name"""
+  kind
+  """column name"""
+  media
+  """column name"""
+  media_hash
+  """column name"""
+  metadata_id
   """column name"""
   nft_contract_id
   """column name"""
@@ -1675,16 +1984,19 @@ enum mb_views_nft_activities_select_column {
 
 """aggregate stddev on columns"""
 type mb_views_nft_activities_stddev_fields {
+  copies: Float
   price: Float
 }
 
 """aggregate stddev_pop on columns"""
 type mb_views_nft_activities_stddev_pop_fields {
+  copies: Float
   price: Float
 }
 
 """aggregate stddev_samp on columns"""
 type mb_views_nft_activities_stddev_samp_fields {
+  copies: Float
   price: Float
 }
 
@@ -1703,11 +2015,13 @@ input mb_views_nft_activities_stream_cursor_value_input {
   action_receiver: String
   action_sender: String
   content_flag: String
+  copies: bigint
   description: String
   extra: String
   kind: String
   media: String
   media_hash: String
+  metadata_id: String
   nft_contract_id: String
   price: numeric
   receipt_id: String
@@ -1722,21 +2036,25 @@ input mb_views_nft_activities_stream_cursor_value_input {
 
 """aggregate sum on columns"""
 type mb_views_nft_activities_sum_fields {
+  copies: bigint
   price: numeric
 }
 
 """aggregate var_pop on columns"""
 type mb_views_nft_activities_var_pop_fields {
+  copies: Float
   price: Float
 }
 
 """aggregate var_samp on columns"""
 type mb_views_nft_activities_var_samp_fields {
+  copies: Float
   price: Float
 }
 
 """aggregate variance on columns"""
 type mb_views_nft_activities_variance_fields {
+  copies: Float
   price: Float
 }
 
@@ -2195,12 +2513,15 @@ type mb_views_nft_owned_tokens {
   burned_receipt_id: String
   burned_timestamp: timestamp
   copies: bigint
+  currency: String
   description: String
   expires_at: timestamp
   extra: String
   issued_at: timestamp
   last_transfer_receipt_id: String
   last_transfer_timestamp: timestamp
+  listing_approval_id: numeric
+  listing_kind: String
   """An array relationship"""
   listings(
     """distinct select on columns"""
@@ -2227,6 +2548,7 @@ type mb_views_nft_owned_tokens {
     """filter the rows returned"""
     where: nft_listings_bool_exp
   ): nft_listings_aggregate!
+  market_id: String
   media: String
   media_hash: String
   metadata_content_flag: String
@@ -2245,6 +2567,7 @@ type mb_views_nft_owned_tokens {
   nft_contract_spec: String
   nft_contract_symbol: String
   owner: String
+  price: numeric
   reference: String
   reference_blob(
     """JSON select path"""
@@ -2294,6 +2617,8 @@ type mb_views_nft_owned_tokens_aggregate_fields {
 """aggregate avg on columns"""
 type mb_views_nft_owned_tokens_avg_fields {
   copies: Float
+  listing_approval_id: Float
+  price: Float
   royalties_percent: Float
 }
 
@@ -2308,14 +2633,18 @@ input mb_views_nft_owned_tokens_bool_exp {
   burned_receipt_id: String_comparison_exp
   burned_timestamp: timestamp_comparison_exp
   copies: bigint_comparison_exp
+  currency: String_comparison_exp
   description: String_comparison_exp
   expires_at: timestamp_comparison_exp
   extra: String_comparison_exp
   issued_at: timestamp_comparison_exp
   last_transfer_receipt_id: String_comparison_exp
   last_transfer_timestamp: timestamp_comparison_exp
+  listing_approval_id: numeric_comparison_exp
+  listing_kind: String_comparison_exp
   listings: nft_listings_bool_exp
   listings_aggregate: nft_listings_aggregate_bool_exp
+  market_id: String_comparison_exp
   media: String_comparison_exp
   media_hash: String_comparison_exp
   metadata_content_flag: String_comparison_exp
@@ -2334,6 +2663,7 @@ input mb_views_nft_owned_tokens_bool_exp {
   nft_contract_spec: String_comparison_exp
   nft_contract_symbol: String_comparison_exp
   owner: String_comparison_exp
+  price: numeric_comparison_exp
   reference: String_comparison_exp
   reference_blob: jsonb_comparison_exp
   reference_hash: String_comparison_exp
@@ -2352,12 +2682,16 @@ type mb_views_nft_owned_tokens_max_fields {
   burned_receipt_id: String
   burned_timestamp: timestamp
   copies: bigint
+  currency: String
   description: String
   expires_at: timestamp
   extra: String
   issued_at: timestamp
   last_transfer_receipt_id: String
   last_transfer_timestamp: timestamp
+  listing_approval_id: numeric
+  listing_kind: String
+  market_id: String
   media: String
   media_hash: String
   metadata_content_flag: String
@@ -2375,6 +2709,7 @@ type mb_views_nft_owned_tokens_max_fields {
   nft_contract_spec: String
   nft_contract_symbol: String
   owner: String
+  price: numeric
   reference: String
   reference_hash: String
   royalties_percent: Int
@@ -2390,12 +2725,16 @@ type mb_views_nft_owned_tokens_min_fields {
   burned_receipt_id: String
   burned_timestamp: timestamp
   copies: bigint
+  currency: String
   description: String
   expires_at: timestamp
   extra: String
   issued_at: timestamp
   last_transfer_receipt_id: String
   last_transfer_timestamp: timestamp
+  listing_approval_id: numeric
+  listing_kind: String
+  market_id: String
   media: String
   media_hash: String
   metadata_content_flag: String
@@ -2413,6 +2752,7 @@ type mb_views_nft_owned_tokens_min_fields {
   nft_contract_spec: String
   nft_contract_symbol: String
   owner: String
+  price: numeric
   reference: String
   reference_hash: String
   royalties_percent: Int
@@ -2428,13 +2768,17 @@ input mb_views_nft_owned_tokens_order_by {
   burned_receipt_id: order_by
   burned_timestamp: order_by
   copies: order_by
+  currency: order_by
   description: order_by
   expires_at: order_by
   extra: order_by
   issued_at: order_by
   last_transfer_receipt_id: order_by
   last_transfer_timestamp: order_by
+  listing_approval_id: order_by
+  listing_kind: order_by
   listings_aggregate: nft_listings_aggregate_order_by
+  market_id: order_by
   media: order_by
   media_hash: order_by
   metadata_content_flag: order_by
@@ -2453,6 +2797,7 @@ input mb_views_nft_owned_tokens_order_by {
   nft_contract_spec: order_by
   nft_contract_symbol: order_by
   owner: order_by
+  price: order_by
   reference: order_by
   reference_blob: order_by
   reference_hash: order_by
@@ -2478,6 +2823,8 @@ enum mb_views_nft_owned_tokens_select_column {
   """column name"""
   copies
   """column name"""
+  currency
+  """column name"""
   description
   """column name"""
   expires_at
@@ -2489,6 +2836,12 @@ enum mb_views_nft_owned_tokens_select_column {
   last_transfer_receipt_id
   """column name"""
   last_transfer_timestamp
+  """column name"""
+  listing_approval_id
+  """column name"""
+  listing_kind
+  """column name"""
+  market_id
   """column name"""
   media
   """column name"""
@@ -2526,6 +2879,8 @@ enum mb_views_nft_owned_tokens_select_column {
   """column name"""
   owner
   """column name"""
+  price
+  """column name"""
   reference
   """column name"""
   reference_blob
@@ -2550,18 +2905,24 @@ enum mb_views_nft_owned_tokens_select_column {
 """aggregate stddev on columns"""
 type mb_views_nft_owned_tokens_stddev_fields {
   copies: Float
+  listing_approval_id: Float
+  price: Float
   royalties_percent: Float
 }
 
 """aggregate stddev_pop on columns"""
 type mb_views_nft_owned_tokens_stddev_pop_fields {
   copies: Float
+  listing_approval_id: Float
+  price: Float
   royalties_percent: Float
 }
 
 """aggregate stddev_samp on columns"""
 type mb_views_nft_owned_tokens_stddev_samp_fields {
   copies: Float
+  listing_approval_id: Float
+  price: Float
   royalties_percent: Float
 }
 
@@ -2581,12 +2942,16 @@ input mb_views_nft_owned_tokens_stream_cursor_value_input {
   burned_receipt_id: String
   burned_timestamp: timestamp
   copies: bigint
+  currency: String
   description: String
   expires_at: timestamp
   extra: String
   issued_at: timestamp
   last_transfer_receipt_id: String
   last_transfer_timestamp: timestamp
+  listing_approval_id: numeric
+  listing_kind: String
+  market_id: String
   media: String
   media_hash: String
   metadata_content_flag: String
@@ -2605,6 +2970,7 @@ input mb_views_nft_owned_tokens_stream_cursor_value_input {
   nft_contract_spec: String
   nft_contract_symbol: String
   owner: String
+  price: numeric
   reference: String
   reference_blob: jsonb
   reference_hash: String
@@ -2620,24 +2986,32 @@ input mb_views_nft_owned_tokens_stream_cursor_value_input {
 """aggregate sum on columns"""
 type mb_views_nft_owned_tokens_sum_fields {
   copies: bigint
+  listing_approval_id: numeric
+  price: numeric
   royalties_percent: Int
 }
 
 """aggregate var_pop on columns"""
 type mb_views_nft_owned_tokens_var_pop_fields {
   copies: Float
+  listing_approval_id: Float
+  price: Float
   royalties_percent: Float
 }
 
 """aggregate var_samp on columns"""
 type mb_views_nft_owned_tokens_var_samp_fields {
   copies: Float
+  listing_approval_id: Float
+  price: Float
   royalties_percent: Float
 }
 
 """aggregate variance on columns"""
 type mb_views_nft_owned_tokens_variance_fields {
   copies: Float
+  listing_approval_id: Float
+  price: Float
   royalties_percent: Float
 }
 
@@ -4098,7 +4472,7 @@ type nft_attributes {
   attribute_type: String!
   attribute_value: String
   """An object relationship"""
-  metadata: Thing
+  metadata: nft_metadata
   nft_contract_id: String!
   nft_metadata_id: String!
 }
@@ -5038,7 +5412,7 @@ input nft_listings_variance_order_by {
 """
 columns and relationships of "nft_metadata"
 """
-type Thing {
+type nft_metadata {
   base_uri: String
   content_flag: String
   description: String
@@ -5064,7 +5438,7 @@ aggregated selection of "nft_metadata"
 """
 type nft_metadata_aggregate {
   aggregate: nft_metadata_aggregate_fields
-  nodes: [Thing!]!
+  nodes: [nft_metadata!]!
 }
 
 """
@@ -6198,6 +6572,36 @@ type query_root {
     where: mb_views_nft_activities_bool_exp
   ): mb_views_nft_activities_aggregate!
   """
+  fetch data from the table: "mb_views.nft_activities_rollup"
+  """
+  mb_views_nft_activities_rollup(
+    """distinct select on columns"""
+    distinct_on: [mb_views_nft_activities_rollup_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [mb_views_nft_activities_rollup_order_by!]
+    """filter the rows returned"""
+    where: mb_views_nft_activities_rollup_bool_exp
+  ): [mb_views_nft_activities_rollup!]!
+  """
+  fetch aggregated fields from the table: "mb_views.nft_activities_rollup"
+  """
+  mb_views_nft_activities_rollup_aggregate(
+    """distinct select on columns"""
+    distinct_on: [mb_views_nft_activities_rollup_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [mb_views_nft_activities_rollup_order_by!]
+    """filter the rows returned"""
+    where: mb_views_nft_activities_rollup_bool_exp
+  ): mb_views_nft_activities_rollup_aggregate!
+  """
   fetch data from the table: "mb_views.nft_metadata"
   """
   mb_views_nft_metadata(
@@ -6577,7 +6981,7 @@ type query_root {
     order_by: [nft_metadata_order_by!]
     """filter the rows returned"""
     where: nft_metadata_bool_exp
-  ): [Thing!]! @merge(keyField: "id", keyArg: "reference")
+  ): [nft_metadata!]!
   """
   fetch aggregated fields from the table: "nft_metadata"
   """
@@ -6594,7 +6998,7 @@ type query_root {
     where: nft_metadata_bool_exp
   ): nft_metadata_aggregate!
   """fetch data from the table: "nft_metadata" using primary key columns"""
-  nft_metadata_by_pk(id: String!): Thing
+  nft_metadata_by_pk(id: String!): nft_metadata
   """
   fetch data from the table: "nft_offers"
   """
@@ -6903,6 +7307,47 @@ type subscription_root {
     """filter the rows returned"""
     where: mb_views_nft_activities_bool_exp
   ): mb_views_nft_activities_aggregate!
+  """
+  fetch data from the table: "mb_views.nft_activities_rollup"
+  """
+  mb_views_nft_activities_rollup(
+    """distinct select on columns"""
+    distinct_on: [mb_views_nft_activities_rollup_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [mb_views_nft_activities_rollup_order_by!]
+    """filter the rows returned"""
+    where: mb_views_nft_activities_rollup_bool_exp
+  ): [mb_views_nft_activities_rollup!]!
+  """
+  fetch aggregated fields from the table: "mb_views.nft_activities_rollup"
+  """
+  mb_views_nft_activities_rollup_aggregate(
+    """distinct select on columns"""
+    distinct_on: [mb_views_nft_activities_rollup_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [mb_views_nft_activities_rollup_order_by!]
+    """filter the rows returned"""
+    where: mb_views_nft_activities_rollup_bool_exp
+  ): mb_views_nft_activities_rollup_aggregate!
+  """
+  fetch data from the table in a streaming manner: "mb_views.nft_activities_rollup"
+  """
+  mb_views_nft_activities_rollup_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+    """cursor to stream the results returned by the query"""
+    cursor: [mb_views_nft_activities_rollup_stream_cursor_input]!
+    """filter the rows returned"""
+    where: mb_views_nft_activities_rollup_bool_exp
+  ): [mb_views_nft_activities_rollup!]!
   """
   fetch data from the table in a streaming manner: "mb_views.nft_activities"
   """
@@ -7426,7 +7871,7 @@ type subscription_root {
     order_by: [nft_metadata_order_by!]
     """filter the rows returned"""
     where: nft_metadata_bool_exp
-  ): [Thing!]!
+  ): [nft_metadata!]!
   """
   fetch aggregated fields from the table: "nft_metadata"
   """
@@ -7443,7 +7888,7 @@ type subscription_root {
     where: nft_metadata_bool_exp
   ): nft_metadata_aggregate!
   """fetch data from the table: "nft_metadata" using primary key columns"""
-  nft_metadata_by_pk(id: String!): Thing
+  nft_metadata_by_pk(id: String!): nft_metadata
   """
   fetch data from the table in a streaming manner: "nft_metadata"
   """
@@ -7454,7 +7899,7 @@ type subscription_root {
     cursor: [nft_metadata_stream_cursor_input]!
     """filter the rows returned"""
     where: nft_metadata_bool_exp
-  ): [Thing!]!
+  ): [nft_metadata!]!
   """
   fetch data from the table: "nft_offers"
   """

@@ -1,29 +1,12 @@
 sources:
-  - name: Mintbase
-    handler:
-      graphql:
-        endpoint: "https://interop-testnet.hasura.app/v1/graphql"
-    transforms:
-      - rename:
-          renames:
-            - from:
-                type: nft_metadata
-              to:
-                type: Thing
-      - typeMerging:
-          queryFields:
-            - queryFieldName: nft_metadata
-              keyField: id
-              keyArg: reference
   - name: everything
     handler:
       graphql:
         endpoint: "http://localhost:4050/graphql"
-    transforms:
-      - typeMerging:
-          queryFields:
-            - queryFieldName: thing
-              keyField: id
+  - name: Mintbase
+    handler:
+      graphql:
+        endpoint: "https://interop-testnet.hasura.app/v1/graphql"
 
 additionalTypeDefs: |
   """
@@ -35,13 +18,18 @@ additionalTypeDefs: |
     """
     sub: String!
   }
- 
+
   extend type Query {
     """
     The authentication information of the request.
     """
     authInfo: AuthenticationInfo
   }
+
+  extend type Thing {
+    nft: mb_views_nft_tokens
+  }
+
 additionalResolvers:
   - ./additionalResolvers.ts
 plugins:
@@ -50,3 +38,7 @@ plugins:
       audience: 'https://dev-nhpdvemm.us.auth0.com/api/v2/'
       extendContextField: '_auth0'
       preventUnauthorizedAccess: false
+serve:
+  browser: false
+  cors:
+    origin: http://localhost:3050/

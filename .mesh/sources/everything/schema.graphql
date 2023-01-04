@@ -188,7 +188,7 @@ type Query {
   option(id: Int!): Option
   relationship(attributeId: Int!, optionId: Int!): Relationship
   tag(thingId: String!, mediaId: Int!): Tag
-  thing(id: String!): Thing @merge(keyField: "id")
+  thing(id: String!): Thing
   user(id: String!): User
   userByUsername(username: String!): User
   userByWallet(wallet: String!): User

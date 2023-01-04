@@ -16,6 +16,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  _text: any;
   bigint: any;
   jsonb: any;
   numeric: any;
@@ -79,6 +80,19 @@ export type String_comparison_exp = {
   _regex?: InputMaybe<Scalars['String']>;
   /** does the column match the given SQL regular expression */
   _similar?: InputMaybe<Scalars['String']>;
+};
+
+/** Boolean expression to compare columns of type "_text". All fields are combined with logical 'AND'. */
+export type _text_comparison_exp = {
+  _eq?: InputMaybe<Scalars['_text']>;
+  _gt?: InputMaybe<Scalars['_text']>;
+  _gte?: InputMaybe<Scalars['_text']>;
+  _in?: InputMaybe<Array<Scalars['_text']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['_text']>;
+  _lte?: InputMaybe<Scalars['_text']>;
+  _neq?: InputMaybe<Scalars['_text']>;
+  _nin?: InputMaybe<Array<Scalars['_text']>>;
 };
 
 /** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
@@ -1423,11 +1437,13 @@ export type mb_views_nft_activities = {
   action_receiver?: Maybe<Scalars['String']>;
   action_sender?: Maybe<Scalars['String']>;
   content_flag?: Maybe<Scalars['String']>;
+  copies?: Maybe<Scalars['bigint']>;
   description?: Maybe<Scalars['String']>;
   extra?: Maybe<Scalars['String']>;
   kind?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
   /** An object relationship */
   nft_contract?: Maybe<nft_contracts>;
   nft_contract_id?: Maybe<Scalars['String']>;
@@ -1478,6 +1494,7 @@ export type mb_views_nft_activities_aggregate_fieldscountArgs = {
 
 /** aggregate avg on columns */
 export type mb_views_nft_activities_avg_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
@@ -1489,11 +1506,13 @@ export type mb_views_nft_activities_bool_exp = {
   action_receiver?: InputMaybe<String_comparison_exp>;
   action_sender?: InputMaybe<String_comparison_exp>;
   content_flag?: InputMaybe<String_comparison_exp>;
+  copies?: InputMaybe<bigint_comparison_exp>;
   description?: InputMaybe<String_comparison_exp>;
   extra?: InputMaybe<String_comparison_exp>;
   kind?: InputMaybe<String_comparison_exp>;
   media?: InputMaybe<String_comparison_exp>;
   media_hash?: InputMaybe<String_comparison_exp>;
+  metadata_id?: InputMaybe<String_comparison_exp>;
   nft_contract?: InputMaybe<nft_contracts_bool_exp>;
   nft_contract_id?: InputMaybe<String_comparison_exp>;
   price?: InputMaybe<numeric_comparison_exp>;
@@ -1512,11 +1531,13 @@ export type mb_views_nft_activities_max_fields = {
   action_receiver?: Maybe<Scalars['String']>;
   action_sender?: Maybe<Scalars['String']>;
   content_flag?: Maybe<Scalars['String']>;
+  copies?: Maybe<Scalars['bigint']>;
   description?: Maybe<Scalars['String']>;
   extra?: Maybe<Scalars['String']>;
   kind?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
   nft_contract_id?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['numeric']>;
   receipt_id?: Maybe<Scalars['String']>;
@@ -1533,11 +1554,13 @@ export type mb_views_nft_activities_min_fields = {
   action_receiver?: Maybe<Scalars['String']>;
   action_sender?: Maybe<Scalars['String']>;
   content_flag?: Maybe<Scalars['String']>;
+  copies?: Maybe<Scalars['bigint']>;
   description?: Maybe<Scalars['String']>;
   extra?: Maybe<Scalars['String']>;
   kind?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
   nft_contract_id?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['numeric']>;
   receipt_id?: Maybe<Scalars['String']>;
@@ -1554,11 +1577,13 @@ export type mb_views_nft_activities_order_by = {
   action_receiver?: InputMaybe<order_by>;
   action_sender?: InputMaybe<order_by>;
   content_flag?: InputMaybe<order_by>;
+  copies?: InputMaybe<order_by>;
   description?: InputMaybe<order_by>;
   extra?: InputMaybe<order_by>;
   kind?: InputMaybe<order_by>;
   media?: InputMaybe<order_by>;
   media_hash?: InputMaybe<order_by>;
+  metadata_id?: InputMaybe<order_by>;
   nft_contract?: InputMaybe<nft_contracts_order_by>;
   nft_contract_id?: InputMaybe<order_by>;
   price?: InputMaybe<order_by>;
@@ -1572,14 +1597,174 @@ export type mb_views_nft_activities_order_by = {
   tx_sender?: InputMaybe<order_by>;
 };
 
-/** select columns of table "mb_views.nft_activities" */
-export type mb_views_nft_activities_select_column =
+/** columns and relationships of "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollup = {
+  action_receiver?: Maybe<Scalars['String']>;
+  action_sender?: Maybe<Scalars['String']>;
+  content_flag?: Maybe<Scalars['String']>;
+  count?: Maybe<Scalars['bigint']>;
+  description?: Maybe<Scalars['String']>;
+  extra?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  media?: Maybe<Scalars['String']>;
+  media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  nft_contract?: Maybe<nft_contracts>;
+  nft_contract_id?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
+  receipt_id?: Maybe<Scalars['String']>;
+  reference?: Maybe<Scalars['String']>;
+  reference_blob?: Maybe<Scalars['jsonb']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
+  title?: Maybe<Scalars['String']>;
+  token_ids?: Maybe<Scalars['_text']>;
+  tx_sender?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollupreference_blobArgs = {
+  path?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregated selection of "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollup_aggregate = {
+  aggregate?: Maybe<mb_views_nft_activities_rollup_aggregate_fields>;
+  nodes: Array<mb_views_nft_activities_rollup>;
+};
+
+/** aggregate fields of "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollup_aggregate_fields = {
+  avg?: Maybe<mb_views_nft_activities_rollup_avg_fields>;
+  count: Scalars['Int'];
+  max?: Maybe<mb_views_nft_activities_rollup_max_fields>;
+  min?: Maybe<mb_views_nft_activities_rollup_min_fields>;
+  stddev?: Maybe<mb_views_nft_activities_rollup_stddev_fields>;
+  stddev_pop?: Maybe<mb_views_nft_activities_rollup_stddev_pop_fields>;
+  stddev_samp?: Maybe<mb_views_nft_activities_rollup_stddev_samp_fields>;
+  sum?: Maybe<mb_views_nft_activities_rollup_sum_fields>;
+  var_pop?: Maybe<mb_views_nft_activities_rollup_var_pop_fields>;
+  var_samp?: Maybe<mb_views_nft_activities_rollup_var_samp_fields>;
+  variance?: Maybe<mb_views_nft_activities_rollup_variance_fields>;
+};
+
+
+/** aggregate fields of "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollup_aggregate_fieldscountArgs = {
+  columns?: InputMaybe<Array<mb_views_nft_activities_rollup_select_column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type mb_views_nft_activities_rollup_avg_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "mb_views.nft_activities_rollup". All fields are combined with a logical 'AND'. */
+export type mb_views_nft_activities_rollup_bool_exp = {
+  _and?: InputMaybe<Array<mb_views_nft_activities_rollup_bool_exp>>;
+  _not?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
+  _or?: InputMaybe<Array<mb_views_nft_activities_rollup_bool_exp>>;
+  action_receiver?: InputMaybe<String_comparison_exp>;
+  action_sender?: InputMaybe<String_comparison_exp>;
+  content_flag?: InputMaybe<String_comparison_exp>;
+  count?: InputMaybe<bigint_comparison_exp>;
+  description?: InputMaybe<String_comparison_exp>;
+  extra?: InputMaybe<String_comparison_exp>;
+  kind?: InputMaybe<String_comparison_exp>;
+  media?: InputMaybe<String_comparison_exp>;
+  media_hash?: InputMaybe<String_comparison_exp>;
+  metadata_id?: InputMaybe<String_comparison_exp>;
+  nft_contract?: InputMaybe<nft_contracts_bool_exp>;
+  nft_contract_id?: InputMaybe<String_comparison_exp>;
+  price?: InputMaybe<numeric_comparison_exp>;
+  receipt_id?: InputMaybe<String_comparison_exp>;
+  reference?: InputMaybe<String_comparison_exp>;
+  reference_blob?: InputMaybe<jsonb_comparison_exp>;
+  timestamp?: InputMaybe<timestamp_comparison_exp>;
+  title?: InputMaybe<String_comparison_exp>;
+  token_ids?: InputMaybe<_text_comparison_exp>;
+  tx_sender?: InputMaybe<String_comparison_exp>;
+};
+
+/** aggregate max on columns */
+export type mb_views_nft_activities_rollup_max_fields = {
+  action_receiver?: Maybe<Scalars['String']>;
+  action_sender?: Maybe<Scalars['String']>;
+  content_flag?: Maybe<Scalars['String']>;
+  count?: Maybe<Scalars['bigint']>;
+  description?: Maybe<Scalars['String']>;
+  extra?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  media?: Maybe<Scalars['String']>;
+  media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
+  nft_contract_id?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
+  receipt_id?: Maybe<Scalars['String']>;
+  reference?: Maybe<Scalars['String']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
+  title?: Maybe<Scalars['String']>;
+  tx_sender?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type mb_views_nft_activities_rollup_min_fields = {
+  action_receiver?: Maybe<Scalars['String']>;
+  action_sender?: Maybe<Scalars['String']>;
+  content_flag?: Maybe<Scalars['String']>;
+  count?: Maybe<Scalars['bigint']>;
+  description?: Maybe<Scalars['String']>;
+  extra?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  media?: Maybe<Scalars['String']>;
+  media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
+  nft_contract_id?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
+  receipt_id?: Maybe<Scalars['String']>;
+  reference?: Maybe<Scalars['String']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
+  title?: Maybe<Scalars['String']>;
+  tx_sender?: Maybe<Scalars['String']>;
+};
+
+/** Ordering options when selecting data from "mb_views.nft_activities_rollup". */
+export type mb_views_nft_activities_rollup_order_by = {
+  action_receiver?: InputMaybe<order_by>;
+  action_sender?: InputMaybe<order_by>;
+  content_flag?: InputMaybe<order_by>;
+  count?: InputMaybe<order_by>;
+  description?: InputMaybe<order_by>;
+  extra?: InputMaybe<order_by>;
+  kind?: InputMaybe<order_by>;
+  media?: InputMaybe<order_by>;
+  media_hash?: InputMaybe<order_by>;
+  metadata_id?: InputMaybe<order_by>;
+  nft_contract?: InputMaybe<nft_contracts_order_by>;
+  nft_contract_id?: InputMaybe<order_by>;
+  price?: InputMaybe<order_by>;
+  receipt_id?: InputMaybe<order_by>;
+  reference?: InputMaybe<order_by>;
+  reference_blob?: InputMaybe<order_by>;
+  timestamp?: InputMaybe<order_by>;
+  title?: InputMaybe<order_by>;
+  token_ids?: InputMaybe<order_by>;
+  tx_sender?: InputMaybe<order_by>;
+};
+
+/** select columns of table "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollup_select_column =
   /** column name */
   | 'action_receiver'
   /** column name */
   | 'action_sender'
   /** column name */
   | 'content_flag'
+  /** column name */
+  | 'count'
   /** column name */
   | 'description'
   /** column name */
@@ -1590,6 +1775,122 @@ export type mb_views_nft_activities_select_column =
   | 'media'
   /** column name */
   | 'media_hash'
+  /** column name */
+  | 'metadata_id'
+  /** column name */
+  | 'nft_contract_id'
+  /** column name */
+  | 'price'
+  /** column name */
+  | 'receipt_id'
+  /** column name */
+  | 'reference'
+  /** column name */
+  | 'reference_blob'
+  /** column name */
+  | 'timestamp'
+  /** column name */
+  | 'title'
+  /** column name */
+  | 'token_ids'
+  /** column name */
+  | 'tx_sender';
+
+/** aggregate stddev on columns */
+export type mb_views_nft_activities_rollup_stddev_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type mb_views_nft_activities_rollup_stddev_pop_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type mb_views_nft_activities_rollup_stddev_samp_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "mb_views_nft_activities_rollup" */
+export type mb_views_nft_activities_rollup_stream_cursor_input = {
+  /** Stream column input with initial value */
+  initial_value: mb_views_nft_activities_rollup_stream_cursor_value_input;
+  /** cursor ordering */
+  ordering?: InputMaybe<cursor_ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type mb_views_nft_activities_rollup_stream_cursor_value_input = {
+  action_receiver?: InputMaybe<Scalars['String']>;
+  action_sender?: InputMaybe<Scalars['String']>;
+  content_flag?: InputMaybe<Scalars['String']>;
+  count?: InputMaybe<Scalars['bigint']>;
+  description?: InputMaybe<Scalars['String']>;
+  extra?: InputMaybe<Scalars['String']>;
+  kind?: InputMaybe<Scalars['String']>;
+  media?: InputMaybe<Scalars['String']>;
+  media_hash?: InputMaybe<Scalars['String']>;
+  metadata_id?: InputMaybe<Scalars['String']>;
+  nft_contract_id?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['numeric']>;
+  receipt_id?: InputMaybe<Scalars['String']>;
+  reference?: InputMaybe<Scalars['String']>;
+  reference_blob?: InputMaybe<Scalars['jsonb']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  title?: InputMaybe<Scalars['String']>;
+  token_ids?: InputMaybe<Scalars['_text']>;
+  tx_sender?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate sum on columns */
+export type mb_views_nft_activities_rollup_sum_fields = {
+  count?: Maybe<Scalars['bigint']>;
+  price?: Maybe<Scalars['numeric']>;
+};
+
+/** aggregate var_pop on columns */
+export type mb_views_nft_activities_rollup_var_pop_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type mb_views_nft_activities_rollup_var_samp_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type mb_views_nft_activities_rollup_variance_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** select columns of table "mb_views.nft_activities" */
+export type mb_views_nft_activities_select_column =
+  /** column name */
+  | 'action_receiver'
+  /** column name */
+  | 'action_sender'
+  /** column name */
+  | 'content_flag'
+  /** column name */
+  | 'copies'
+  /** column name */
+  | 'description'
+  /** column name */
+  | 'extra'
+  /** column name */
+  | 'kind'
+  /** column name */
+  | 'media'
+  /** column name */
+  | 'media_hash'
+  /** column name */
+  | 'metadata_id'
   /** column name */
   | 'nft_contract_id'
   /** column name */
@@ -1613,16 +1914,19 @@ export type mb_views_nft_activities_select_column =
 
 /** aggregate stddev on columns */
 export type mb_views_nft_activities_stddev_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type mb_views_nft_activities_stddev_pop_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type mb_views_nft_activities_stddev_samp_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
@@ -1639,11 +1943,13 @@ export type mb_views_nft_activities_stream_cursor_value_input = {
   action_receiver?: InputMaybe<Scalars['String']>;
   action_sender?: InputMaybe<Scalars['String']>;
   content_flag?: InputMaybe<Scalars['String']>;
+  copies?: InputMaybe<Scalars['bigint']>;
   description?: InputMaybe<Scalars['String']>;
   extra?: InputMaybe<Scalars['String']>;
   kind?: InputMaybe<Scalars['String']>;
   media?: InputMaybe<Scalars['String']>;
   media_hash?: InputMaybe<Scalars['String']>;
+  metadata_id?: InputMaybe<Scalars['String']>;
   nft_contract_id?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['numeric']>;
   receipt_id?: InputMaybe<Scalars['String']>;
@@ -1658,21 +1964,25 @@ export type mb_views_nft_activities_stream_cursor_value_input = {
 
 /** aggregate sum on columns */
 export type mb_views_nft_activities_sum_fields = {
+  copies?: Maybe<Scalars['bigint']>;
   price?: Maybe<Scalars['numeric']>;
 };
 
 /** aggregate var_pop on columns */
 export type mb_views_nft_activities_var_pop_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate var_samp on columns */
 export type mb_views_nft_activities_var_samp_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate variance on columns */
 export type mb_views_nft_activities_variance_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
@@ -2119,16 +2429,20 @@ export type mb_views_nft_owned_tokens = {
   burned_receipt_id?: Maybe<Scalars['String']>;
   burned_timestamp?: Maybe<Scalars['timestamp']>;
   copies?: Maybe<Scalars['bigint']>;
+  currency?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   expires_at?: Maybe<Scalars['timestamp']>;
   extra?: Maybe<Scalars['String']>;
   issued_at?: Maybe<Scalars['timestamp']>;
   last_transfer_receipt_id?: Maybe<Scalars['String']>;
   last_transfer_timestamp?: Maybe<Scalars['timestamp']>;
+  listing_approval_id?: Maybe<Scalars['numeric']>;
+  listing_kind?: Maybe<Scalars['String']>;
   /** An array relationship */
   listings: Array<nft_listings>;
   /** An aggregate relationship */
   listings_aggregate: nft_listings_aggregate;
+  market_id?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
   metadata_content_flag?: Maybe<Scalars['String']>;
@@ -2147,6 +2461,7 @@ export type mb_views_nft_owned_tokens = {
   nft_contract_spec?: Maybe<Scalars['String']>;
   nft_contract_symbol?: Maybe<Scalars['String']>;
   owner?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
   reference?: Maybe<Scalars['String']>;
   reference_blob?: Maybe<Scalars['jsonb']>;
   reference_hash?: Maybe<Scalars['String']>;
@@ -2228,6 +2543,8 @@ export type mb_views_nft_owned_tokens_aggregate_fieldscountArgs = {
 /** aggregate avg on columns */
 export type mb_views_nft_owned_tokens_avg_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
@@ -2240,14 +2557,18 @@ export type mb_views_nft_owned_tokens_bool_exp = {
   burned_receipt_id?: InputMaybe<String_comparison_exp>;
   burned_timestamp?: InputMaybe<timestamp_comparison_exp>;
   copies?: InputMaybe<bigint_comparison_exp>;
+  currency?: InputMaybe<String_comparison_exp>;
   description?: InputMaybe<String_comparison_exp>;
   expires_at?: InputMaybe<timestamp_comparison_exp>;
   extra?: InputMaybe<String_comparison_exp>;
   issued_at?: InputMaybe<timestamp_comparison_exp>;
   last_transfer_receipt_id?: InputMaybe<String_comparison_exp>;
   last_transfer_timestamp?: InputMaybe<timestamp_comparison_exp>;
+  listing_approval_id?: InputMaybe<numeric_comparison_exp>;
+  listing_kind?: InputMaybe<String_comparison_exp>;
   listings?: InputMaybe<nft_listings_bool_exp>;
   listings_aggregate?: InputMaybe<nft_listings_aggregate_bool_exp>;
+  market_id?: InputMaybe<String_comparison_exp>;
   media?: InputMaybe<String_comparison_exp>;
   media_hash?: InputMaybe<String_comparison_exp>;
   metadata_content_flag?: InputMaybe<String_comparison_exp>;
@@ -2266,6 +2587,7 @@ export type mb_views_nft_owned_tokens_bool_exp = {
   nft_contract_spec?: InputMaybe<String_comparison_exp>;
   nft_contract_symbol?: InputMaybe<String_comparison_exp>;
   owner?: InputMaybe<String_comparison_exp>;
+  price?: InputMaybe<numeric_comparison_exp>;
   reference?: InputMaybe<String_comparison_exp>;
   reference_blob?: InputMaybe<jsonb_comparison_exp>;
   reference_hash?: InputMaybe<String_comparison_exp>;
@@ -2284,12 +2606,16 @@ export type mb_views_nft_owned_tokens_max_fields = {
   burned_receipt_id?: Maybe<Scalars['String']>;
   burned_timestamp?: Maybe<Scalars['timestamp']>;
   copies?: Maybe<Scalars['bigint']>;
+  currency?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   expires_at?: Maybe<Scalars['timestamp']>;
   extra?: Maybe<Scalars['String']>;
   issued_at?: Maybe<Scalars['timestamp']>;
   last_transfer_receipt_id?: Maybe<Scalars['String']>;
   last_transfer_timestamp?: Maybe<Scalars['timestamp']>;
+  listing_approval_id?: Maybe<Scalars['numeric']>;
+  listing_kind?: Maybe<Scalars['String']>;
+  market_id?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
   metadata_content_flag?: Maybe<Scalars['String']>;
@@ -2307,6 +2633,7 @@ export type mb_views_nft_owned_tokens_max_fields = {
   nft_contract_spec?: Maybe<Scalars['String']>;
   nft_contract_symbol?: Maybe<Scalars['String']>;
   owner?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
   reference?: Maybe<Scalars['String']>;
   reference_hash?: Maybe<Scalars['String']>;
   royalties_percent?: Maybe<Scalars['Int']>;
@@ -2322,12 +2649,16 @@ export type mb_views_nft_owned_tokens_min_fields = {
   burned_receipt_id?: Maybe<Scalars['String']>;
   burned_timestamp?: Maybe<Scalars['timestamp']>;
   copies?: Maybe<Scalars['bigint']>;
+  currency?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   expires_at?: Maybe<Scalars['timestamp']>;
   extra?: Maybe<Scalars['String']>;
   issued_at?: Maybe<Scalars['timestamp']>;
   last_transfer_receipt_id?: Maybe<Scalars['String']>;
   last_transfer_timestamp?: Maybe<Scalars['timestamp']>;
+  listing_approval_id?: Maybe<Scalars['numeric']>;
+  listing_kind?: Maybe<Scalars['String']>;
+  market_id?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
   metadata_content_flag?: Maybe<Scalars['String']>;
@@ -2345,6 +2676,7 @@ export type mb_views_nft_owned_tokens_min_fields = {
   nft_contract_spec?: Maybe<Scalars['String']>;
   nft_contract_symbol?: Maybe<Scalars['String']>;
   owner?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
   reference?: Maybe<Scalars['String']>;
   reference_hash?: Maybe<Scalars['String']>;
   royalties_percent?: Maybe<Scalars['Int']>;
@@ -2360,13 +2692,17 @@ export type mb_views_nft_owned_tokens_order_by = {
   burned_receipt_id?: InputMaybe<order_by>;
   burned_timestamp?: InputMaybe<order_by>;
   copies?: InputMaybe<order_by>;
+  currency?: InputMaybe<order_by>;
   description?: InputMaybe<order_by>;
   expires_at?: InputMaybe<order_by>;
   extra?: InputMaybe<order_by>;
   issued_at?: InputMaybe<order_by>;
   last_transfer_receipt_id?: InputMaybe<order_by>;
   last_transfer_timestamp?: InputMaybe<order_by>;
+  listing_approval_id?: InputMaybe<order_by>;
+  listing_kind?: InputMaybe<order_by>;
   listings_aggregate?: InputMaybe<nft_listings_aggregate_order_by>;
+  market_id?: InputMaybe<order_by>;
   media?: InputMaybe<order_by>;
   media_hash?: InputMaybe<order_by>;
   metadata_content_flag?: InputMaybe<order_by>;
@@ -2385,6 +2721,7 @@ export type mb_views_nft_owned_tokens_order_by = {
   nft_contract_spec?: InputMaybe<order_by>;
   nft_contract_symbol?: InputMaybe<order_by>;
   owner?: InputMaybe<order_by>;
+  price?: InputMaybe<order_by>;
   reference?: InputMaybe<order_by>;
   reference_blob?: InputMaybe<order_by>;
   reference_hash?: InputMaybe<order_by>;
@@ -2408,6 +2745,8 @@ export type mb_views_nft_owned_tokens_select_column =
   /** column name */
   | 'copies'
   /** column name */
+  | 'currency'
+  /** column name */
   | 'description'
   /** column name */
   | 'expires_at'
@@ -2419,6 +2758,12 @@ export type mb_views_nft_owned_tokens_select_column =
   | 'last_transfer_receipt_id'
   /** column name */
   | 'last_transfer_timestamp'
+  /** column name */
+  | 'listing_approval_id'
+  /** column name */
+  | 'listing_kind'
+  /** column name */
+  | 'market_id'
   /** column name */
   | 'media'
   /** column name */
@@ -2456,6 +2801,8 @@ export type mb_views_nft_owned_tokens_select_column =
   /** column name */
   | 'owner'
   /** column name */
+  | 'price'
+  /** column name */
   | 'reference'
   /** column name */
   | 'reference_blob'
@@ -2479,18 +2826,24 @@ export type mb_views_nft_owned_tokens_select_column =
 /** aggregate stddev on columns */
 export type mb_views_nft_owned_tokens_stddev_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type mb_views_nft_owned_tokens_stddev_pop_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type mb_views_nft_owned_tokens_stddev_samp_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
@@ -2508,12 +2861,16 @@ export type mb_views_nft_owned_tokens_stream_cursor_value_input = {
   burned_receipt_id?: InputMaybe<Scalars['String']>;
   burned_timestamp?: InputMaybe<Scalars['timestamp']>;
   copies?: InputMaybe<Scalars['bigint']>;
+  currency?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   expires_at?: InputMaybe<Scalars['timestamp']>;
   extra?: InputMaybe<Scalars['String']>;
   issued_at?: InputMaybe<Scalars['timestamp']>;
   last_transfer_receipt_id?: InputMaybe<Scalars['String']>;
   last_transfer_timestamp?: InputMaybe<Scalars['timestamp']>;
+  listing_approval_id?: InputMaybe<Scalars['numeric']>;
+  listing_kind?: InputMaybe<Scalars['String']>;
+  market_id?: InputMaybe<Scalars['String']>;
   media?: InputMaybe<Scalars['String']>;
   media_hash?: InputMaybe<Scalars['String']>;
   metadata_content_flag?: InputMaybe<Scalars['String']>;
@@ -2532,6 +2889,7 @@ export type mb_views_nft_owned_tokens_stream_cursor_value_input = {
   nft_contract_spec?: InputMaybe<Scalars['String']>;
   nft_contract_symbol?: InputMaybe<Scalars['String']>;
   owner?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['numeric']>;
   reference?: InputMaybe<Scalars['String']>;
   reference_blob?: InputMaybe<Scalars['jsonb']>;
   reference_hash?: InputMaybe<Scalars['String']>;
@@ -2547,24 +2905,32 @@ export type mb_views_nft_owned_tokens_stream_cursor_value_input = {
 /** aggregate sum on columns */
 export type mb_views_nft_owned_tokens_sum_fields = {
   copies?: Maybe<Scalars['bigint']>;
+  listing_approval_id?: Maybe<Scalars['numeric']>;
+  price?: Maybe<Scalars['numeric']>;
   royalties_percent?: Maybe<Scalars['Int']>;
 };
 
 /** aggregate var_pop on columns */
 export type mb_views_nft_owned_tokens_var_pop_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate var_samp on columns */
 export type mb_views_nft_owned_tokens_var_samp_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate variance on columns */
 export type mb_views_nft_owned_tokens_variance_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
@@ -4006,7 +4372,7 @@ export type nft_attributes = {
   attribute_type: Scalars['String'];
   attribute_value?: Maybe<Scalars['String']>;
   /** An object relationship */
-  metadata?: Maybe<Thing>;
+  metadata?: Maybe<nft_metadata>;
   nft_contract_id: Scalars['String'];
   nft_metadata_id: Scalars['String'];
 };
@@ -4898,7 +5264,7 @@ export type nft_listings_variance_order_by = {
 };
 
 /** columns and relationships of "nft_metadata" */
-export type Thing = {
+export type nft_metadata = {
   base_uri?: Maybe<Scalars['String']>;
   content_flag?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
@@ -4918,14 +5284,14 @@ export type Thing = {
 
 
 /** columns and relationships of "nft_metadata" */
-export type Thingreference_blobArgs = {
+export type nft_metadatareference_blobArgs = {
   path?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregated selection of "nft_metadata" */
 export type nft_metadata_aggregate = {
   aggregate?: Maybe<nft_metadata_aggregate_fields>;
-  nodes: Array<Thing>;
+  nodes: Array<nft_metadata>;
 };
 
 /** aggregate fields of "nft_metadata" */
@@ -5863,6 +6229,10 @@ export type query_root = {
   mb_views_nft_activities: Array<mb_views_nft_activities>;
   /** fetch aggregated fields from the table: "mb_views.nft_activities" */
   mb_views_nft_activities_aggregate: mb_views_nft_activities_aggregate;
+  /** fetch data from the table: "mb_views.nft_activities_rollup" */
+  mb_views_nft_activities_rollup: Array<mb_views_nft_activities_rollup>;
+  /** fetch aggregated fields from the table: "mb_views.nft_activities_rollup" */
+  mb_views_nft_activities_rollup_aggregate: mb_views_nft_activities_rollup_aggregate;
   /** fetch data from the table: "mb_views.nft_metadata" */
   mb_views_nft_metadata: Array<mb_views_nft_metadata>;
   /** fetch aggregated fields from the table: "mb_views.nft_metadata" */
@@ -5922,11 +6292,11 @@ export type query_root = {
   /** fetch data from the table: "nft_listings" using primary key columns */
   nft_listings_by_pk?: Maybe<nft_listings>;
   /** fetch data from the table: "nft_metadata" */
-  nft_metadata: Array<Thing>;
+  nft_metadata: Array<nft_metadata>;
   /** fetch aggregated fields from the table: "nft_metadata" */
   nft_metadata_aggregate: nft_metadata_aggregate;
   /** fetch data from the table: "nft_metadata" using primary key columns */
-  nft_metadata_by_pk?: Maybe<Thing>;
+  nft_metadata_by_pk?: Maybe<nft_metadata>;
   /** fetch data from the table: "nft_offers" */
   nft_offers: Array<nft_offers>;
   /** fetch aggregated fields from the table: "nft_offers" */
@@ -6058,6 +6428,24 @@ export type query_rootmb_views_nft_activities_aggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<mb_views_nft_activities_order_by>>;
   where?: InputMaybe<mb_views_nft_activities_bool_exp>;
+};
+
+
+export type query_rootmb_views_nft_activities_rollupArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_nft_activities_rollup_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_nft_activities_rollup_order_by>>;
+  where?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
+};
+
+
+export type query_rootmb_views_nft_activities_rollup_aggregateArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_nft_activities_rollup_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_nft_activities_rollup_order_by>>;
+  where?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
 };
 
 
@@ -6428,6 +6816,12 @@ export type subscription_root = {
   mb_views_nft_activities: Array<mb_views_nft_activities>;
   /** fetch aggregated fields from the table: "mb_views.nft_activities" */
   mb_views_nft_activities_aggregate: mb_views_nft_activities_aggregate;
+  /** fetch data from the table: "mb_views.nft_activities_rollup" */
+  mb_views_nft_activities_rollup: Array<mb_views_nft_activities_rollup>;
+  /** fetch aggregated fields from the table: "mb_views.nft_activities_rollup" */
+  mb_views_nft_activities_rollup_aggregate: mb_views_nft_activities_rollup_aggregate;
+  /** fetch data from the table in a streaming manner: "mb_views.nft_activities_rollup" */
+  mb_views_nft_activities_rollup_stream: Array<mb_views_nft_activities_rollup>;
   /** fetch data from the table in a streaming manner: "mb_views.nft_activities" */
   mb_views_nft_activities_stream: Array<mb_views_nft_activities>;
   /** fetch data from the table: "mb_views.nft_metadata" */
@@ -6513,13 +6907,13 @@ export type subscription_root = {
   /** fetch data from the table in a streaming manner: "nft_listings" */
   nft_listings_stream: Array<nft_listings>;
   /** fetch data from the table: "nft_metadata" */
-  nft_metadata: Array<Thing>;
+  nft_metadata: Array<nft_metadata>;
   /** fetch aggregated fields from the table: "nft_metadata" */
   nft_metadata_aggregate: nft_metadata_aggregate;
   /** fetch data from the table: "nft_metadata" using primary key columns */
-  nft_metadata_by_pk?: Maybe<Thing>;
+  nft_metadata_by_pk?: Maybe<nft_metadata>;
   /** fetch data from the table in a streaming manner: "nft_metadata" */
-  nft_metadata_stream: Array<Thing>;
+  nft_metadata_stream: Array<nft_metadata>;
   /** fetch data from the table: "nft_offers" */
   nft_offers: Array<nft_offers>;
   /** fetch aggregated fields from the table: "nft_offers" */
@@ -6690,6 +7084,31 @@ export type subscription_rootmb_views_nft_activities_aggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<mb_views_nft_activities_order_by>>;
   where?: InputMaybe<mb_views_nft_activities_bool_exp>;
+};
+
+
+export type subscription_rootmb_views_nft_activities_rollupArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_nft_activities_rollup_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_nft_activities_rollup_order_by>>;
+  where?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
+};
+
+
+export type subscription_rootmb_views_nft_activities_rollup_aggregateArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_nft_activities_rollup_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_nft_activities_rollup_order_by>>;
+  where?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
+};
+
+
+export type subscription_rootmb_views_nft_activities_rollup_streamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<mb_views_nft_activities_rollup_stream_cursor_input>>;
+  where?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
 };
 
 
@@ -7175,6 +7594,10 @@ export type timestamp_comparison_exp = {
   mb_views_nft_activities: InContextSdkMethod<query_root['mb_views_nft_activities'], query_rootmb_views_nft_activitiesArgs, MeshContext>,
   /** fetch aggregated fields from the table: "mb_views.nft_activities" **/
   mb_views_nft_activities_aggregate: InContextSdkMethod<query_root['mb_views_nft_activities_aggregate'], query_rootmb_views_nft_activities_aggregateArgs, MeshContext>,
+  /** fetch data from the table: "mb_views.nft_activities_rollup" **/
+  mb_views_nft_activities_rollup: InContextSdkMethod<query_root['mb_views_nft_activities_rollup'], query_rootmb_views_nft_activities_rollupArgs, MeshContext>,
+  /** fetch aggregated fields from the table: "mb_views.nft_activities_rollup" **/
+  mb_views_nft_activities_rollup_aggregate: InContextSdkMethod<query_root['mb_views_nft_activities_rollup_aggregate'], query_rootmb_views_nft_activities_rollup_aggregateArgs, MeshContext>,
   /** fetch data from the table: "mb_views.nft_metadata" **/
   mb_views_nft_metadata: InContextSdkMethod<query_root['mb_views_nft_metadata'], query_rootmb_views_nft_metadataArgs, MeshContext>,
   /** fetch aggregated fields from the table: "mb_views.nft_metadata" **/
@@ -7296,6 +7719,12 @@ export type timestamp_comparison_exp = {
   mb_views_nft_activities: InContextSdkMethod<subscription_root['mb_views_nft_activities'], subscription_rootmb_views_nft_activitiesArgs, MeshContext>,
   /** fetch aggregated fields from the table: "mb_views.nft_activities" **/
   mb_views_nft_activities_aggregate: InContextSdkMethod<subscription_root['mb_views_nft_activities_aggregate'], subscription_rootmb_views_nft_activities_aggregateArgs, MeshContext>,
+  /** fetch data from the table: "mb_views.nft_activities_rollup" **/
+  mb_views_nft_activities_rollup: InContextSdkMethod<subscription_root['mb_views_nft_activities_rollup'], subscription_rootmb_views_nft_activities_rollupArgs, MeshContext>,
+  /** fetch aggregated fields from the table: "mb_views.nft_activities_rollup" **/
+  mb_views_nft_activities_rollup_aggregate: InContextSdkMethod<subscription_root['mb_views_nft_activities_rollup_aggregate'], subscription_rootmb_views_nft_activities_rollup_aggregateArgs, MeshContext>,
+  /** fetch data from the table in a streaming manner: "mb_views.nft_activities_rollup" **/
+  mb_views_nft_activities_rollup_stream: InContextSdkMethod<subscription_root['mb_views_nft_activities_rollup_stream'], subscription_rootmb_views_nft_activities_rollup_streamArgs, MeshContext>,
   /** fetch data from the table in a streaming manner: "mb_views.nft_activities" **/
   mb_views_nft_activities_stream: InContextSdkMethod<subscription_root['mb_views_nft_activities_stream'], subscription_rootmb_views_nft_activities_streamArgs, MeshContext>,
   /** fetch data from the table: "mb_views.nft_metadata" **/

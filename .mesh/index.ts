@@ -27,6 +27,7 @@ export type Scalars = {
   Cursor: any;
   Datetime: any;
   JSON: any;
+  _text: any;
   bigint: any;
   jsonb: any;
   numeric: any;
@@ -89,6 +90,10 @@ export type Query = {
   mb_views_nft_activities: Array<mb_views_nft_activities>;
   /** fetch aggregated fields from the table: "mb_views.nft_activities" */
   mb_views_nft_activities_aggregate: mb_views_nft_activities_aggregate;
+  /** fetch data from the table: "mb_views.nft_activities_rollup" */
+  mb_views_nft_activities_rollup: Array<mb_views_nft_activities_rollup>;
+  /** fetch aggregated fields from the table: "mb_views.nft_activities_rollup" */
+  mb_views_nft_activities_rollup_aggregate: mb_views_nft_activities_rollup_aggregate;
   /** fetch data from the table: "mb_views.nft_metadata" */
   mb_views_nft_metadata: Array<mb_views_nft_metadata>;
   /** fetch aggregated fields from the table: "mb_views.nft_metadata" */
@@ -148,11 +153,11 @@ export type Query = {
   /** fetch data from the table: "nft_listings" using primary key columns */
   nft_listings_by_pk?: Maybe<nft_listings>;
   /** fetch data from the table: "nft_metadata" */
-  nft_metadata: Array<Thing>;
+  nft_metadata: Array<nft_metadata>;
   /** fetch aggregated fields from the table: "nft_metadata" */
   nft_metadata_aggregate: nft_metadata_aggregate;
   /** fetch data from the table: "nft_metadata" using primary key columns */
-  nft_metadata_by_pk?: Maybe<Thing>;
+  nft_metadata_by_pk?: Maybe<nft_metadata>;
   /** fetch data from the table: "nft_offers" */
   nft_offers: Array<nft_offers>;
   /** fetch aggregated fields from the table: "nft_offers" */
@@ -433,6 +438,24 @@ export type Querymb_views_nft_activities_aggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<mb_views_nft_activities_order_by>>;
   where?: InputMaybe<mb_views_nft_activities_bool_exp>;
+};
+
+
+export type Querymb_views_nft_activities_rollupArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_nft_activities_rollup_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_nft_activities_rollup_order_by>>;
+  where?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
+};
+
+
+export type Querymb_views_nft_activities_rollup_aggregateArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_nft_activities_rollup_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_nft_activities_rollup_order_by>>;
+  where?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
 };
 
 
@@ -999,7 +1022,6 @@ export type Characteristic = {
   option?: Maybe<Option>;
 };
 
-/** columns and relationships of "nft_metadata" */
 export type Thing = {
   createdAt: Scalars['Datetime'];
   updatedAt: Scalars['Datetime'];
@@ -1011,24 +1033,10 @@ export type Thing = {
   tags: TagsConnection;
   /** Reads and enables pagination through a set of `Characteristic`. */
   characteristics: CharacteristicsConnection;
-  base_uri?: Maybe<Scalars['String']>;
-  content_flag?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  extra?: Maybe<Scalars['String']>;
-  media?: Maybe<Scalars['String']>;
-  media_hash?: Maybe<Scalars['String']>;
-  /** An object relationship */
-  nft_contract?: Maybe<nft_contracts>;
-  nft_contract_id: Scalars['String'];
-  /** An object relationship */
-  nft_contracts?: Maybe<nft_contracts>;
-  reference?: Maybe<Scalars['String']>;
-  reference_blob?: Maybe<Scalars['jsonb']>;
-  title?: Maybe<Scalars['String']>;
+  nft?: Maybe<mb_views_nft_tokens>;
 };
 
 
-/** columns and relationships of "nft_metadata" */
 export type ThingtagsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
@@ -1040,7 +1048,6 @@ export type ThingtagsArgs = {
 };
 
 
-/** columns and relationships of "nft_metadata" */
 export type ThingcharacteristicsArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
@@ -1049,12 +1056,6 @@ export type ThingcharacteristicsArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   orderBy?: InputMaybe<Array<CharacteristicsOrderBy>>;
   condition?: InputMaybe<CharacteristicCondition>;
-};
-
-
-/** columns and relationships of "nft_metadata" */
-export type Thingreference_blobArgs = {
-  path?: InputMaybe<Scalars['String']>;
 };
 
 export type PrivacyType =
@@ -1429,6 +1430,12 @@ export type Subscription = {
   mb_views_nft_activities: Array<mb_views_nft_activities>;
   /** fetch aggregated fields from the table: "mb_views.nft_activities" */
   mb_views_nft_activities_aggregate: mb_views_nft_activities_aggregate;
+  /** fetch data from the table: "mb_views.nft_activities_rollup" */
+  mb_views_nft_activities_rollup: Array<mb_views_nft_activities_rollup>;
+  /** fetch aggregated fields from the table: "mb_views.nft_activities_rollup" */
+  mb_views_nft_activities_rollup_aggregate: mb_views_nft_activities_rollup_aggregate;
+  /** fetch data from the table in a streaming manner: "mb_views.nft_activities_rollup" */
+  mb_views_nft_activities_rollup_stream: Array<mb_views_nft_activities_rollup>;
   /** fetch data from the table in a streaming manner: "mb_views.nft_activities" */
   mb_views_nft_activities_stream: Array<mb_views_nft_activities>;
   /** fetch data from the table: "mb_views.nft_metadata" */
@@ -1514,13 +1521,13 @@ export type Subscription = {
   /** fetch data from the table in a streaming manner: "nft_listings" */
   nft_listings_stream: Array<nft_listings>;
   /** fetch data from the table: "nft_metadata" */
-  nft_metadata: Array<Thing>;
+  nft_metadata: Array<nft_metadata>;
   /** fetch aggregated fields from the table: "nft_metadata" */
   nft_metadata_aggregate: nft_metadata_aggregate;
   /** fetch data from the table: "nft_metadata" using primary key columns */
-  nft_metadata_by_pk?: Maybe<Thing>;
+  nft_metadata_by_pk?: Maybe<nft_metadata>;
   /** fetch data from the table in a streaming manner: "nft_metadata" */
-  nft_metadata_stream: Array<Thing>;
+  nft_metadata_stream: Array<nft_metadata>;
   /** fetch data from the table: "nft_offers" */
   nft_offers: Array<nft_offers>;
   /** fetch aggregated fields from the table: "nft_offers" */
@@ -1691,6 +1698,31 @@ export type Subscriptionmb_views_nft_activities_aggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<mb_views_nft_activities_order_by>>;
   where?: InputMaybe<mb_views_nft_activities_bool_exp>;
+};
+
+
+export type Subscriptionmb_views_nft_activities_rollupArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_nft_activities_rollup_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_nft_activities_rollup_order_by>>;
+  where?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
+};
+
+
+export type Subscriptionmb_views_nft_activities_rollup_aggregateArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_nft_activities_rollup_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_nft_activities_rollup_order_by>>;
+  where?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
+};
+
+
+export type Subscriptionmb_views_nft_activities_rollup_streamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<mb_views_nft_activities_rollup_stream_cursor_input>>;
+  where?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
 };
 
 
@@ -2191,6 +2223,19 @@ export type String_comparison_exp = {
   _regex?: InputMaybe<Scalars['String']>;
   /** does the column match the given SQL regular expression */
   _similar?: InputMaybe<Scalars['String']>;
+};
+
+/** Boolean expression to compare columns of type "_text". All fields are combined with logical 'AND'. */
+export type _text_comparison_exp = {
+  _eq?: InputMaybe<Scalars['_text']>;
+  _gt?: InputMaybe<Scalars['_text']>;
+  _gte?: InputMaybe<Scalars['_text']>;
+  _in?: InputMaybe<Array<Scalars['_text']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['_text']>;
+  _lte?: InputMaybe<Scalars['_text']>;
+  _neq?: InputMaybe<Scalars['_text']>;
+  _nin?: InputMaybe<Array<Scalars['_text']>>;
 };
 
 /** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
@@ -3535,11 +3580,13 @@ export type mb_views_nft_activities = {
   action_receiver?: Maybe<Scalars['String']>;
   action_sender?: Maybe<Scalars['String']>;
   content_flag?: Maybe<Scalars['String']>;
+  copies?: Maybe<Scalars['bigint']>;
   description?: Maybe<Scalars['String']>;
   extra?: Maybe<Scalars['String']>;
   kind?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
   /** An object relationship */
   nft_contract?: Maybe<nft_contracts>;
   nft_contract_id?: Maybe<Scalars['String']>;
@@ -3590,6 +3637,7 @@ export type mb_views_nft_activities_aggregate_fieldscountArgs = {
 
 /** aggregate avg on columns */
 export type mb_views_nft_activities_avg_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
@@ -3601,11 +3649,13 @@ export type mb_views_nft_activities_bool_exp = {
   action_receiver?: InputMaybe<String_comparison_exp>;
   action_sender?: InputMaybe<String_comparison_exp>;
   content_flag?: InputMaybe<String_comparison_exp>;
+  copies?: InputMaybe<bigint_comparison_exp>;
   description?: InputMaybe<String_comparison_exp>;
   extra?: InputMaybe<String_comparison_exp>;
   kind?: InputMaybe<String_comparison_exp>;
   media?: InputMaybe<String_comparison_exp>;
   media_hash?: InputMaybe<String_comparison_exp>;
+  metadata_id?: InputMaybe<String_comparison_exp>;
   nft_contract?: InputMaybe<nft_contracts_bool_exp>;
   nft_contract_id?: InputMaybe<String_comparison_exp>;
   price?: InputMaybe<numeric_comparison_exp>;
@@ -3624,11 +3674,13 @@ export type mb_views_nft_activities_max_fields = {
   action_receiver?: Maybe<Scalars['String']>;
   action_sender?: Maybe<Scalars['String']>;
   content_flag?: Maybe<Scalars['String']>;
+  copies?: Maybe<Scalars['bigint']>;
   description?: Maybe<Scalars['String']>;
   extra?: Maybe<Scalars['String']>;
   kind?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
   nft_contract_id?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['numeric']>;
   receipt_id?: Maybe<Scalars['String']>;
@@ -3645,11 +3697,13 @@ export type mb_views_nft_activities_min_fields = {
   action_receiver?: Maybe<Scalars['String']>;
   action_sender?: Maybe<Scalars['String']>;
   content_flag?: Maybe<Scalars['String']>;
+  copies?: Maybe<Scalars['bigint']>;
   description?: Maybe<Scalars['String']>;
   extra?: Maybe<Scalars['String']>;
   kind?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
   nft_contract_id?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['numeric']>;
   receipt_id?: Maybe<Scalars['String']>;
@@ -3666,11 +3720,13 @@ export type mb_views_nft_activities_order_by = {
   action_receiver?: InputMaybe<order_by>;
   action_sender?: InputMaybe<order_by>;
   content_flag?: InputMaybe<order_by>;
+  copies?: InputMaybe<order_by>;
   description?: InputMaybe<order_by>;
   extra?: InputMaybe<order_by>;
   kind?: InputMaybe<order_by>;
   media?: InputMaybe<order_by>;
   media_hash?: InputMaybe<order_by>;
+  metadata_id?: InputMaybe<order_by>;
   nft_contract?: InputMaybe<nft_contracts_order_by>;
   nft_contract_id?: InputMaybe<order_by>;
   price?: InputMaybe<order_by>;
@@ -3684,14 +3740,174 @@ export type mb_views_nft_activities_order_by = {
   tx_sender?: InputMaybe<order_by>;
 };
 
-/** select columns of table "mb_views.nft_activities" */
-export type mb_views_nft_activities_select_column =
+/** columns and relationships of "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollup = {
+  action_receiver?: Maybe<Scalars['String']>;
+  action_sender?: Maybe<Scalars['String']>;
+  content_flag?: Maybe<Scalars['String']>;
+  count?: Maybe<Scalars['bigint']>;
+  description?: Maybe<Scalars['String']>;
+  extra?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  media?: Maybe<Scalars['String']>;
+  media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  nft_contract?: Maybe<nft_contracts>;
+  nft_contract_id?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
+  receipt_id?: Maybe<Scalars['String']>;
+  reference?: Maybe<Scalars['String']>;
+  reference_blob?: Maybe<Scalars['jsonb']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
+  title?: Maybe<Scalars['String']>;
+  token_ids?: Maybe<Scalars['_text']>;
+  tx_sender?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollupreference_blobArgs = {
+  path?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregated selection of "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollup_aggregate = {
+  aggregate?: Maybe<mb_views_nft_activities_rollup_aggregate_fields>;
+  nodes: Array<mb_views_nft_activities_rollup>;
+};
+
+/** aggregate fields of "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollup_aggregate_fields = {
+  avg?: Maybe<mb_views_nft_activities_rollup_avg_fields>;
+  count: Scalars['Int'];
+  max?: Maybe<mb_views_nft_activities_rollup_max_fields>;
+  min?: Maybe<mb_views_nft_activities_rollup_min_fields>;
+  stddev?: Maybe<mb_views_nft_activities_rollup_stddev_fields>;
+  stddev_pop?: Maybe<mb_views_nft_activities_rollup_stddev_pop_fields>;
+  stddev_samp?: Maybe<mb_views_nft_activities_rollup_stddev_samp_fields>;
+  sum?: Maybe<mb_views_nft_activities_rollup_sum_fields>;
+  var_pop?: Maybe<mb_views_nft_activities_rollup_var_pop_fields>;
+  var_samp?: Maybe<mb_views_nft_activities_rollup_var_samp_fields>;
+  variance?: Maybe<mb_views_nft_activities_rollup_variance_fields>;
+};
+
+
+/** aggregate fields of "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollup_aggregate_fieldscountArgs = {
+  columns?: InputMaybe<Array<mb_views_nft_activities_rollup_select_column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type mb_views_nft_activities_rollup_avg_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "mb_views.nft_activities_rollup". All fields are combined with a logical 'AND'. */
+export type mb_views_nft_activities_rollup_bool_exp = {
+  _and?: InputMaybe<Array<mb_views_nft_activities_rollup_bool_exp>>;
+  _not?: InputMaybe<mb_views_nft_activities_rollup_bool_exp>;
+  _or?: InputMaybe<Array<mb_views_nft_activities_rollup_bool_exp>>;
+  action_receiver?: InputMaybe<String_comparison_exp>;
+  action_sender?: InputMaybe<String_comparison_exp>;
+  content_flag?: InputMaybe<String_comparison_exp>;
+  count?: InputMaybe<bigint_comparison_exp>;
+  description?: InputMaybe<String_comparison_exp>;
+  extra?: InputMaybe<String_comparison_exp>;
+  kind?: InputMaybe<String_comparison_exp>;
+  media?: InputMaybe<String_comparison_exp>;
+  media_hash?: InputMaybe<String_comparison_exp>;
+  metadata_id?: InputMaybe<String_comparison_exp>;
+  nft_contract?: InputMaybe<nft_contracts_bool_exp>;
+  nft_contract_id?: InputMaybe<String_comparison_exp>;
+  price?: InputMaybe<numeric_comparison_exp>;
+  receipt_id?: InputMaybe<String_comparison_exp>;
+  reference?: InputMaybe<String_comparison_exp>;
+  reference_blob?: InputMaybe<jsonb_comparison_exp>;
+  timestamp?: InputMaybe<timestamp_comparison_exp>;
+  title?: InputMaybe<String_comparison_exp>;
+  token_ids?: InputMaybe<_text_comparison_exp>;
+  tx_sender?: InputMaybe<String_comparison_exp>;
+};
+
+/** aggregate max on columns */
+export type mb_views_nft_activities_rollup_max_fields = {
+  action_receiver?: Maybe<Scalars['String']>;
+  action_sender?: Maybe<Scalars['String']>;
+  content_flag?: Maybe<Scalars['String']>;
+  count?: Maybe<Scalars['bigint']>;
+  description?: Maybe<Scalars['String']>;
+  extra?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  media?: Maybe<Scalars['String']>;
+  media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
+  nft_contract_id?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
+  receipt_id?: Maybe<Scalars['String']>;
+  reference?: Maybe<Scalars['String']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
+  title?: Maybe<Scalars['String']>;
+  tx_sender?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type mb_views_nft_activities_rollup_min_fields = {
+  action_receiver?: Maybe<Scalars['String']>;
+  action_sender?: Maybe<Scalars['String']>;
+  content_flag?: Maybe<Scalars['String']>;
+  count?: Maybe<Scalars['bigint']>;
+  description?: Maybe<Scalars['String']>;
+  extra?: Maybe<Scalars['String']>;
+  kind?: Maybe<Scalars['String']>;
+  media?: Maybe<Scalars['String']>;
+  media_hash?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
+  nft_contract_id?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
+  receipt_id?: Maybe<Scalars['String']>;
+  reference?: Maybe<Scalars['String']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
+  title?: Maybe<Scalars['String']>;
+  tx_sender?: Maybe<Scalars['String']>;
+};
+
+/** Ordering options when selecting data from "mb_views.nft_activities_rollup". */
+export type mb_views_nft_activities_rollup_order_by = {
+  action_receiver?: InputMaybe<order_by>;
+  action_sender?: InputMaybe<order_by>;
+  content_flag?: InputMaybe<order_by>;
+  count?: InputMaybe<order_by>;
+  description?: InputMaybe<order_by>;
+  extra?: InputMaybe<order_by>;
+  kind?: InputMaybe<order_by>;
+  media?: InputMaybe<order_by>;
+  media_hash?: InputMaybe<order_by>;
+  metadata_id?: InputMaybe<order_by>;
+  nft_contract?: InputMaybe<nft_contracts_order_by>;
+  nft_contract_id?: InputMaybe<order_by>;
+  price?: InputMaybe<order_by>;
+  receipt_id?: InputMaybe<order_by>;
+  reference?: InputMaybe<order_by>;
+  reference_blob?: InputMaybe<order_by>;
+  timestamp?: InputMaybe<order_by>;
+  title?: InputMaybe<order_by>;
+  token_ids?: InputMaybe<order_by>;
+  tx_sender?: InputMaybe<order_by>;
+};
+
+/** select columns of table "mb_views.nft_activities_rollup" */
+export type mb_views_nft_activities_rollup_select_column =
   /** column name */
   | 'action_receiver'
   /** column name */
   | 'action_sender'
   /** column name */
   | 'content_flag'
+  /** column name */
+  | 'count'
   /** column name */
   | 'description'
   /** column name */
@@ -3702,6 +3918,122 @@ export type mb_views_nft_activities_select_column =
   | 'media'
   /** column name */
   | 'media_hash'
+  /** column name */
+  | 'metadata_id'
+  /** column name */
+  | 'nft_contract_id'
+  /** column name */
+  | 'price'
+  /** column name */
+  | 'receipt_id'
+  /** column name */
+  | 'reference'
+  /** column name */
+  | 'reference_blob'
+  /** column name */
+  | 'timestamp'
+  /** column name */
+  | 'title'
+  /** column name */
+  | 'token_ids'
+  /** column name */
+  | 'tx_sender';
+
+/** aggregate stddev on columns */
+export type mb_views_nft_activities_rollup_stddev_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type mb_views_nft_activities_rollup_stddev_pop_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type mb_views_nft_activities_rollup_stddev_samp_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "mb_views_nft_activities_rollup" */
+export type mb_views_nft_activities_rollup_stream_cursor_input = {
+  /** Stream column input with initial value */
+  initial_value: mb_views_nft_activities_rollup_stream_cursor_value_input;
+  /** cursor ordering */
+  ordering?: InputMaybe<cursor_ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type mb_views_nft_activities_rollup_stream_cursor_value_input = {
+  action_receiver?: InputMaybe<Scalars['String']>;
+  action_sender?: InputMaybe<Scalars['String']>;
+  content_flag?: InputMaybe<Scalars['String']>;
+  count?: InputMaybe<Scalars['bigint']>;
+  description?: InputMaybe<Scalars['String']>;
+  extra?: InputMaybe<Scalars['String']>;
+  kind?: InputMaybe<Scalars['String']>;
+  media?: InputMaybe<Scalars['String']>;
+  media_hash?: InputMaybe<Scalars['String']>;
+  metadata_id?: InputMaybe<Scalars['String']>;
+  nft_contract_id?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['numeric']>;
+  receipt_id?: InputMaybe<Scalars['String']>;
+  reference?: InputMaybe<Scalars['String']>;
+  reference_blob?: InputMaybe<Scalars['jsonb']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  title?: InputMaybe<Scalars['String']>;
+  token_ids?: InputMaybe<Scalars['_text']>;
+  tx_sender?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate sum on columns */
+export type mb_views_nft_activities_rollup_sum_fields = {
+  count?: Maybe<Scalars['bigint']>;
+  price?: Maybe<Scalars['numeric']>;
+};
+
+/** aggregate var_pop on columns */
+export type mb_views_nft_activities_rollup_var_pop_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type mb_views_nft_activities_rollup_var_samp_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type mb_views_nft_activities_rollup_variance_fields = {
+  count?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+};
+
+/** select columns of table "mb_views.nft_activities" */
+export type mb_views_nft_activities_select_column =
+  /** column name */
+  | 'action_receiver'
+  /** column name */
+  | 'action_sender'
+  /** column name */
+  | 'content_flag'
+  /** column name */
+  | 'copies'
+  /** column name */
+  | 'description'
+  /** column name */
+  | 'extra'
+  /** column name */
+  | 'kind'
+  /** column name */
+  | 'media'
+  /** column name */
+  | 'media_hash'
+  /** column name */
+  | 'metadata_id'
   /** column name */
   | 'nft_contract_id'
   /** column name */
@@ -3725,16 +4057,19 @@ export type mb_views_nft_activities_select_column =
 
 /** aggregate stddev on columns */
 export type mb_views_nft_activities_stddev_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type mb_views_nft_activities_stddev_pop_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type mb_views_nft_activities_stddev_samp_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
@@ -3751,11 +4086,13 @@ export type mb_views_nft_activities_stream_cursor_value_input = {
   action_receiver?: InputMaybe<Scalars['String']>;
   action_sender?: InputMaybe<Scalars['String']>;
   content_flag?: InputMaybe<Scalars['String']>;
+  copies?: InputMaybe<Scalars['bigint']>;
   description?: InputMaybe<Scalars['String']>;
   extra?: InputMaybe<Scalars['String']>;
   kind?: InputMaybe<Scalars['String']>;
   media?: InputMaybe<Scalars['String']>;
   media_hash?: InputMaybe<Scalars['String']>;
+  metadata_id?: InputMaybe<Scalars['String']>;
   nft_contract_id?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['numeric']>;
   receipt_id?: InputMaybe<Scalars['String']>;
@@ -3770,21 +4107,25 @@ export type mb_views_nft_activities_stream_cursor_value_input = {
 
 /** aggregate sum on columns */
 export type mb_views_nft_activities_sum_fields = {
+  copies?: Maybe<Scalars['bigint']>;
   price?: Maybe<Scalars['numeric']>;
 };
 
 /** aggregate var_pop on columns */
 export type mb_views_nft_activities_var_pop_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate var_samp on columns */
 export type mb_views_nft_activities_var_samp_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate variance on columns */
 export type mb_views_nft_activities_variance_fields = {
+  copies?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
@@ -4231,16 +4572,20 @@ export type mb_views_nft_owned_tokens = {
   burned_receipt_id?: Maybe<Scalars['String']>;
   burned_timestamp?: Maybe<Scalars['timestamp']>;
   copies?: Maybe<Scalars['bigint']>;
+  currency?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   expires_at?: Maybe<Scalars['timestamp']>;
   extra?: Maybe<Scalars['String']>;
   issued_at?: Maybe<Scalars['timestamp']>;
   last_transfer_receipt_id?: Maybe<Scalars['String']>;
   last_transfer_timestamp?: Maybe<Scalars['timestamp']>;
+  listing_approval_id?: Maybe<Scalars['numeric']>;
+  listing_kind?: Maybe<Scalars['String']>;
   /** An array relationship */
   listings: Array<nft_listings>;
   /** An aggregate relationship */
   listings_aggregate: nft_listings_aggregate;
+  market_id?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
   metadata_content_flag?: Maybe<Scalars['String']>;
@@ -4259,6 +4604,7 @@ export type mb_views_nft_owned_tokens = {
   nft_contract_spec?: Maybe<Scalars['String']>;
   nft_contract_symbol?: Maybe<Scalars['String']>;
   owner?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
   reference?: Maybe<Scalars['String']>;
   reference_blob?: Maybe<Scalars['jsonb']>;
   reference_hash?: Maybe<Scalars['String']>;
@@ -4340,6 +4686,8 @@ export type mb_views_nft_owned_tokens_aggregate_fieldscountArgs = {
 /** aggregate avg on columns */
 export type mb_views_nft_owned_tokens_avg_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
@@ -4352,14 +4700,18 @@ export type mb_views_nft_owned_tokens_bool_exp = {
   burned_receipt_id?: InputMaybe<String_comparison_exp>;
   burned_timestamp?: InputMaybe<timestamp_comparison_exp>;
   copies?: InputMaybe<bigint_comparison_exp>;
+  currency?: InputMaybe<String_comparison_exp>;
   description?: InputMaybe<String_comparison_exp>;
   expires_at?: InputMaybe<timestamp_comparison_exp>;
   extra?: InputMaybe<String_comparison_exp>;
   issued_at?: InputMaybe<timestamp_comparison_exp>;
   last_transfer_receipt_id?: InputMaybe<String_comparison_exp>;
   last_transfer_timestamp?: InputMaybe<timestamp_comparison_exp>;
+  listing_approval_id?: InputMaybe<numeric_comparison_exp>;
+  listing_kind?: InputMaybe<String_comparison_exp>;
   listings?: InputMaybe<nft_listings_bool_exp>;
   listings_aggregate?: InputMaybe<nft_listings_aggregate_bool_exp>;
+  market_id?: InputMaybe<String_comparison_exp>;
   media?: InputMaybe<String_comparison_exp>;
   media_hash?: InputMaybe<String_comparison_exp>;
   metadata_content_flag?: InputMaybe<String_comparison_exp>;
@@ -4378,6 +4730,7 @@ export type mb_views_nft_owned_tokens_bool_exp = {
   nft_contract_spec?: InputMaybe<String_comparison_exp>;
   nft_contract_symbol?: InputMaybe<String_comparison_exp>;
   owner?: InputMaybe<String_comparison_exp>;
+  price?: InputMaybe<numeric_comparison_exp>;
   reference?: InputMaybe<String_comparison_exp>;
   reference_blob?: InputMaybe<jsonb_comparison_exp>;
   reference_hash?: InputMaybe<String_comparison_exp>;
@@ -4396,12 +4749,16 @@ export type mb_views_nft_owned_tokens_max_fields = {
   burned_receipt_id?: Maybe<Scalars['String']>;
   burned_timestamp?: Maybe<Scalars['timestamp']>;
   copies?: Maybe<Scalars['bigint']>;
+  currency?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   expires_at?: Maybe<Scalars['timestamp']>;
   extra?: Maybe<Scalars['String']>;
   issued_at?: Maybe<Scalars['timestamp']>;
   last_transfer_receipt_id?: Maybe<Scalars['String']>;
   last_transfer_timestamp?: Maybe<Scalars['timestamp']>;
+  listing_approval_id?: Maybe<Scalars['numeric']>;
+  listing_kind?: Maybe<Scalars['String']>;
+  market_id?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
   metadata_content_flag?: Maybe<Scalars['String']>;
@@ -4419,6 +4776,7 @@ export type mb_views_nft_owned_tokens_max_fields = {
   nft_contract_spec?: Maybe<Scalars['String']>;
   nft_contract_symbol?: Maybe<Scalars['String']>;
   owner?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
   reference?: Maybe<Scalars['String']>;
   reference_hash?: Maybe<Scalars['String']>;
   royalties_percent?: Maybe<Scalars['Int']>;
@@ -4434,12 +4792,16 @@ export type mb_views_nft_owned_tokens_min_fields = {
   burned_receipt_id?: Maybe<Scalars['String']>;
   burned_timestamp?: Maybe<Scalars['timestamp']>;
   copies?: Maybe<Scalars['bigint']>;
+  currency?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   expires_at?: Maybe<Scalars['timestamp']>;
   extra?: Maybe<Scalars['String']>;
   issued_at?: Maybe<Scalars['timestamp']>;
   last_transfer_receipt_id?: Maybe<Scalars['String']>;
   last_transfer_timestamp?: Maybe<Scalars['timestamp']>;
+  listing_approval_id?: Maybe<Scalars['numeric']>;
+  listing_kind?: Maybe<Scalars['String']>;
+  market_id?: Maybe<Scalars['String']>;
   media?: Maybe<Scalars['String']>;
   media_hash?: Maybe<Scalars['String']>;
   metadata_content_flag?: Maybe<Scalars['String']>;
@@ -4457,6 +4819,7 @@ export type mb_views_nft_owned_tokens_min_fields = {
   nft_contract_spec?: Maybe<Scalars['String']>;
   nft_contract_symbol?: Maybe<Scalars['String']>;
   owner?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
   reference?: Maybe<Scalars['String']>;
   reference_hash?: Maybe<Scalars['String']>;
   royalties_percent?: Maybe<Scalars['Int']>;
@@ -4472,13 +4835,17 @@ export type mb_views_nft_owned_tokens_order_by = {
   burned_receipt_id?: InputMaybe<order_by>;
   burned_timestamp?: InputMaybe<order_by>;
   copies?: InputMaybe<order_by>;
+  currency?: InputMaybe<order_by>;
   description?: InputMaybe<order_by>;
   expires_at?: InputMaybe<order_by>;
   extra?: InputMaybe<order_by>;
   issued_at?: InputMaybe<order_by>;
   last_transfer_receipt_id?: InputMaybe<order_by>;
   last_transfer_timestamp?: InputMaybe<order_by>;
+  listing_approval_id?: InputMaybe<order_by>;
+  listing_kind?: InputMaybe<order_by>;
   listings_aggregate?: InputMaybe<nft_listings_aggregate_order_by>;
+  market_id?: InputMaybe<order_by>;
   media?: InputMaybe<order_by>;
   media_hash?: InputMaybe<order_by>;
   metadata_content_flag?: InputMaybe<order_by>;
@@ -4497,6 +4864,7 @@ export type mb_views_nft_owned_tokens_order_by = {
   nft_contract_spec?: InputMaybe<order_by>;
   nft_contract_symbol?: InputMaybe<order_by>;
   owner?: InputMaybe<order_by>;
+  price?: InputMaybe<order_by>;
   reference?: InputMaybe<order_by>;
   reference_blob?: InputMaybe<order_by>;
   reference_hash?: InputMaybe<order_by>;
@@ -4520,6 +4888,8 @@ export type mb_views_nft_owned_tokens_select_column =
   /** column name */
   | 'copies'
   /** column name */
+  | 'currency'
+  /** column name */
   | 'description'
   /** column name */
   | 'expires_at'
@@ -4531,6 +4901,12 @@ export type mb_views_nft_owned_tokens_select_column =
   | 'last_transfer_receipt_id'
   /** column name */
   | 'last_transfer_timestamp'
+  /** column name */
+  | 'listing_approval_id'
+  /** column name */
+  | 'listing_kind'
+  /** column name */
+  | 'market_id'
   /** column name */
   | 'media'
   /** column name */
@@ -4568,6 +4944,8 @@ export type mb_views_nft_owned_tokens_select_column =
   /** column name */
   | 'owner'
   /** column name */
+  | 'price'
+  /** column name */
   | 'reference'
   /** column name */
   | 'reference_blob'
@@ -4591,18 +4969,24 @@ export type mb_views_nft_owned_tokens_select_column =
 /** aggregate stddev on columns */
 export type mb_views_nft_owned_tokens_stddev_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type mb_views_nft_owned_tokens_stddev_pop_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type mb_views_nft_owned_tokens_stddev_samp_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
@@ -4620,12 +5004,16 @@ export type mb_views_nft_owned_tokens_stream_cursor_value_input = {
   burned_receipt_id?: InputMaybe<Scalars['String']>;
   burned_timestamp?: InputMaybe<Scalars['timestamp']>;
   copies?: InputMaybe<Scalars['bigint']>;
+  currency?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   expires_at?: InputMaybe<Scalars['timestamp']>;
   extra?: InputMaybe<Scalars['String']>;
   issued_at?: InputMaybe<Scalars['timestamp']>;
   last_transfer_receipt_id?: InputMaybe<Scalars['String']>;
   last_transfer_timestamp?: InputMaybe<Scalars['timestamp']>;
+  listing_approval_id?: InputMaybe<Scalars['numeric']>;
+  listing_kind?: InputMaybe<Scalars['String']>;
+  market_id?: InputMaybe<Scalars['String']>;
   media?: InputMaybe<Scalars['String']>;
   media_hash?: InputMaybe<Scalars['String']>;
   metadata_content_flag?: InputMaybe<Scalars['String']>;
@@ -4644,6 +5032,7 @@ export type mb_views_nft_owned_tokens_stream_cursor_value_input = {
   nft_contract_spec?: InputMaybe<Scalars['String']>;
   nft_contract_symbol?: InputMaybe<Scalars['String']>;
   owner?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['numeric']>;
   reference?: InputMaybe<Scalars['String']>;
   reference_blob?: InputMaybe<Scalars['jsonb']>;
   reference_hash?: InputMaybe<Scalars['String']>;
@@ -4659,24 +5048,32 @@ export type mb_views_nft_owned_tokens_stream_cursor_value_input = {
 /** aggregate sum on columns */
 export type mb_views_nft_owned_tokens_sum_fields = {
   copies?: Maybe<Scalars['bigint']>;
+  listing_approval_id?: Maybe<Scalars['numeric']>;
+  price?: Maybe<Scalars['numeric']>;
   royalties_percent?: Maybe<Scalars['Int']>;
 };
 
 /** aggregate var_pop on columns */
 export type mb_views_nft_owned_tokens_var_pop_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate var_samp on columns */
 export type mb_views_nft_owned_tokens_var_samp_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate variance on columns */
 export type mb_views_nft_owned_tokens_variance_fields = {
   copies?: Maybe<Scalars['Float']>;
+  listing_approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
   royalties_percent?: Maybe<Scalars['Float']>;
 };
 
@@ -6118,7 +6515,7 @@ export type nft_attributes = {
   attribute_type: Scalars['String'];
   attribute_value?: Maybe<Scalars['String']>;
   /** An object relationship */
-  metadata?: Maybe<Thing>;
+  metadata?: Maybe<nft_metadata>;
   nft_contract_id: Scalars['String'];
   nft_metadata_id: Scalars['String'];
 };
@@ -7009,10 +7406,35 @@ export type nft_listings_variance_order_by = {
   price?: InputMaybe<order_by>;
 };
 
+/** columns and relationships of "nft_metadata" */
+export type nft_metadata = {
+  base_uri?: Maybe<Scalars['String']>;
+  content_flag?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  extra?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  media?: Maybe<Scalars['String']>;
+  media_hash?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  nft_contract?: Maybe<nft_contracts>;
+  nft_contract_id: Scalars['String'];
+  /** An object relationship */
+  nft_contracts?: Maybe<nft_contracts>;
+  reference?: Maybe<Scalars['String']>;
+  reference_blob?: Maybe<Scalars['jsonb']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "nft_metadata" */
+export type nft_metadatareference_blobArgs = {
+  path?: InputMaybe<Scalars['String']>;
+};
+
 /** aggregated selection of "nft_metadata" */
 export type nft_metadata_aggregate = {
   aggregate?: Maybe<nft_metadata_aggregate_fields>;
-  nodes: Array<Thing>;
+  nodes: Array<nft_metadata>;
 };
 
 /** aggregate fields of "nft_metadata" */
@@ -8091,6 +8513,8 @@ export type ResolversTypes = ResolversObject<{
   Float: ResolverTypeWrapper<Scalars['Float']>;
   Int_comparison_exp: Int_comparison_exp;
   String_comparison_exp: String_comparison_exp;
+  _text: ResolverTypeWrapper<Scalars['_text']>;
+  _text_comparison_exp: _text_comparison_exp;
   bigint: ResolverTypeWrapper<Scalars['bigint']>;
   bigint_comparison_exp: bigint_comparison_exp;
   blocks: ResolverTypeWrapper<blocks>;
@@ -8200,6 +8624,24 @@ export type ResolversTypes = ResolversObject<{
   mb_views_nft_activities_max_fields: ResolverTypeWrapper<mb_views_nft_activities_max_fields>;
   mb_views_nft_activities_min_fields: ResolverTypeWrapper<mb_views_nft_activities_min_fields>;
   mb_views_nft_activities_order_by: mb_views_nft_activities_order_by;
+  mb_views_nft_activities_rollup: ResolverTypeWrapper<mb_views_nft_activities_rollup>;
+  mb_views_nft_activities_rollup_aggregate: ResolverTypeWrapper<mb_views_nft_activities_rollup_aggregate>;
+  mb_views_nft_activities_rollup_aggregate_fields: ResolverTypeWrapper<mb_views_nft_activities_rollup_aggregate_fields>;
+  mb_views_nft_activities_rollup_avg_fields: ResolverTypeWrapper<mb_views_nft_activities_rollup_avg_fields>;
+  mb_views_nft_activities_rollup_bool_exp: mb_views_nft_activities_rollup_bool_exp;
+  mb_views_nft_activities_rollup_max_fields: ResolverTypeWrapper<mb_views_nft_activities_rollup_max_fields>;
+  mb_views_nft_activities_rollup_min_fields: ResolverTypeWrapper<mb_views_nft_activities_rollup_min_fields>;
+  mb_views_nft_activities_rollup_order_by: mb_views_nft_activities_rollup_order_by;
+  mb_views_nft_activities_rollup_select_column: mb_views_nft_activities_rollup_select_column;
+  mb_views_nft_activities_rollup_stddev_fields: ResolverTypeWrapper<mb_views_nft_activities_rollup_stddev_fields>;
+  mb_views_nft_activities_rollup_stddev_pop_fields: ResolverTypeWrapper<mb_views_nft_activities_rollup_stddev_pop_fields>;
+  mb_views_nft_activities_rollup_stddev_samp_fields: ResolverTypeWrapper<mb_views_nft_activities_rollup_stddev_samp_fields>;
+  mb_views_nft_activities_rollup_stream_cursor_input: mb_views_nft_activities_rollup_stream_cursor_input;
+  mb_views_nft_activities_rollup_stream_cursor_value_input: mb_views_nft_activities_rollup_stream_cursor_value_input;
+  mb_views_nft_activities_rollup_sum_fields: ResolverTypeWrapper<mb_views_nft_activities_rollup_sum_fields>;
+  mb_views_nft_activities_rollup_var_pop_fields: ResolverTypeWrapper<mb_views_nft_activities_rollup_var_pop_fields>;
+  mb_views_nft_activities_rollup_var_samp_fields: ResolverTypeWrapper<mb_views_nft_activities_rollup_var_samp_fields>;
+  mb_views_nft_activities_rollup_variance_fields: ResolverTypeWrapper<mb_views_nft_activities_rollup_variance_fields>;
   mb_views_nft_activities_select_column: mb_views_nft_activities_select_column;
   mb_views_nft_activities_stddev_fields: ResolverTypeWrapper<mb_views_nft_activities_stddev_fields>;
   mb_views_nft_activities_stddev_pop_fields: ResolverTypeWrapper<mb_views_nft_activities_stddev_pop_fields>;
@@ -8415,6 +8857,7 @@ export type ResolversTypes = ResolversObject<{
   nft_listings_var_samp_order_by: nft_listings_var_samp_order_by;
   nft_listings_variance_fields: ResolverTypeWrapper<nft_listings_variance_fields>;
   nft_listings_variance_order_by: nft_listings_variance_order_by;
+  nft_metadata: ResolverTypeWrapper<nft_metadata>;
   nft_metadata_aggregate: ResolverTypeWrapper<nft_metadata_aggregate>;
   nft_metadata_aggregate_fields: ResolverTypeWrapper<nft_metadata_aggregate_fields>;
   nft_metadata_bool_exp: nft_metadata_bool_exp;
@@ -8541,6 +8984,8 @@ export type ResolversParentTypes = ResolversObject<{
   Float: Scalars['Float'];
   Int_comparison_exp: Int_comparison_exp;
   String_comparison_exp: String_comparison_exp;
+  _text: Scalars['_text'];
+  _text_comparison_exp: _text_comparison_exp;
   bigint: Scalars['bigint'];
   bigint_comparison_exp: bigint_comparison_exp;
   blocks: blocks;
@@ -8644,6 +9089,23 @@ export type ResolversParentTypes = ResolversObject<{
   mb_views_nft_activities_max_fields: mb_views_nft_activities_max_fields;
   mb_views_nft_activities_min_fields: mb_views_nft_activities_min_fields;
   mb_views_nft_activities_order_by: mb_views_nft_activities_order_by;
+  mb_views_nft_activities_rollup: mb_views_nft_activities_rollup;
+  mb_views_nft_activities_rollup_aggregate: mb_views_nft_activities_rollup_aggregate;
+  mb_views_nft_activities_rollup_aggregate_fields: mb_views_nft_activities_rollup_aggregate_fields;
+  mb_views_nft_activities_rollup_avg_fields: mb_views_nft_activities_rollup_avg_fields;
+  mb_views_nft_activities_rollup_bool_exp: mb_views_nft_activities_rollup_bool_exp;
+  mb_views_nft_activities_rollup_max_fields: mb_views_nft_activities_rollup_max_fields;
+  mb_views_nft_activities_rollup_min_fields: mb_views_nft_activities_rollup_min_fields;
+  mb_views_nft_activities_rollup_order_by: mb_views_nft_activities_rollup_order_by;
+  mb_views_nft_activities_rollup_stddev_fields: mb_views_nft_activities_rollup_stddev_fields;
+  mb_views_nft_activities_rollup_stddev_pop_fields: mb_views_nft_activities_rollup_stddev_pop_fields;
+  mb_views_nft_activities_rollup_stddev_samp_fields: mb_views_nft_activities_rollup_stddev_samp_fields;
+  mb_views_nft_activities_rollup_stream_cursor_input: mb_views_nft_activities_rollup_stream_cursor_input;
+  mb_views_nft_activities_rollup_stream_cursor_value_input: mb_views_nft_activities_rollup_stream_cursor_value_input;
+  mb_views_nft_activities_rollup_sum_fields: mb_views_nft_activities_rollup_sum_fields;
+  mb_views_nft_activities_rollup_var_pop_fields: mb_views_nft_activities_rollup_var_pop_fields;
+  mb_views_nft_activities_rollup_var_samp_fields: mb_views_nft_activities_rollup_var_samp_fields;
+  mb_views_nft_activities_rollup_variance_fields: mb_views_nft_activities_rollup_variance_fields;
   mb_views_nft_activities_stddev_fields: mb_views_nft_activities_stddev_fields;
   mb_views_nft_activities_stddev_pop_fields: mb_views_nft_activities_stddev_pop_fields;
   mb_views_nft_activities_stddev_samp_fields: mb_views_nft_activities_stddev_samp_fields;
@@ -8846,6 +9308,7 @@ export type ResolversParentTypes = ResolversObject<{
   nft_listings_var_samp_order_by: nft_listings_var_samp_order_by;
   nft_listings_variance_fields: nft_listings_variance_fields;
   nft_listings_variance_order_by: nft_listings_variance_order_by;
+  nft_metadata: nft_metadata;
   nft_metadata_aggregate: nft_metadata_aggregate;
   nft_metadata_aggregate_fields: nft_metadata_aggregate_fields;
   nft_metadata_bool_exp: nft_metadata_bool_exp;
@@ -8949,6 +9412,8 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   mb_views_auctions_with_offer_aggregate?: Resolver<ResolversTypes['mb_views_auctions_with_offer_aggregate'], ParentType, ContextType, Partial<Querymb_views_auctions_with_offer_aggregateArgs>>;
   mb_views_nft_activities?: Resolver<Array<ResolversTypes['mb_views_nft_activities']>, ParentType, ContextType, Partial<Querymb_views_nft_activitiesArgs>>;
   mb_views_nft_activities_aggregate?: Resolver<ResolversTypes['mb_views_nft_activities_aggregate'], ParentType, ContextType, Partial<Querymb_views_nft_activities_aggregateArgs>>;
+  mb_views_nft_activities_rollup?: Resolver<Array<ResolversTypes['mb_views_nft_activities_rollup']>, ParentType, ContextType, Partial<Querymb_views_nft_activities_rollupArgs>>;
+  mb_views_nft_activities_rollup_aggregate?: Resolver<ResolversTypes['mb_views_nft_activities_rollup_aggregate'], ParentType, ContextType, Partial<Querymb_views_nft_activities_rollup_aggregateArgs>>;
   mb_views_nft_metadata?: Resolver<Array<ResolversTypes['mb_views_nft_metadata']>, ParentType, ContextType, Partial<Querymb_views_nft_metadataArgs>>;
   mb_views_nft_metadata_aggregate?: Resolver<ResolversTypes['mb_views_nft_metadata_aggregate'], ParentType, ContextType, Partial<Querymb_views_nft_metadata_aggregateArgs>>;
   mb_views_nft_metadata_unburned?: Resolver<Array<ResolversTypes['mb_views_nft_metadata_unburned']>, ParentType, ContextType, Partial<Querymb_views_nft_metadata_unburnedArgs>>;
@@ -8978,9 +9443,9 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   nft_listings?: Resolver<Array<ResolversTypes['nft_listings']>, ParentType, ContextType, Partial<Querynft_listingsArgs>>;
   nft_listings_aggregate?: Resolver<ResolversTypes['nft_listings_aggregate'], ParentType, ContextType, Partial<Querynft_listings_aggregateArgs>>;
   nft_listings_by_pk?: Resolver<Maybe<ResolversTypes['nft_listings']>, ParentType, ContextType, RequireFields<Querynft_listings_by_pkArgs, 'approval_id' | 'market_id' | 'nft_contract_id' | 'token_id'>>;
-  nft_metadata?: Resolver<Array<ResolversTypes['Thing']>, ParentType, ContextType, Partial<Querynft_metadataArgs>>;
+  nft_metadata?: Resolver<Array<ResolversTypes['nft_metadata']>, ParentType, ContextType, Partial<Querynft_metadataArgs>>;
   nft_metadata_aggregate?: Resolver<ResolversTypes['nft_metadata_aggregate'], ParentType, ContextType, Partial<Querynft_metadata_aggregateArgs>>;
-  nft_metadata_by_pk?: Resolver<Maybe<ResolversTypes['Thing']>, ParentType, ContextType, RequireFields<Querynft_metadata_by_pkArgs, 'id'>>;
+  nft_metadata_by_pk?: Resolver<Maybe<ResolversTypes['nft_metadata']>, ParentType, ContextType, RequireFields<Querynft_metadata_by_pkArgs, 'id'>>;
   nft_offers?: Resolver<Array<ResolversTypes['nft_offers']>, ParentType, ContextType, Partial<Querynft_offersArgs>>;
   nft_offers_aggregate?: Resolver<ResolversTypes['nft_offers_aggregate'], ParentType, ContextType, Partial<Querynft_offers_aggregateArgs>>;
   nft_offers_by_pk?: Resolver<Maybe<ResolversTypes['nft_offers']>, ParentType, ContextType, RequireFields<Querynft_offers_by_pkArgs, 'approval_id' | 'market_id' | 'nft_contract_id' | 'offer_id' | 'token_id'>>;
@@ -9083,18 +9548,7 @@ export type ThingResolvers<ContextType = MeshContext, ParentType extends Resolve
   privacyType?: Resolver<Maybe<ResolversTypes['PrivacyType']>, ParentType, ContextType>;
   tags?: Resolver<ResolversTypes['TagsConnection'], ParentType, ContextType, RequireFields<ThingtagsArgs, 'orderBy'>>;
   characteristics?: Resolver<ResolversTypes['CharacteristicsConnection'], ParentType, ContextType, RequireFields<ThingcharacteristicsArgs, 'orderBy'>>;
-  base_uri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  nft_contract?: Resolver<Maybe<ResolversTypes['nft_contracts']>, ParentType, ContextType>;
-  nft_contract_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  nft_contracts?: Resolver<Maybe<ResolversTypes['nft_contracts']>, ParentType, ContextType>;
-  reference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  reference_blob?: Resolver<Maybe<ResolversTypes['jsonb']>, ParentType, ContextType, Partial<Thingreference_blobArgs>>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  nft?: Resolver<Maybe<ResolversTypes['mb_views_nft_tokens']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -9280,6 +9734,9 @@ export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends 
   mb_views_auctions_with_offer_stream?: SubscriptionResolver<Array<ResolversTypes['mb_views_auctions_with_offer']>, "mb_views_auctions_with_offer_stream", ParentType, ContextType, RequireFields<Subscriptionmb_views_auctions_with_offer_streamArgs, 'batch_size' | 'cursor'>>;
   mb_views_nft_activities?: SubscriptionResolver<Array<ResolversTypes['mb_views_nft_activities']>, "mb_views_nft_activities", ParentType, ContextType, Partial<Subscriptionmb_views_nft_activitiesArgs>>;
   mb_views_nft_activities_aggregate?: SubscriptionResolver<ResolversTypes['mb_views_nft_activities_aggregate'], "mb_views_nft_activities_aggregate", ParentType, ContextType, Partial<Subscriptionmb_views_nft_activities_aggregateArgs>>;
+  mb_views_nft_activities_rollup?: SubscriptionResolver<Array<ResolversTypes['mb_views_nft_activities_rollup']>, "mb_views_nft_activities_rollup", ParentType, ContextType, Partial<Subscriptionmb_views_nft_activities_rollupArgs>>;
+  mb_views_nft_activities_rollup_aggregate?: SubscriptionResolver<ResolversTypes['mb_views_nft_activities_rollup_aggregate'], "mb_views_nft_activities_rollup_aggregate", ParentType, ContextType, Partial<Subscriptionmb_views_nft_activities_rollup_aggregateArgs>>;
+  mb_views_nft_activities_rollup_stream?: SubscriptionResolver<Array<ResolversTypes['mb_views_nft_activities_rollup']>, "mb_views_nft_activities_rollup_stream", ParentType, ContextType, RequireFields<Subscriptionmb_views_nft_activities_rollup_streamArgs, 'batch_size' | 'cursor'>>;
   mb_views_nft_activities_stream?: SubscriptionResolver<Array<ResolversTypes['mb_views_nft_activities']>, "mb_views_nft_activities_stream", ParentType, ContextType, RequireFields<Subscriptionmb_views_nft_activities_streamArgs, 'batch_size' | 'cursor'>>;
   mb_views_nft_metadata?: SubscriptionResolver<Array<ResolversTypes['mb_views_nft_metadata']>, "mb_views_nft_metadata", ParentType, ContextType, Partial<Subscriptionmb_views_nft_metadataArgs>>;
   mb_views_nft_metadata_aggregate?: SubscriptionResolver<ResolversTypes['mb_views_nft_metadata_aggregate'], "mb_views_nft_metadata_aggregate", ParentType, ContextType, Partial<Subscriptionmb_views_nft_metadata_aggregateArgs>>;
@@ -9322,10 +9779,10 @@ export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends 
   nft_listings_aggregate?: SubscriptionResolver<ResolversTypes['nft_listings_aggregate'], "nft_listings_aggregate", ParentType, ContextType, Partial<Subscriptionnft_listings_aggregateArgs>>;
   nft_listings_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['nft_listings']>, "nft_listings_by_pk", ParentType, ContextType, RequireFields<Subscriptionnft_listings_by_pkArgs, 'approval_id' | 'market_id' | 'nft_contract_id' | 'token_id'>>;
   nft_listings_stream?: SubscriptionResolver<Array<ResolversTypes['nft_listings']>, "nft_listings_stream", ParentType, ContextType, RequireFields<Subscriptionnft_listings_streamArgs, 'batch_size' | 'cursor'>>;
-  nft_metadata?: SubscriptionResolver<Array<ResolversTypes['Thing']>, "nft_metadata", ParentType, ContextType, Partial<Subscriptionnft_metadataArgs>>;
+  nft_metadata?: SubscriptionResolver<Array<ResolversTypes['nft_metadata']>, "nft_metadata", ParentType, ContextType, Partial<Subscriptionnft_metadataArgs>>;
   nft_metadata_aggregate?: SubscriptionResolver<ResolversTypes['nft_metadata_aggregate'], "nft_metadata_aggregate", ParentType, ContextType, Partial<Subscriptionnft_metadata_aggregateArgs>>;
-  nft_metadata_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['Thing']>, "nft_metadata_by_pk", ParentType, ContextType, RequireFields<Subscriptionnft_metadata_by_pkArgs, 'id'>>;
-  nft_metadata_stream?: SubscriptionResolver<Array<ResolversTypes['Thing']>, "nft_metadata_stream", ParentType, ContextType, RequireFields<Subscriptionnft_metadata_streamArgs, 'batch_size' | 'cursor'>>;
+  nft_metadata_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['nft_metadata']>, "nft_metadata_by_pk", ParentType, ContextType, RequireFields<Subscriptionnft_metadata_by_pkArgs, 'id'>>;
+  nft_metadata_stream?: SubscriptionResolver<Array<ResolversTypes['nft_metadata']>, "nft_metadata_stream", ParentType, ContextType, RequireFields<Subscriptionnft_metadata_streamArgs, 'batch_size' | 'cursor'>>;
   nft_offers?: SubscriptionResolver<Array<ResolversTypes['nft_offers']>, "nft_offers", ParentType, ContextType, Partial<Subscriptionnft_offersArgs>>;
   nft_offers_aggregate?: SubscriptionResolver<ResolversTypes['nft_offers_aggregate'], "nft_offers_aggregate", ParentType, ContextType, Partial<Subscriptionnft_offers_aggregateArgs>>;
   nft_offers_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['nft_offers']>, "nft_offers_by_pk", ParentType, ContextType, RequireFields<Subscriptionnft_offers_by_pkArgs, 'approval_id' | 'market_id' | 'nft_contract_id' | 'offer_id' | 'token_id'>>;
@@ -9335,6 +9792,10 @@ export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends 
   nft_tokens_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['nft_tokens']>, "nft_tokens_by_pk", ParentType, ContextType, RequireFields<Subscriptionnft_tokens_by_pkArgs, 'nft_contract_id' | 'token_id'>>;
   nft_tokens_stream?: SubscriptionResolver<Array<ResolversTypes['nft_tokens']>, "nft_tokens_stream", ParentType, ContextType, RequireFields<Subscriptionnft_tokens_streamArgs, 'batch_size' | 'cursor'>>;
 }>;
+
+export interface _textScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['_text'], any> {
+  name: '_text';
+}
 
 export interface bigintScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['bigint'], any> {
   name: 'bigint';
@@ -9927,11 +10388,13 @@ export type mb_views_nft_activitiesResolvers<ContextType = MeshContext, ParentTy
   action_receiver?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   action_sender?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  copies?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   kind?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metadata_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   nft_contract?: Resolver<Maybe<ResolversTypes['nft_contracts']>, ParentType, ContextType>;
   nft_contract_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
@@ -9968,6 +10431,7 @@ export type mb_views_nft_activities_aggregate_fieldsResolvers<ContextType = Mesh
 }>;
 
 export type mb_views_nft_activities_avg_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_avg_fields'] = ResolversParentTypes['mb_views_nft_activities_avg_fields']> = ResolversObject<{
+  copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -9976,11 +10440,13 @@ export type mb_views_nft_activities_max_fieldsResolvers<ContextType = MeshContex
   action_receiver?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   action_sender?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  copies?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   kind?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metadata_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   nft_contract_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
   receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -9997,11 +10463,13 @@ export type mb_views_nft_activities_min_fieldsResolvers<ContextType = MeshContex
   action_receiver?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   action_sender?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  copies?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   kind?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metadata_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   nft_contract_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
   receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -10014,37 +10482,179 @@ export type mb_views_nft_activities_min_fieldsResolvers<ContextType = MeshContex
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type mb_views_nft_activities_rollupResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup'] = ResolversParentTypes['mb_views_nft_activities_rollup']> = ResolversObject<{
+  action_receiver?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  action_sender?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  kind?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metadata_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  nft_contract?: Resolver<Maybe<ResolversTypes['nft_contracts']>, ParentType, ContextType>;
+  nft_contract_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  reference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  reference_blob?: Resolver<Maybe<ResolversTypes['jsonb']>, ParentType, ContextType, Partial<mb_views_nft_activities_rollupreference_blobArgs>>;
+  timestamp?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  token_ids?: Resolver<Maybe<ResolversTypes['_text']>, ParentType, ContextType>;
+  tx_sender?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_aggregateResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_aggregate'] = ResolversParentTypes['mb_views_nft_activities_rollup_aggregate']> = ResolversObject<{
+  aggregate?: Resolver<Maybe<ResolversTypes['mb_views_nft_activities_rollup_aggregate_fields']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['mb_views_nft_activities_rollup']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_aggregate_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_aggregate_fields'] = ResolversParentTypes['mb_views_nft_activities_rollup_aggregate_fields']> = ResolversObject<{
+  avg?: Resolver<Maybe<ResolversTypes['mb_views_nft_activities_rollup_avg_fields']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType, Partial<mb_views_nft_activities_rollup_aggregate_fieldscountArgs>>;
+  max?: Resolver<Maybe<ResolversTypes['mb_views_nft_activities_rollup_max_fields']>, ParentType, ContextType>;
+  min?: Resolver<Maybe<ResolversTypes['mb_views_nft_activities_rollup_min_fields']>, ParentType, ContextType>;
+  stddev?: Resolver<Maybe<ResolversTypes['mb_views_nft_activities_rollup_stddev_fields']>, ParentType, ContextType>;
+  stddev_pop?: Resolver<Maybe<ResolversTypes['mb_views_nft_activities_rollup_stddev_pop_fields']>, ParentType, ContextType>;
+  stddev_samp?: Resolver<Maybe<ResolversTypes['mb_views_nft_activities_rollup_stddev_samp_fields']>, ParentType, ContextType>;
+  sum?: Resolver<Maybe<ResolversTypes['mb_views_nft_activities_rollup_sum_fields']>, ParentType, ContextType>;
+  var_pop?: Resolver<Maybe<ResolversTypes['mb_views_nft_activities_rollup_var_pop_fields']>, ParentType, ContextType>;
+  var_samp?: Resolver<Maybe<ResolversTypes['mb_views_nft_activities_rollup_var_samp_fields']>, ParentType, ContextType>;
+  variance?: Resolver<Maybe<ResolversTypes['mb_views_nft_activities_rollup_variance_fields']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_avg_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_avg_fields'] = ResolversParentTypes['mb_views_nft_activities_rollup_avg_fields']> = ResolversObject<{
+  count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_max_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_max_fields'] = ResolversParentTypes['mb_views_nft_activities_rollup_max_fields']> = ResolversObject<{
+  action_receiver?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  action_sender?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  kind?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metadata_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  nft_contract_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  reference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  timestamp?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  tx_sender?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_min_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_min_fields'] = ResolversParentTypes['mb_views_nft_activities_rollup_min_fields']> = ResolversObject<{
+  action_receiver?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  action_sender?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  count?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  kind?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metadata_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  nft_contract_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  reference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  timestamp?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  tx_sender?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_stddev_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_stddev_fields'] = ResolversParentTypes['mb_views_nft_activities_rollup_stddev_fields']> = ResolversObject<{
+  count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_stddev_pop_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_stddev_pop_fields'] = ResolversParentTypes['mb_views_nft_activities_rollup_stddev_pop_fields']> = ResolversObject<{
+  count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_stddev_samp_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_stddev_samp_fields'] = ResolversParentTypes['mb_views_nft_activities_rollup_stddev_samp_fields']> = ResolversObject<{
+  count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_sum_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_sum_fields'] = ResolversParentTypes['mb_views_nft_activities_rollup_sum_fields']> = ResolversObject<{
+  count?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_var_pop_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_var_pop_fields'] = ResolversParentTypes['mb_views_nft_activities_rollup_var_pop_fields']> = ResolversObject<{
+  count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_var_samp_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_var_samp_fields'] = ResolversParentTypes['mb_views_nft_activities_rollup_var_samp_fields']> = ResolversObject<{
+  count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type mb_views_nft_activities_rollup_variance_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_rollup_variance_fields'] = ResolversParentTypes['mb_views_nft_activities_rollup_variance_fields']> = ResolversObject<{
+  count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type mb_views_nft_activities_stddev_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_stddev_fields'] = ResolversParentTypes['mb_views_nft_activities_stddev_fields']> = ResolversObject<{
+  copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_activities_stddev_pop_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_stddev_pop_fields'] = ResolversParentTypes['mb_views_nft_activities_stddev_pop_fields']> = ResolversObject<{
+  copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_activities_stddev_samp_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_stddev_samp_fields'] = ResolversParentTypes['mb_views_nft_activities_stddev_samp_fields']> = ResolversObject<{
+  copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_activities_sum_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_sum_fields'] = ResolversParentTypes['mb_views_nft_activities_sum_fields']> = ResolversObject<{
+  copies?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_activities_var_pop_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_var_pop_fields'] = ResolversParentTypes['mb_views_nft_activities_var_pop_fields']> = ResolversObject<{
+  copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_activities_var_samp_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_var_samp_fields'] = ResolversParentTypes['mb_views_nft_activities_var_samp_fields']> = ResolversObject<{
+  copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_activities_variance_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_activities_variance_fields'] = ResolversParentTypes['mb_views_nft_activities_variance_fields']> = ResolversObject<{
+  copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -10238,14 +10848,18 @@ export type mb_views_nft_owned_tokensResolvers<ContextType = MeshContext, Parent
   burned_receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   burned_timestamp?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
   copies?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
+  currency?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   expires_at?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
   extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   issued_at?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
   last_transfer_receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   last_transfer_timestamp?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
+  listing_approval_id?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  listing_kind?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   listings?: Resolver<Array<ResolversTypes['nft_listings']>, ParentType, ContextType, Partial<mb_views_nft_owned_tokenslistingsArgs>>;
   listings_aggregate?: Resolver<ResolversTypes['nft_listings_aggregate'], ParentType, ContextType, Partial<mb_views_nft_owned_tokenslistings_aggregateArgs>>;
+  market_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   metadata_content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -10264,6 +10878,7 @@ export type mb_views_nft_owned_tokensResolvers<ContextType = MeshContext, Parent
   nft_contract_spec?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   nft_contract_symbol?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   owner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
   reference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   reference_blob?: Resolver<Maybe<ResolversTypes['jsonb']>, ParentType, ContextType, Partial<mb_views_nft_owned_tokensreference_blobArgs>>;
   reference_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -10300,6 +10915,8 @@ export type mb_views_nft_owned_tokens_aggregate_fieldsResolvers<ContextType = Me
 
 export type mb_views_nft_owned_tokens_avg_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_owned_tokens_avg_fields'] = ResolversParentTypes['mb_views_nft_owned_tokens_avg_fields']> = ResolversObject<{
   copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  listing_approval_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   royalties_percent?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -10309,12 +10926,16 @@ export type mb_views_nft_owned_tokens_max_fieldsResolvers<ContextType = MeshCont
   burned_receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   burned_timestamp?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
   copies?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
+  currency?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   expires_at?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
   extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   issued_at?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
   last_transfer_receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   last_transfer_timestamp?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
+  listing_approval_id?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  listing_kind?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  market_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   metadata_content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -10332,6 +10953,7 @@ export type mb_views_nft_owned_tokens_max_fieldsResolvers<ContextType = MeshCont
   nft_contract_spec?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   nft_contract_symbol?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   owner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
   reference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   reference_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   royalties_percent?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -10347,12 +10969,16 @@ export type mb_views_nft_owned_tokens_min_fieldsResolvers<ContextType = MeshCont
   burned_receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   burned_timestamp?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
   copies?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
+  currency?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   expires_at?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
   extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   issued_at?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
   last_transfer_receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   last_transfer_timestamp?: Resolver<Maybe<ResolversTypes['timestamp']>, ParentType, ContextType>;
+  listing_approval_id?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  listing_kind?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  market_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   metadata_content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -10370,6 +10996,7 @@ export type mb_views_nft_owned_tokens_min_fieldsResolvers<ContextType = MeshCont
   nft_contract_spec?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   nft_contract_symbol?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   owner?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
   reference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   reference_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   royalties_percent?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -10382,42 +11009,56 @@ export type mb_views_nft_owned_tokens_min_fieldsResolvers<ContextType = MeshCont
 
 export type mb_views_nft_owned_tokens_stddev_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_owned_tokens_stddev_fields'] = ResolversParentTypes['mb_views_nft_owned_tokens_stddev_fields']> = ResolversObject<{
   copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  listing_approval_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   royalties_percent?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_owned_tokens_stddev_pop_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_owned_tokens_stddev_pop_fields'] = ResolversParentTypes['mb_views_nft_owned_tokens_stddev_pop_fields']> = ResolversObject<{
   copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  listing_approval_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   royalties_percent?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_owned_tokens_stddev_samp_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_owned_tokens_stddev_samp_fields'] = ResolversParentTypes['mb_views_nft_owned_tokens_stddev_samp_fields']> = ResolversObject<{
   copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  listing_approval_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   royalties_percent?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_owned_tokens_sum_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_owned_tokens_sum_fields'] = ResolversParentTypes['mb_views_nft_owned_tokens_sum_fields']> = ResolversObject<{
   copies?: Resolver<Maybe<ResolversTypes['bigint']>, ParentType, ContextType>;
+  listing_approval_id?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
   royalties_percent?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_owned_tokens_var_pop_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_owned_tokens_var_pop_fields'] = ResolversParentTypes['mb_views_nft_owned_tokens_var_pop_fields']> = ResolversObject<{
   copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  listing_approval_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   royalties_percent?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_owned_tokens_var_samp_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_owned_tokens_var_samp_fields'] = ResolversParentTypes['mb_views_nft_owned_tokens_var_samp_fields']> = ResolversObject<{
   copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  listing_approval_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   royalties_percent?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_nft_owned_tokens_variance_fieldsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_nft_owned_tokens_variance_fields'] = ResolversParentTypes['mb_views_nft_owned_tokens_variance_fields']> = ResolversObject<{
   copies?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  listing_approval_id?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   royalties_percent?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -11095,7 +11736,7 @@ export type nft_attributesResolvers<ContextType = MeshContext, ParentType extend
   attribute_display_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   attribute_type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   attribute_value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  metadata?: Resolver<Maybe<ResolversTypes['Thing']>, ParentType, ContextType>;
+  metadata?: Resolver<Maybe<ResolversTypes['nft_metadata']>, ParentType, ContextType>;
   nft_contract_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   nft_metadata_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -11459,9 +12100,26 @@ export type nft_listings_variance_fieldsResolvers<ContextType = MeshContext, Par
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type nft_metadataResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['nft_metadata'] = ResolversParentTypes['nft_metadata']> = ResolversObject<{
+  base_uri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  nft_contract?: Resolver<Maybe<ResolversTypes['nft_contracts']>, ParentType, ContextType>;
+  nft_contract_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  nft_contracts?: Resolver<Maybe<ResolversTypes['nft_contracts']>, ParentType, ContextType>;
+  reference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  reference_blob?: Resolver<Maybe<ResolversTypes['jsonb']>, ParentType, ContextType, Partial<nft_metadatareference_blobArgs>>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type nft_metadata_aggregateResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['nft_metadata_aggregate'] = ResolversParentTypes['nft_metadata_aggregate']> = ResolversObject<{
   aggregate?: Resolver<Maybe<ResolversTypes['nft_metadata_aggregate_fields']>, ParentType, ContextType>;
-  nodes?: Resolver<Array<ResolversTypes['Thing']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['nft_metadata']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -11850,6 +12508,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   CreateAttributePayload?: CreateAttributePayloadResolvers<ContextType>;
   ProposeOptionPayload?: ProposeOptionPayloadResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
+  _text?: GraphQLScalarType;
   bigint?: GraphQLScalarType;
   blocks?: blocksResolvers<ContextType>;
   blocks_aggregate?: blocks_aggregateResolvers<ContextType>;
@@ -11915,6 +12574,19 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   mb_views_nft_activities_avg_fields?: mb_views_nft_activities_avg_fieldsResolvers<ContextType>;
   mb_views_nft_activities_max_fields?: mb_views_nft_activities_max_fieldsResolvers<ContextType>;
   mb_views_nft_activities_min_fields?: mb_views_nft_activities_min_fieldsResolvers<ContextType>;
+  mb_views_nft_activities_rollup?: mb_views_nft_activities_rollupResolvers<ContextType>;
+  mb_views_nft_activities_rollup_aggregate?: mb_views_nft_activities_rollup_aggregateResolvers<ContextType>;
+  mb_views_nft_activities_rollup_aggregate_fields?: mb_views_nft_activities_rollup_aggregate_fieldsResolvers<ContextType>;
+  mb_views_nft_activities_rollup_avg_fields?: mb_views_nft_activities_rollup_avg_fieldsResolvers<ContextType>;
+  mb_views_nft_activities_rollup_max_fields?: mb_views_nft_activities_rollup_max_fieldsResolvers<ContextType>;
+  mb_views_nft_activities_rollup_min_fields?: mb_views_nft_activities_rollup_min_fieldsResolvers<ContextType>;
+  mb_views_nft_activities_rollup_stddev_fields?: mb_views_nft_activities_rollup_stddev_fieldsResolvers<ContextType>;
+  mb_views_nft_activities_rollup_stddev_pop_fields?: mb_views_nft_activities_rollup_stddev_pop_fieldsResolvers<ContextType>;
+  mb_views_nft_activities_rollup_stddev_samp_fields?: mb_views_nft_activities_rollup_stddev_samp_fieldsResolvers<ContextType>;
+  mb_views_nft_activities_rollup_sum_fields?: mb_views_nft_activities_rollup_sum_fieldsResolvers<ContextType>;
+  mb_views_nft_activities_rollup_var_pop_fields?: mb_views_nft_activities_rollup_var_pop_fieldsResolvers<ContextType>;
+  mb_views_nft_activities_rollup_var_samp_fields?: mb_views_nft_activities_rollup_var_samp_fieldsResolvers<ContextType>;
+  mb_views_nft_activities_rollup_variance_fields?: mb_views_nft_activities_rollup_variance_fieldsResolvers<ContextType>;
   mb_views_nft_activities_stddev_fields?: mb_views_nft_activities_stddev_fieldsResolvers<ContextType>;
   mb_views_nft_activities_stddev_pop_fields?: mb_views_nft_activities_stddev_pop_fieldsResolvers<ContextType>;
   mb_views_nft_activities_stddev_samp_fields?: mb_views_nft_activities_stddev_samp_fieldsResolvers<ContextType>;
@@ -12054,6 +12726,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   nft_listings_var_pop_fields?: nft_listings_var_pop_fieldsResolvers<ContextType>;
   nft_listings_var_samp_fields?: nft_listings_var_samp_fieldsResolvers<ContextType>;
   nft_listings_variance_fields?: nft_listings_variance_fieldsResolvers<ContextType>;
+  nft_metadata?: nft_metadataResolvers<ContextType>;
   nft_metadata_aggregate?: nft_metadata_aggregateResolvers<ContextType>;
   nft_metadata_aggregate_fields?: nft_metadata_aggregate_fieldsResolvers<ContextType>;
   nft_metadata_max_fields?: nft_metadata_max_fieldsResolvers<ContextType>;
@@ -12130,7 +12803,7 @@ export function createBuiltMeshHTTPHandler(): MeshHTTPHandler<MeshContext> {
   return createMeshHTTPHandler<MeshContext>({
     baseDir,
     getBuiltMesh: getBuiltMesh,
-    rawServeConfig: undefined,
+    rawServeConfig: {"browser":false,"cors":{"origin":"http://localhost:3050/"}},
   })
 }
 
