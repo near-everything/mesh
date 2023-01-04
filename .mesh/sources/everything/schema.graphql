@@ -137,7 +137,7 @@ type Query {
     """
     condition: TagCondition
   ): TagsConnection
-  """Reads and enables pagination through a set of `Thing`."""
+  """A list of `Thing` objects."""
   things(
     """Only read the first `n` values of the set."""
     first: Int
@@ -158,7 +158,7 @@ type Query {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: ThingCondition
-  ): ThingsConnection
+  ): [Thing!]!
   """Reads and enables pagination through a set of `User`."""
   users(
     """Only read the first `n` values of the set."""
@@ -451,7 +451,7 @@ type Thing {
   ownerId: String!
   metadata: JSON
   privacyType: PrivacyType
-  """Reads and enables pagination through a set of `Tag`."""
+  """A list of `Tag` objects."""
   tags(
     """Only read the first `n` values of the set."""
     first: Int
@@ -472,7 +472,7 @@ type Thing {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: TagCondition
-  ): TagsConnection!
+  ): [Tag!]!
   """Reads and enables pagination through a set of `Characteristic`."""
   characteristics(
     """Only read the first `n` values of the set."""
@@ -531,8 +531,6 @@ input TagCondition {
 
 """A connection to a list of `Tag` values."""
 type TagsConnection {
-  """A list of `Tag` objects."""
-  nodes: [Tag!]!
   """
   A list of edges which contains the `Tag` and cursor to aid in pagination.
   """
@@ -733,8 +731,6 @@ input ThingCondition {
 
 """A connection to a list of `Thing` values."""
 type ThingsConnection {
-  """A list of `Thing` objects."""
-  nodes: [Thing!]!
   """
   A list of edges which contains the `Thing` and cursor to aid in pagination.
   """

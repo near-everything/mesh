@@ -35,8 +35,8 @@ export type Query = {
   relationships?: Maybe<RelationshipsConnection>;
   /** Reads and enables pagination through a set of `Tag`. */
   tags?: Maybe<TagsConnection>;
-  /** Reads and enables pagination through a set of `Thing`. */
-  things?: Maybe<ThingsConnection>;
+  /** A list of `Thing` objects. */
+  things: Array<Thing>;
   /** Reads and enables pagination through a set of `User`. */
   users?: Maybe<UsersConnection>;
   attribute?: Maybe<Attribute>;
@@ -421,8 +421,8 @@ export type Thing = {
   ownerId: Scalars['String'];
   metadata?: Maybe<Scalars['JSON']>;
   privacyType?: Maybe<PrivacyType>;
-  /** Reads and enables pagination through a set of `Tag`. */
-  tags: TagsConnection;
+  /** A list of `Tag` objects. */
+  tags: Array<Tag>;
   /** Reads and enables pagination through a set of `Characteristic`. */
   characteristics: CharacteristicsConnection;
 };
@@ -474,8 +474,6 @@ export type TagCondition = {
 
 /** A connection to a list of `Tag` values. */
 export type TagsConnection = {
-  /** A list of `Tag` objects. */
-  nodes: Array<Tag>;
   /** A list of edges which contains the `Tag` and cursor to aid in pagination. */
   edges: Array<TagsEdge>;
   /** Information to aid in pagination. */
@@ -652,8 +650,6 @@ export type ThingCondition = {
 
 /** A connection to a list of `Thing` values. */
 export type ThingsConnection = {
-  /** A list of `Thing` objects. */
-  nodes: Array<Thing>;
   /** A list of edges which contains the `Thing` and cursor to aid in pagination. */
   edges: Array<ThingsEdge>;
   /** Information to aid in pagination. */
@@ -834,7 +830,7 @@ export type ProposeOptionPayload = {
   relationships: InContextSdkMethod<Query['relationships'], QueryrelationshipsArgs, MeshContext>,
   /** Reads and enables pagination through a set of `Tag`. **/
   tags: InContextSdkMethod<Query['tags'], QuerytagsArgs, MeshContext>,
-  /** Reads and enables pagination through a set of `Thing`. **/
+  /** A list of `Thing` objects. **/
   things: InContextSdkMethod<Query['things'], QuerythingsArgs, MeshContext>,
   /** Reads and enables pagination through a set of `User`. **/
   users: InContextSdkMethod<Query['users'], QueryusersArgs, MeshContext>,

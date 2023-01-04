@@ -369,7 +369,7 @@ input mb_store_minters_stream_cursor_value_input {
 """
 columns and relationships of "mb_views.active_listings"
 """
-type mb_views_active_listings {
+type Listing {
   approval_id: numeric
   base_uri: String
   content_flag: String
@@ -428,7 +428,7 @@ aggregated selection of "mb_views.active_listings"
 """
 type mb_views_active_listings_aggregate {
   aggregate: mb_views_active_listings_aggregate_fields
-  nodes: [mb_views_active_listings!]!
+  nodes: [Listing!]!
 }
 
 input mb_views_active_listings_aggregate_bool_exp {
@@ -2078,7 +2078,7 @@ type mb_views_nft_metadata {
     order_by: [mb_views_active_listings_order_by!]
     """filter the rows returned"""
     where: mb_views_active_listings_bool_exp
-  ): [mb_views_active_listings!]!
+  ): [Listing!]!
   """An aggregate relationship"""
   listings_aggregate(
     """distinct select on columns"""
@@ -6465,7 +6465,7 @@ type query_root {
     order_by: [mb_views_active_listings_order_by!]
     """filter the rows returned"""
     where: mb_views_active_listings_bool_exp
-  ): [mb_views_active_listings!]!
+  ): [Listing!]!
   """
   fetch aggregated fields from the table: "mb_views.active_listings"
   """
@@ -7168,7 +7168,7 @@ type subscription_root {
     order_by: [mb_views_active_listings_order_by!]
     """filter the rows returned"""
     where: mb_views_active_listings_bool_exp
-  ): [mb_views_active_listings!]!
+  ): [Listing!]!
   """
   fetch aggregated fields from the table: "mb_views.active_listings"
   """
@@ -7235,7 +7235,7 @@ type subscription_root {
     cursor: [mb_views_active_listings_stream_cursor_input]!
     """filter the rows returned"""
     where: mb_views_active_listings_bool_exp
-  ): [mb_views_active_listings!]!
+  ): [Listing!]!
   """
   fetch data from the table: "mb_views.auctions_with_offer"
   """

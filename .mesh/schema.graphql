@@ -145,7 +145,7 @@ type Query {
     """
     condition: TagCondition
   ): TagsConnection
-  """Reads and enables pagination through a set of `Thing`."""
+  """A list of `Thing` objects."""
   things(
     """Only read the first `n` values of the set."""
     first: Int
@@ -166,7 +166,7 @@ type Query {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: ThingCondition
-  ): ThingsConnection
+  ): [Thing!]!
   """Reads and enables pagination through a set of `User`."""
   users(
     """Only read the first `n` values of the set."""
@@ -280,7 +280,7 @@ type Query {
     order_by: [mb_views_active_listings_order_by!]
     """filter the rows returned"""
     where: mb_views_active_listings_bool_exp
-  ): [mb_views_active_listings!]!
+  ): [Listing!]!
   """
   fetch aggregated fields from the table: "mb_views.active_listings"
   """
@@ -880,6 +880,8 @@ type Query {
   nft_tokens_by_pk(nft_contract_id: String!, token_id: String!): nft_tokens
   """The authentication information of the request."""
   authInfo: AuthenticationInfo
+  listings: [Listing]
+  listingsByLister(listerId: String!): [Listing]
 }
 
 """
@@ -1175,7 +1177,7 @@ type Thing {
   ownerId: String!
   metadata: JSON
   privacyType: PrivacyType
-  """Reads and enables pagination through a set of `Tag`."""
+  """A list of `Tag` objects."""
   tags(
     """Only read the first `n` values of the set."""
     first: Int
@@ -1196,7 +1198,7 @@ type Thing {
     A condition to be used in determining which values should be returned by the collection.
     """
     condition: TagCondition
-  ): TagsConnection!
+  ): [Tag!]!
   """Reads and enables pagination through a set of `Characteristic`."""
   characteristics(
     """Only read the first `n` values of the set."""
@@ -1256,8 +1258,6 @@ input TagCondition {
 
 """A connection to a list of `Tag` values."""
 type TagsConnection {
-  """A list of `Tag` objects."""
-  nodes: [Tag!]!
   """
   A list of edges which contains the `Tag` and cursor to aid in pagination.
   """
@@ -1458,8 +1458,6 @@ input ThingCondition {
 
 """A connection to a list of `Thing` values."""
 type ThingsConnection {
-  """A list of `Thing` objects."""
-  nodes: [Thing!]!
   """
   A list of edges which contains the `Thing` and cursor to aid in pagination.
   """
@@ -1698,7 +1696,7 @@ type Subscription {
     order_by: [mb_views_active_listings_order_by!]
     """filter the rows returned"""
     where: mb_views_active_listings_bool_exp
-  ): [mb_views_active_listings!]!
+  ): [Listing!]!
   """
   fetch aggregated fields from the table: "mb_views.active_listings"
   """
@@ -1765,7 +1763,7 @@ type Subscription {
     cursor: [mb_views_active_listings_stream_cursor_input]!
     """filter the rows returned"""
     where: mb_views_active_listings_bool_exp
-  ): [mb_views_active_listings!]!
+  ): [Listing!]!
   """
   fetch data from the table: "mb_views.auctions_with_offer"
   """
@@ -2876,7 +2874,7 @@ input mb_store_minters_stream_cursor_value_input {
 """
 columns and relationships of "mb_views.active_listings"
 """
-type mb_views_active_listings {
+type Listing {
   approval_id: numeric
   base_uri: String
   content_flag: String
@@ -2928,6 +2926,7 @@ type mb_views_active_listings {
   """An object relationship"""
   token: mb_views_nft_tokens
   token_id: String
+  thing: Thing
 }
 
 """
@@ -2935,7 +2934,7 @@ aggregated selection of "mb_views.active_listings"
 """
 type mb_views_active_listings_aggregate {
   aggregate: mb_views_active_listings_aggregate_fields
-  nodes: [mb_views_active_listings!]!
+  nodes: [Listing!]!
 }
 
 input mb_views_active_listings_aggregate_bool_exp {
@@ -4585,7 +4584,7 @@ type mb_views_nft_metadata {
     order_by: [mb_views_active_listings_order_by!]
     """filter the rows returned"""
     where: mb_views_active_listings_bool_exp
-  ): [mb_views_active_listings!]!
+  ): [Listing!]!
   """An aggregate relationship"""
   listings_aggregate(
     """distinct select on columns"""

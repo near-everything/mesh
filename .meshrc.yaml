@@ -3,10 +3,29 @@ sources:
     handler:
       graphql:
         endpoint: "http://localhost:4050/graphql"
+    transforms:
+      - hoist-field:
+          - typeName: Query
+            pathConfig:
+              - things
+              - nodes
+            newFieldName: things
+          - typeName: Thing
+            pathConfig:
+              - tags              
+              - nodes
+            newFieldName: tags
   - name: Mintbase
     handler:
       graphql:
         endpoint: "https://interop-testnet.hasura.app/v1/graphql"
+    transforms:
+      - rename:
+          renames:
+            - from:
+                type: mb_views_active_listings
+              to:
+                type: Listing
 
 additionalTypeDefs: |
   """
@@ -24,10 +43,16 @@ additionalTypeDefs: |
     The authentication information of the request.
     """
     authInfo: AuthenticationInfo
+    listings: [Listing]
+    listingsByLister(listerId: String!): [Listing]
   }
 
   extend type Thing {
     nft: mb_views_nft_tokens
+  }
+
+  extend type Listing {
+    thing: Thing
   }
 
 additionalResolvers:
@@ -40,5 +65,3 @@ plugins:
       preventUnauthorizedAccess: false
 serve:
   browser: false
-  cors:
-    origin: http://localhost:3050/

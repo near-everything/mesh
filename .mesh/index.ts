@@ -47,8 +47,8 @@ export type Query = {
   relationships?: Maybe<RelationshipsConnection>;
   /** Reads and enables pagination through a set of `Tag`. */
   tags?: Maybe<TagsConnection>;
-  /** Reads and enables pagination through a set of `Thing`. */
-  things?: Maybe<ThingsConnection>;
+  /** A list of `Thing` objects. */
+  things: Array<Thing>;
   /** Reads and enables pagination through a set of `User`. */
   users?: Maybe<UsersConnection>;
   attribute?: Maybe<Attribute>;
@@ -75,7 +75,7 @@ export type Query = {
   /** fetch data from the table: "mb_store_minters" using primary key columns */
   mb_store_minters_by_pk?: Maybe<mb_store_minters>;
   /** fetch data from the table: "mb_views.active_listings" */
-  mb_views_active_listings: Array<mb_views_active_listings>;
+  mb_views_active_listings: Array<Listing>;
   /** fetch aggregated fields from the table: "mb_views.active_listings" */
   mb_views_active_listings_aggregate: mb_views_active_listings_aggregate;
   /** fetch data from the table: "mb_views.active_listings_rollup" */
@@ -172,6 +172,8 @@ export type Query = {
   nft_tokens_by_pk?: Maybe<nft_tokens>;
   /** The authentication information of the request. */
   authInfo?: Maybe<AuthenticationInfo>;
+  listings?: Maybe<Array<Maybe<Listing>>>;
+  listingsByLister?: Maybe<Array<Maybe<Listing>>>;
 };
 
 
@@ -787,6 +789,11 @@ export type Querynft_tokens_by_pkArgs = {
   token_id: Scalars['String'];
 };
 
+
+export type QuerylistingsByListerArgs = {
+  listerId: Scalars['String'];
+};
+
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
   createThing?: Maybe<CreateThingPayload>;
@@ -1029,8 +1036,8 @@ export type Thing = {
   ownerId: Scalars['String'];
   metadata?: Maybe<Scalars['JSON']>;
   privacyType?: Maybe<PrivacyType>;
-  /** Reads and enables pagination through a set of `Tag`. */
-  tags: TagsConnection;
+  /** A list of `Tag` objects. */
+  tags: Array<Tag>;
   /** Reads and enables pagination through a set of `Characteristic`. */
   characteristics: CharacteristicsConnection;
   nft?: Maybe<mb_views_nft_tokens>;
@@ -1083,8 +1090,6 @@ export type TagCondition = {
 
 /** A connection to a list of `Tag` values. */
 export type TagsConnection = {
-  /** A list of `Tag` objects. */
-  nodes: Array<Tag>;
   /** A list of edges which contains the `Tag` and cursor to aid in pagination. */
   edges: Array<TagsEdge>;
   /** Information to aid in pagination. */
@@ -1261,8 +1266,6 @@ export type ThingCondition = {
 
 /** A connection to a list of `Thing` values. */
 export type ThingsConnection = {
-  /** A list of `Thing` objects. */
-  nodes: Array<Thing>;
   /** A list of edges which contains the `Thing` and cursor to aid in pagination. */
   edges: Array<ThingsEdge>;
   /** Information to aid in pagination. */
@@ -1409,7 +1412,7 @@ export type Subscription = {
   /** fetch data from the table in a streaming manner: "mb_store_minters" */
   mb_store_minters_stream: Array<mb_store_minters>;
   /** fetch data from the table: "mb_views.active_listings" */
-  mb_views_active_listings: Array<mb_views_active_listings>;
+  mb_views_active_listings: Array<Listing>;
   /** fetch aggregated fields from the table: "mb_views.active_listings" */
   mb_views_active_listings_aggregate: mb_views_active_listings_aggregate;
   /** fetch data from the table: "mb_views.active_listings_rollup" */
@@ -1419,7 +1422,7 @@ export type Subscription = {
   /** fetch data from the table in a streaming manner: "mb_views.active_listings_rollup" */
   mb_views_active_listings_rollup_stream: Array<mb_views_active_listings_rollup>;
   /** fetch data from the table in a streaming manner: "mb_views.active_listings" */
-  mb_views_active_listings_stream: Array<mb_views_active_listings>;
+  mb_views_active_listings_stream: Array<Listing>;
   /** fetch data from the table: "mb_views.auctions_with_offer" */
   mb_views_auctions_with_offer: Array<mb_views_auctions_with_offer>;
   /** fetch aggregated fields from the table: "mb_views.auctions_with_offer" */
@@ -2483,7 +2486,7 @@ export type mb_store_minters_stream_cursor_value_input = {
 };
 
 /** columns and relationships of "mb_views.active_listings" */
-export type mb_views_active_listings = {
+export type Listing = {
   approval_id?: Maybe<Scalars['numeric']>;
   base_uri?: Maybe<Scalars['String']>;
   content_flag?: Maybe<Scalars['String']>;
@@ -2510,11 +2513,12 @@ export type mb_views_active_listings = {
   /** An object relationship */
   token?: Maybe<mb_views_nft_tokens>;
   token_id?: Maybe<Scalars['String']>;
+  thing?: Maybe<Thing>;
 };
 
 
 /** columns and relationships of "mb_views.active_listings" */
-export type mb_views_active_listingsoffersArgs = {
+export type ListingoffersArgs = {
   distinct_on?: InputMaybe<Array<nft_offers_select_column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -2524,7 +2528,7 @@ export type mb_views_active_listingsoffersArgs = {
 
 
 /** columns and relationships of "mb_views.active_listings" */
-export type mb_views_active_listingsoffers_aggregateArgs = {
+export type Listingoffers_aggregateArgs = {
   distinct_on?: InputMaybe<Array<nft_offers_select_column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -2534,14 +2538,14 @@ export type mb_views_active_listingsoffers_aggregateArgs = {
 
 
 /** columns and relationships of "mb_views.active_listings" */
-export type mb_views_active_listingsreference_blobArgs = {
+export type Listingreference_blobArgs = {
   path?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregated selection of "mb_views.active_listings" */
 export type mb_views_active_listings_aggregate = {
   aggregate?: Maybe<mb_views_active_listings_aggregate_fields>;
-  nodes: Array<mb_views_active_listings>;
+  nodes: Array<Listing>;
 };
 
 export type mb_views_active_listings_aggregate_bool_exp = {
@@ -4136,7 +4140,7 @@ export type mb_views_nft_metadata = {
   extra?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   /** An array relationship */
-  listings: Array<mb_views_active_listings>;
+  listings: Array<Listing>;
   /** An aggregate relationship */
   listings_aggregate: mb_views_active_listings_aggregate;
   media?: Maybe<Scalars['String']>;
@@ -8549,7 +8553,7 @@ export type ResolversTypes = ResolversObject<{
   mb_store_minters_select_column: mb_store_minters_select_column;
   mb_store_minters_stream_cursor_input: mb_store_minters_stream_cursor_input;
   mb_store_minters_stream_cursor_value_input: mb_store_minters_stream_cursor_value_input;
-  mb_views_active_listings: ResolverTypeWrapper<mb_views_active_listings>;
+  Listing: ResolverTypeWrapper<Listing>;
   mb_views_active_listings_aggregate: ResolverTypeWrapper<mb_views_active_listings_aggregate>;
   mb_views_active_listings_aggregate_bool_exp: mb_views_active_listings_aggregate_bool_exp;
   mb_views_active_listings_aggregate_bool_exp_count: mb_views_active_listings_aggregate_bool_exp_count;
@@ -9017,7 +9021,7 @@ export type ResolversParentTypes = ResolversObject<{
   mb_store_minters_order_by: mb_store_minters_order_by;
   mb_store_minters_stream_cursor_input: mb_store_minters_stream_cursor_input;
   mb_store_minters_stream_cursor_value_input: mb_store_minters_stream_cursor_value_input;
-  mb_views_active_listings: mb_views_active_listings;
+  Listing: Listing;
   mb_views_active_listings_aggregate: mb_views_active_listings_aggregate;
   mb_views_active_listings_aggregate_bool_exp: mb_views_active_listings_aggregate_bool_exp;
   mb_views_active_listings_aggregate_bool_exp_count: mb_views_active_listings_aggregate_bool_exp_count;
@@ -9385,7 +9389,7 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   options?: Resolver<Maybe<ResolversTypes['OptionsConnection']>, ParentType, ContextType, RequireFields<QueryoptionsArgs, 'orderBy'>>;
   relationships?: Resolver<Maybe<ResolversTypes['RelationshipsConnection']>, ParentType, ContextType, RequireFields<QueryrelationshipsArgs, 'orderBy'>>;
   tags?: Resolver<Maybe<ResolversTypes['TagsConnection']>, ParentType, ContextType, RequireFields<QuerytagsArgs, 'orderBy'>>;
-  things?: Resolver<Maybe<ResolversTypes['ThingsConnection']>, ParentType, ContextType, RequireFields<QuerythingsArgs, 'orderBy'>>;
+  things?: Resolver<Array<ResolversTypes['Thing']>, ParentType, ContextType, RequireFields<QuerythingsArgs, 'orderBy'>>;
   users?: Resolver<Maybe<ResolversTypes['UsersConnection']>, ParentType, ContextType, RequireFields<QueryusersArgs, 'orderBy'>>;
   attribute?: Resolver<Maybe<ResolversTypes['Attribute']>, ParentType, ContextType, RequireFields<QueryattributeArgs, 'id'>>;
   attributeByName?: Resolver<Maybe<ResolversTypes['Attribute']>, ParentType, ContextType, RequireFields<QueryattributeByNameArgs, 'name'>>;
@@ -9404,7 +9408,7 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   mb_store_minters?: Resolver<Array<ResolversTypes['mb_store_minters']>, ParentType, ContextType, Partial<Querymb_store_mintersArgs>>;
   mb_store_minters_aggregate?: Resolver<ResolversTypes['mb_store_minters_aggregate'], ParentType, ContextType, Partial<Querymb_store_minters_aggregateArgs>>;
   mb_store_minters_by_pk?: Resolver<Maybe<ResolversTypes['mb_store_minters']>, ParentType, ContextType, RequireFields<Querymb_store_minters_by_pkArgs, 'minter_id' | 'nft_contract_id'>>;
-  mb_views_active_listings?: Resolver<Array<ResolversTypes['mb_views_active_listings']>, ParentType, ContextType, Partial<Querymb_views_active_listingsArgs>>;
+  mb_views_active_listings?: Resolver<Array<ResolversTypes['Listing']>, ParentType, ContextType, Partial<Querymb_views_active_listingsArgs>>;
   mb_views_active_listings_aggregate?: Resolver<ResolversTypes['mb_views_active_listings_aggregate'], ParentType, ContextType, Partial<Querymb_views_active_listings_aggregateArgs>>;
   mb_views_active_listings_rollup?: Resolver<Array<ResolversTypes['mb_views_active_listings_rollup']>, ParentType, ContextType, Partial<Querymb_views_active_listings_rollupArgs>>;
   mb_views_active_listings_rollup_aggregate?: Resolver<ResolversTypes['mb_views_active_listings_rollup_aggregate'], ParentType, ContextType, Partial<Querymb_views_active_listings_rollup_aggregateArgs>>;
@@ -9453,6 +9457,8 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   nft_tokens_aggregate?: Resolver<ResolversTypes['nft_tokens_aggregate'], ParentType, ContextType, Partial<Querynft_tokens_aggregateArgs>>;
   nft_tokens_by_pk?: Resolver<Maybe<ResolversTypes['nft_tokens']>, ParentType, ContextType, RequireFields<Querynft_tokens_by_pkArgs, 'nft_contract_id' | 'token_id'>>;
   authInfo?: Resolver<Maybe<ResolversTypes['AuthenticationInfo']>, ParentType, ContextType>;
+  listings?: Resolver<Maybe<Array<Maybe<ResolversTypes['Listing']>>>, ParentType, ContextType>;
+  listingsByLister?: Resolver<Maybe<Array<Maybe<ResolversTypes['Listing']>>>, ParentType, ContextType, RequireFields<QuerylistingsByListerArgs, 'listerId'>>;
 }>;
 
 export type MutationResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
@@ -9546,7 +9552,7 @@ export type ThingResolvers<ContextType = MeshContext, ParentType extends Resolve
   ownerId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   privacyType?: Resolver<Maybe<ResolversTypes['PrivacyType']>, ParentType, ContextType>;
-  tags?: Resolver<ResolversTypes['TagsConnection'], ParentType, ContextType, RequireFields<ThingtagsArgs, 'orderBy'>>;
+  tags?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType, RequireFields<ThingtagsArgs, 'orderBy'>>;
   characteristics?: Resolver<ResolversTypes['CharacteristicsConnection'], ParentType, ContextType, RequireFields<ThingcharacteristicsArgs, 'orderBy'>>;
   nft?: Resolver<Maybe<ResolversTypes['mb_views_nft_tokens']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -9557,7 +9563,6 @@ export interface JSONScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type TagsConnectionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['TagsConnection'] = ResolversParentTypes['TagsConnection']> = ResolversObject<{
-  nodes?: Resolver<Array<ResolversTypes['Tag']>, ParentType, ContextType>;
   edges?: Resolver<Array<ResolversTypes['TagsEdge']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -9645,7 +9650,6 @@ export type OptionsEdgeResolvers<ContextType = MeshContext, ParentType extends R
 }>;
 
 export type ThingsConnectionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ThingsConnection'] = ResolversParentTypes['ThingsConnection']> = ResolversObject<{
-  nodes?: Resolver<Array<ResolversTypes['Thing']>, ParentType, ContextType>;
   edges?: Resolver<Array<ResolversTypes['ThingsEdge']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
   totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -9723,12 +9727,12 @@ export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends 
   mb_store_minters_aggregate?: SubscriptionResolver<ResolversTypes['mb_store_minters_aggregate'], "mb_store_minters_aggregate", ParentType, ContextType, Partial<Subscriptionmb_store_minters_aggregateArgs>>;
   mb_store_minters_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['mb_store_minters']>, "mb_store_minters_by_pk", ParentType, ContextType, RequireFields<Subscriptionmb_store_minters_by_pkArgs, 'minter_id' | 'nft_contract_id'>>;
   mb_store_minters_stream?: SubscriptionResolver<Array<ResolversTypes['mb_store_minters']>, "mb_store_minters_stream", ParentType, ContextType, RequireFields<Subscriptionmb_store_minters_streamArgs, 'batch_size' | 'cursor'>>;
-  mb_views_active_listings?: SubscriptionResolver<Array<ResolversTypes['mb_views_active_listings']>, "mb_views_active_listings", ParentType, ContextType, Partial<Subscriptionmb_views_active_listingsArgs>>;
+  mb_views_active_listings?: SubscriptionResolver<Array<ResolversTypes['Listing']>, "mb_views_active_listings", ParentType, ContextType, Partial<Subscriptionmb_views_active_listingsArgs>>;
   mb_views_active_listings_aggregate?: SubscriptionResolver<ResolversTypes['mb_views_active_listings_aggregate'], "mb_views_active_listings_aggregate", ParentType, ContextType, Partial<Subscriptionmb_views_active_listings_aggregateArgs>>;
   mb_views_active_listings_rollup?: SubscriptionResolver<Array<ResolversTypes['mb_views_active_listings_rollup']>, "mb_views_active_listings_rollup", ParentType, ContextType, Partial<Subscriptionmb_views_active_listings_rollupArgs>>;
   mb_views_active_listings_rollup_aggregate?: SubscriptionResolver<ResolversTypes['mb_views_active_listings_rollup_aggregate'], "mb_views_active_listings_rollup_aggregate", ParentType, ContextType, Partial<Subscriptionmb_views_active_listings_rollup_aggregateArgs>>;
   mb_views_active_listings_rollup_stream?: SubscriptionResolver<Array<ResolversTypes['mb_views_active_listings_rollup']>, "mb_views_active_listings_rollup_stream", ParentType, ContextType, RequireFields<Subscriptionmb_views_active_listings_rollup_streamArgs, 'batch_size' | 'cursor'>>;
-  mb_views_active_listings_stream?: SubscriptionResolver<Array<ResolversTypes['mb_views_active_listings']>, "mb_views_active_listings_stream", ParentType, ContextType, RequireFields<Subscriptionmb_views_active_listings_streamArgs, 'batch_size' | 'cursor'>>;
+  mb_views_active_listings_stream?: SubscriptionResolver<Array<ResolversTypes['Listing']>, "mb_views_active_listings_stream", ParentType, ContextType, RequireFields<Subscriptionmb_views_active_listings_streamArgs, 'batch_size' | 'cursor'>>;
   mb_views_auctions_with_offer?: SubscriptionResolver<Array<ResolversTypes['mb_views_auctions_with_offer']>, "mb_views_auctions_with_offer", ParentType, ContextType, Partial<Subscriptionmb_views_auctions_with_offerArgs>>;
   mb_views_auctions_with_offer_aggregate?: SubscriptionResolver<ResolversTypes['mb_views_auctions_with_offer_aggregate'], "mb_views_auctions_with_offer_aggregate", ParentType, ContextType, Partial<Subscriptionmb_views_auctions_with_offer_aggregateArgs>>;
   mb_views_auctions_with_offer_stream?: SubscriptionResolver<Array<ResolversTypes['mb_views_auctions_with_offer']>, "mb_views_auctions_with_offer_stream", ParentType, ContextType, RequireFields<Subscriptionmb_views_auctions_with_offer_streamArgs, 'batch_size' | 'cursor'>>;
@@ -9914,7 +9918,7 @@ export type mb_store_minters_min_fieldsResolvers<ContextType = MeshContext, Pare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type mb_views_active_listingsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_active_listings'] = ResolversParentTypes['mb_views_active_listings']> = ResolversObject<{
+export type ListingResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Listing'] = ResolversParentTypes['Listing']> = ResolversObject<{
   approval_id?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
   base_uri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   content_flag?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -9929,21 +9933,22 @@ export type mb_views_active_listingsResolvers<ContextType = MeshContext, ParentT
   metadata_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   minter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   nft_contract_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  offers?: Resolver<Array<ResolversTypes['nft_offers']>, ParentType, ContextType, Partial<mb_views_active_listingsoffersArgs>>;
-  offers_aggregate?: Resolver<ResolversTypes['nft_offers_aggregate'], ParentType, ContextType, Partial<mb_views_active_listingsoffers_aggregateArgs>>;
+  offers?: Resolver<Array<ResolversTypes['nft_offers']>, ParentType, ContextType, Partial<ListingoffersArgs>>;
+  offers_aggregate?: Resolver<ResolversTypes['nft_offers_aggregate'], ParentType, ContextType, Partial<Listingoffers_aggregateArgs>>;
   price?: Resolver<Maybe<ResolversTypes['numeric']>, ParentType, ContextType>;
   receipt_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   reference?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  reference_blob?: Resolver<Maybe<ResolversTypes['jsonb']>, ParentType, ContextType, Partial<mb_views_active_listingsreference_blobArgs>>;
+  reference_blob?: Resolver<Maybe<ResolversTypes['jsonb']>, ParentType, ContextType, Partial<Listingreference_blobArgs>>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   token?: Resolver<Maybe<ResolversTypes['mb_views_nft_tokens']>, ParentType, ContextType>;
   token_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  thing?: Resolver<Maybe<ResolversTypes['Thing']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type mb_views_active_listings_aggregateResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_views_active_listings_aggregate'] = ResolversParentTypes['mb_views_active_listings_aggregate']> = ResolversObject<{
   aggregate?: Resolver<Maybe<ResolversTypes['mb_views_active_listings_aggregate_fields']>, ParentType, ContextType>;
-  nodes?: Resolver<Array<ResolversTypes['mb_views_active_listings']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['Listing']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -10664,7 +10669,7 @@ export type mb_views_nft_metadataResolvers<ContextType = MeshContext, ParentType
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   extra?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  listings?: Resolver<Array<ResolversTypes['mb_views_active_listings']>, ParentType, ContextType, Partial<mb_views_nft_metadatalistingsArgs>>;
+  listings?: Resolver<Array<ResolversTypes['Listing']>, ParentType, ContextType, Partial<mb_views_nft_metadatalistingsArgs>>;
   listings_aggregate?: Resolver<ResolversTypes['mb_views_active_listings_aggregate'], ParentType, ContextType, Partial<mb_views_nft_metadatalistings_aggregateArgs>>;
   media?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   media_hash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -12529,7 +12534,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   mb_store_minters_aggregate_fields?: mb_store_minters_aggregate_fieldsResolvers<ContextType>;
   mb_store_minters_max_fields?: mb_store_minters_max_fieldsResolvers<ContextType>;
   mb_store_minters_min_fields?: mb_store_minters_min_fieldsResolvers<ContextType>;
-  mb_views_active_listings?: mb_views_active_listingsResolvers<ContextType>;
+  Listing?: ListingResolvers<ContextType>;
   mb_views_active_listings_aggregate?: mb_views_active_listings_aggregateResolvers<ContextType>;
   mb_views_active_listings_aggregate_fields?: mb_views_active_listings_aggregate_fieldsResolvers<ContextType>;
   mb_views_active_listings_avg_fields?: mb_views_active_listings_avg_fieldsResolvers<ContextType>;
@@ -12803,7 +12808,7 @@ export function createBuiltMeshHTTPHandler(): MeshHTTPHandler<MeshContext> {
   return createMeshHTTPHandler<MeshContext>({
     baseDir,
     getBuiltMesh: getBuiltMesh,
-    rawServeConfig: {"browser":false,"cors":{"origin":"http://localhost:3050/"}},
+    rawServeConfig: {"browser":false},
   })
 }
 

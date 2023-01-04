@@ -340,7 +340,7 @@ export type mb_store_minters_stream_cursor_value_input = {
 };
 
 /** columns and relationships of "mb_views.active_listings" */
-export type mb_views_active_listings = {
+export type Listing = {
   approval_id?: Maybe<Scalars['numeric']>;
   base_uri?: Maybe<Scalars['String']>;
   content_flag?: Maybe<Scalars['String']>;
@@ -371,7 +371,7 @@ export type mb_views_active_listings = {
 
 
 /** columns and relationships of "mb_views.active_listings" */
-export type mb_views_active_listingsoffersArgs = {
+export type ListingoffersArgs = {
   distinct_on?: InputMaybe<Array<nft_offers_select_column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -381,7 +381,7 @@ export type mb_views_active_listingsoffersArgs = {
 
 
 /** columns and relationships of "mb_views.active_listings" */
-export type mb_views_active_listingsoffers_aggregateArgs = {
+export type Listingoffers_aggregateArgs = {
   distinct_on?: InputMaybe<Array<nft_offers_select_column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -391,14 +391,14 @@ export type mb_views_active_listingsoffers_aggregateArgs = {
 
 
 /** columns and relationships of "mb_views.active_listings" */
-export type mb_views_active_listingsreference_blobArgs = {
+export type Listingreference_blobArgs = {
   path?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregated selection of "mb_views.active_listings" */
 export type mb_views_active_listings_aggregate = {
   aggregate?: Maybe<mb_views_active_listings_aggregate_fields>;
-  nodes: Array<mb_views_active_listings>;
+  nodes: Array<Listing>;
 };
 
 export type mb_views_active_listings_aggregate_bool_exp = {
@@ -1993,7 +1993,7 @@ export type mb_views_nft_metadata = {
   extra?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['String']>;
   /** An array relationship */
-  listings: Array<mb_views_active_listings>;
+  listings: Array<Listing>;
   /** An aggregate relationship */
   listings_aggregate: mb_views_active_listings_aggregate;
   media?: Maybe<Scalars['String']>;
@@ -6214,7 +6214,7 @@ export type query_root = {
   /** fetch data from the table: "mb_store_minters" using primary key columns */
   mb_store_minters_by_pk?: Maybe<mb_store_minters>;
   /** fetch data from the table: "mb_views.active_listings" */
-  mb_views_active_listings: Array<mb_views_active_listings>;
+  mb_views_active_listings: Array<Listing>;
   /** fetch aggregated fields from the table: "mb_views.active_listings" */
   mb_views_active_listings_aggregate: mb_views_active_listings_aggregate;
   /** fetch data from the table: "mb_views.active_listings_rollup" */
@@ -6795,7 +6795,7 @@ export type subscription_root = {
   /** fetch data from the table in a streaming manner: "mb_store_minters" */
   mb_store_minters_stream: Array<mb_store_minters>;
   /** fetch data from the table: "mb_views.active_listings" */
-  mb_views_active_listings: Array<mb_views_active_listings>;
+  mb_views_active_listings: Array<Listing>;
   /** fetch aggregated fields from the table: "mb_views.active_listings" */
   mb_views_active_listings_aggregate: mb_views_active_listings_aggregate;
   /** fetch data from the table: "mb_views.active_listings_rollup" */
@@ -6805,7 +6805,7 @@ export type subscription_root = {
   /** fetch data from the table in a streaming manner: "mb_views.active_listings_rollup" */
   mb_views_active_listings_rollup_stream: Array<mb_views_active_listings_rollup>;
   /** fetch data from the table in a streaming manner: "mb_views.active_listings" */
-  mb_views_active_listings_stream: Array<mb_views_active_listings>;
+  mb_views_active_listings_stream: Array<Listing>;
   /** fetch data from the table: "mb_views.auctions_with_offer" */
   mb_views_auctions_with_offer: Array<mb_views_auctions_with_offer>;
   /** fetch aggregated fields from the table: "mb_views.auctions_with_offer" */
