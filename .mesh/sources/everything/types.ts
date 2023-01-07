@@ -721,11 +721,19 @@ export type UsersEdge = {
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
+  /** Updates a single `Thing` using a unique key and a patch. */
+  updateThing?: Maybe<UpdateThingPayload>;
   createThing?: Maybe<CreateThingPayload>;
   createMedia?: Maybe<CreateMediaPayload>;
   proposeAttribute?: Maybe<ProposeAttributePayload>;
   createAttribute?: Maybe<CreateAttributePayload>;
   proposeOption?: Maybe<ProposeOptionPayload>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationupdateThingArgs = {
+  input: UpdateThingInput;
 };
 
 
@@ -756,6 +764,49 @@ export type MutationcreateAttributeArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationproposeOptionArgs = {
   input: ProposeOptionInput;
+};
+
+/** All input for the `updateThing` mutation. */
+export type UpdateThingInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `Thing` being updated. */
+  patch: ThingPatch;
+  id: Scalars['String'];
+};
+
+/** Represents an update to a `Thing`. Fields that are set will be updated. */
+export type ThingPatch = {
+  createdAt?: InputMaybe<Scalars['Datetime']>;
+  updatedAt?: InputMaybe<Scalars['Datetime']>;
+  id?: InputMaybe<Scalars['String']>;
+  ownerId?: InputMaybe<Scalars['String']>;
+  metadata?: InputMaybe<Scalars['JSON']>;
+  privacyType?: InputMaybe<PrivacyType>;
+};
+
+/** The output of our update `Thing` mutation. */
+export type UpdateThingPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Thing` that was updated by this mutation. */
+  thing?: Maybe<Thing>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+  /** An edge for our `Thing`. May be used by Relay 1. */
+  thingEdge?: Maybe<ThingsEdge>;
+};
+
+
+/** The output of our update `Thing` mutation. */
+export type UpdateThingPayloadthingEdgeArgs = {
+  orderBy?: InputMaybe<Array<ThingsOrderBy>>;
 };
 
 export type CreateThingInput = {
@@ -859,7 +910,9 @@ export type ProposeOptionPayload = {
   };
 
   export type MutationSdk = {
-      /** null **/
+      /** Updates a single `Thing` using a unique key and a patch. **/
+  updateThing: InContextSdkMethod<Mutation['updateThing'], MutationupdateThingArgs, MeshContext>,
+  /** null **/
   createThing: InContextSdkMethod<Mutation['createThing'], MutationcreateThingArgs, MeshContext>,
   /** null **/
   createMedia: InContextSdkMethod<Mutation['createMedia'], MutationcreateMediaArgs, MeshContext>,

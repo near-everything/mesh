@@ -281,7 +281,7 @@ input jsonb_comparison_exp {
 """
 columns and relationships of "mb_store_minters"
 """
-type mb_store_minters {
+type Minter {
   minter_id: String!
   """An object relationship"""
   nft_contract: nft_contracts
@@ -295,7 +295,7 @@ aggregated selection of "mb_store_minters"
 """
 type mb_store_minters_aggregate {
   aggregate: mb_store_minters_aggregate_fields
-  nodes: [mb_store_minters!]!
+  nodes: [Minter!]!
 }
 
 """
@@ -6431,7 +6431,7 @@ type query_root {
     order_by: [mb_store_minters_order_by!]
     """filter the rows returned"""
     where: mb_store_minters_bool_exp
-  ): [mb_store_minters!]!
+  ): [Minter!]!
   """
   fetch aggregated fields from the table: "mb_store_minters"
   """
@@ -6450,7 +6450,7 @@ type query_root {
   """
   fetch data from the table: "mb_store_minters" using primary key columns
   """
-  mb_store_minters_by_pk(minter_id: String!, nft_contract_id: String!): mb_store_minters
+  mb_store_minters_by_pk(minter_id: String!, nft_contract_id: String!): Minter
   """
   fetch data from the table: "mb_views.active_listings"
   """
@@ -7123,7 +7123,7 @@ type subscription_root {
     order_by: [mb_store_minters_order_by!]
     """filter the rows returned"""
     where: mb_store_minters_bool_exp
-  ): [mb_store_minters!]!
+  ): [Minter!]!
   """
   fetch aggregated fields from the table: "mb_store_minters"
   """
@@ -7142,7 +7142,7 @@ type subscription_root {
   """
   fetch data from the table: "mb_store_minters" using primary key columns
   """
-  mb_store_minters_by_pk(minter_id: String!, nft_contract_id: String!): mb_store_minters
+  mb_store_minters_by_pk(minter_id: String!, nft_contract_id: String!): Minter
   """
   fetch data from the table in a streaming manner: "mb_store_minters"
   """
@@ -7153,7 +7153,7 @@ type subscription_root {
     cursor: [mb_store_minters_stream_cursor_input]!
     """filter the rows returned"""
     where: mb_store_minters_bool_exp
-  ): [mb_store_minters!]!
+  ): [Minter!]!
   """
   fetch data from the table: "mb_views.active_listings"
   """

@@ -258,7 +258,7 @@ export type jsonb_comparison_exp = {
 };
 
 /** columns and relationships of "mb_store_minters" */
-export type mb_store_minters = {
+export type Minter = {
   minter_id: Scalars['String'];
   /** An object relationship */
   nft_contract?: Maybe<nft_contracts>;
@@ -270,7 +270,7 @@ export type mb_store_minters = {
 /** aggregated selection of "mb_store_minters" */
 export type mb_store_minters_aggregate = {
   aggregate?: Maybe<mb_store_minters_aggregate_fields>;
-  nodes: Array<mb_store_minters>;
+  nodes: Array<Minter>;
 };
 
 /** aggregate fields of "mb_store_minters" */
@@ -6208,11 +6208,11 @@ export type query_root = {
   /** fetch data from the table: "blocks" using primary key columns */
   blocks_by_pk?: Maybe<blocks>;
   /** fetch data from the table: "mb_store_minters" */
-  mb_store_minters: Array<mb_store_minters>;
+  mb_store_minters: Array<Minter>;
   /** fetch aggregated fields from the table: "mb_store_minters" */
   mb_store_minters_aggregate: mb_store_minters_aggregate;
   /** fetch data from the table: "mb_store_minters" using primary key columns */
-  mb_store_minters_by_pk?: Maybe<mb_store_minters>;
+  mb_store_minters_by_pk?: Maybe<Minter>;
   /** fetch data from the table: "mb_views.active_listings" */
   mb_views_active_listings: Array<Listing>;
   /** fetch aggregated fields from the table: "mb_views.active_listings" */
@@ -6787,13 +6787,13 @@ export type subscription_root = {
   /** fetch data from the table in a streaming manner: "blocks" */
   blocks_stream: Array<blocks>;
   /** fetch data from the table: "mb_store_minters" */
-  mb_store_minters: Array<mb_store_minters>;
+  mb_store_minters: Array<Minter>;
   /** fetch aggregated fields from the table: "mb_store_minters" */
   mb_store_minters_aggregate: mb_store_minters_aggregate;
   /** fetch data from the table: "mb_store_minters" using primary key columns */
-  mb_store_minters_by_pk?: Maybe<mb_store_minters>;
+  mb_store_minters_by_pk?: Maybe<Minter>;
   /** fetch data from the table in a streaming manner: "mb_store_minters" */
-  mb_store_minters_stream: Array<mb_store_minters>;
+  mb_store_minters_stream: Array<Minter>;
   /** fetch data from the table: "mb_views.active_listings" */
   mb_views_active_listings: Array<Listing>;
   /** fetch aggregated fields from the table: "mb_views.active_listings" */

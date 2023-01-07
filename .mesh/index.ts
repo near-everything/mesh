@@ -69,11 +69,11 @@ export type Query = {
   /** fetch data from the table: "blocks" using primary key columns */
   blocks_by_pk?: Maybe<blocks>;
   /** fetch data from the table: "mb_store_minters" */
-  mb_store_minters: Array<mb_store_minters>;
+  mb_store_minters: Array<Minter>;
   /** fetch aggregated fields from the table: "mb_store_minters" */
   mb_store_minters_aggregate: mb_store_minters_aggregate;
   /** fetch data from the table: "mb_store_minters" using primary key columns */
-  mb_store_minters_by_pk?: Maybe<mb_store_minters>;
+  mb_store_minters_by_pk?: Maybe<Minter>;
   /** fetch data from the table: "mb_views.active_listings" */
   mb_views_active_listings: Array<Listing>;
   /** fetch aggregated fields from the table: "mb_views.active_listings" */
@@ -173,7 +173,8 @@ export type Query = {
   /** The authentication information of the request. */
   authInfo?: Maybe<AuthenticationInfo>;
   listings?: Maybe<Array<Maybe<Listing>>>;
-  listingsByLister?: Maybe<Array<Maybe<Listing>>>;
+  activeListingsByLister?: Maybe<Array<Maybe<Listing>>>;
+  minter?: Maybe<Minter>;
 };
 
 
@@ -790,17 +791,30 @@ export type Querynft_tokens_by_pkArgs = {
 };
 
 
-export type QuerylistingsByListerArgs = {
+export type QueryactiveListingsByListerArgs = {
   listerId: Scalars['String'];
+};
+
+
+export type QueryminterArgs = {
+  minterId: Scalars['String'];
 };
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
+  /** Updates a single `Thing` using a unique key and a patch. */
+  updateThing?: Maybe<UpdateThingPayload>;
   createThing?: Maybe<CreateThingPayload>;
   createMedia?: Maybe<CreateMediaPayload>;
   proposeAttribute?: Maybe<ProposeAttributePayload>;
   createAttribute?: Maybe<CreateAttributePayload>;
   proposeOption?: Maybe<ProposeOptionPayload>;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationupdateThingArgs = {
+  input: UpdateThingInput;
 };
 
 
@@ -1335,6 +1349,49 @@ export type UsersEdge = {
   node: User;
 };
 
+/** All input for the `updateThing` mutation. */
+export type UpdateThingInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** An object where the defined keys will be set on the `Thing` being updated. */
+  patch: ThingPatch;
+  id: Scalars['String'];
+};
+
+/** Represents an update to a `Thing`. Fields that are set will be updated. */
+export type ThingPatch = {
+  createdAt?: InputMaybe<Scalars['Datetime']>;
+  updatedAt?: InputMaybe<Scalars['Datetime']>;
+  id?: InputMaybe<Scalars['String']>;
+  ownerId?: InputMaybe<Scalars['String']>;
+  metadata?: InputMaybe<Scalars['JSON']>;
+  privacyType?: InputMaybe<PrivacyType>;
+};
+
+/** The output of our update `Thing` mutation. */
+export type UpdateThingPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Thing` that was updated by this mutation. */
+  thing?: Maybe<Thing>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+  /** An edge for our `Thing`. May be used by Relay 1. */
+  thingEdge?: Maybe<ThingsEdge>;
+};
+
+
+/** The output of our update `Thing` mutation. */
+export type UpdateThingPayloadthingEdgeArgs = {
+  orderBy?: InputMaybe<Array<ThingsOrderBy>>;
+};
+
 export type CreateThingInput = {
   thingId: Scalars['String'];
   characteristics: Array<NewCharacteristicInput>;
@@ -1404,13 +1461,13 @@ export type Subscription = {
   /** fetch data from the table in a streaming manner: "blocks" */
   blocks_stream: Array<blocks>;
   /** fetch data from the table: "mb_store_minters" */
-  mb_store_minters: Array<mb_store_minters>;
+  mb_store_minters: Array<Minter>;
   /** fetch aggregated fields from the table: "mb_store_minters" */
   mb_store_minters_aggregate: mb_store_minters_aggregate;
   /** fetch data from the table: "mb_store_minters" using primary key columns */
-  mb_store_minters_by_pk?: Maybe<mb_store_minters>;
+  mb_store_minters_by_pk?: Maybe<Minter>;
   /** fetch data from the table in a streaming manner: "mb_store_minters" */
-  mb_store_minters_stream: Array<mb_store_minters>;
+  mb_store_minters_stream: Array<Minter>;
   /** fetch data from the table: "mb_views.active_listings" */
   mb_views_active_listings: Array<Listing>;
   /** fetch aggregated fields from the table: "mb_views.active_listings" */
@@ -2404,7 +2461,7 @@ export type jsonb_comparison_exp = {
 };
 
 /** columns and relationships of "mb_store_minters" */
-export type mb_store_minters = {
+export type Minter = {
   minter_id: Scalars['String'];
   /** An object relationship */
   nft_contract?: Maybe<nft_contracts>;
@@ -2416,7 +2473,7 @@ export type mb_store_minters = {
 /** aggregated selection of "mb_store_minters" */
 export type mb_store_minters_aggregate = {
   aggregate?: Maybe<mb_store_minters_aggregate_fields>;
-  nodes: Array<mb_store_minters>;
+  nodes: Array<Minter>;
 };
 
 /** aggregate fields of "mb_store_minters" */
@@ -8500,6 +8557,9 @@ export type ResolversTypes = ResolversObject<{
   UsersConnection: ResolverTypeWrapper<UsersConnection>;
   User: ResolverTypeWrapper<User>;
   UsersEdge: ResolverTypeWrapper<UsersEdge>;
+  UpdateThingInput: UpdateThingInput;
+  ThingPatch: ThingPatch;
+  UpdateThingPayload: ResolverTypeWrapper<UpdateThingPayload>;
   CreateThingInput: CreateThingInput;
   NewCharacteristicInput: NewCharacteristicInput;
   CreateThingPayload: ResolverTypeWrapper<CreateThingPayload>;
@@ -8543,7 +8603,7 @@ export type ResolversTypes = ResolversObject<{
   jsonb: ResolverTypeWrapper<Scalars['jsonb']>;
   jsonb_cast_exp: jsonb_cast_exp;
   jsonb_comparison_exp: jsonb_comparison_exp;
-  mb_store_minters: ResolverTypeWrapper<mb_store_minters>;
+  Minter: ResolverTypeWrapper<Minter>;
   mb_store_minters_aggregate: ResolverTypeWrapper<mb_store_minters_aggregate>;
   mb_store_minters_aggregate_fields: ResolverTypeWrapper<mb_store_minters_aggregate_fields>;
   mb_store_minters_bool_exp: mb_store_minters_bool_exp;
@@ -8971,6 +9031,9 @@ export type ResolversParentTypes = ResolversObject<{
   UsersConnection: UsersConnection;
   User: User;
   UsersEdge: UsersEdge;
+  UpdateThingInput: UpdateThingInput;
+  ThingPatch: ThingPatch;
+  UpdateThingPayload: UpdateThingPayload;
   CreateThingInput: CreateThingInput;
   NewCharacteristicInput: NewCharacteristicInput;
   CreateThingPayload: CreateThingPayload;
@@ -9012,7 +9075,7 @@ export type ResolversParentTypes = ResolversObject<{
   jsonb: Scalars['jsonb'];
   jsonb_cast_exp: jsonb_cast_exp;
   jsonb_comparison_exp: jsonb_comparison_exp;
-  mb_store_minters: mb_store_minters;
+  Minter: Minter;
   mb_store_minters_aggregate: mb_store_minters_aggregate;
   mb_store_minters_aggregate_fields: mb_store_minters_aggregate_fields;
   mb_store_minters_bool_exp: mb_store_minters_bool_exp;
@@ -9405,9 +9468,9 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   blocks?: Resolver<Array<ResolversTypes['blocks']>, ParentType, ContextType, Partial<QueryblocksArgs>>;
   blocks_aggregate?: Resolver<ResolversTypes['blocks_aggregate'], ParentType, ContextType, Partial<Queryblocks_aggregateArgs>>;
   blocks_by_pk?: Resolver<Maybe<ResolversTypes['blocks']>, ParentType, ContextType, RequireFields<Queryblocks_by_pkArgs, 'synced_height'>>;
-  mb_store_minters?: Resolver<Array<ResolversTypes['mb_store_minters']>, ParentType, ContextType, Partial<Querymb_store_mintersArgs>>;
+  mb_store_minters?: Resolver<Array<ResolversTypes['Minter']>, ParentType, ContextType, Partial<Querymb_store_mintersArgs>>;
   mb_store_minters_aggregate?: Resolver<ResolversTypes['mb_store_minters_aggregate'], ParentType, ContextType, Partial<Querymb_store_minters_aggregateArgs>>;
-  mb_store_minters_by_pk?: Resolver<Maybe<ResolversTypes['mb_store_minters']>, ParentType, ContextType, RequireFields<Querymb_store_minters_by_pkArgs, 'minter_id' | 'nft_contract_id'>>;
+  mb_store_minters_by_pk?: Resolver<Maybe<ResolversTypes['Minter']>, ParentType, ContextType, RequireFields<Querymb_store_minters_by_pkArgs, 'minter_id' | 'nft_contract_id'>>;
   mb_views_active_listings?: Resolver<Array<ResolversTypes['Listing']>, ParentType, ContextType, Partial<Querymb_views_active_listingsArgs>>;
   mb_views_active_listings_aggregate?: Resolver<ResolversTypes['mb_views_active_listings_aggregate'], ParentType, ContextType, Partial<Querymb_views_active_listings_aggregateArgs>>;
   mb_views_active_listings_rollup?: Resolver<Array<ResolversTypes['mb_views_active_listings_rollup']>, ParentType, ContextType, Partial<Querymb_views_active_listings_rollupArgs>>;
@@ -9458,10 +9521,12 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   nft_tokens_by_pk?: Resolver<Maybe<ResolversTypes['nft_tokens']>, ParentType, ContextType, RequireFields<Querynft_tokens_by_pkArgs, 'nft_contract_id' | 'token_id'>>;
   authInfo?: Resolver<Maybe<ResolversTypes['AuthenticationInfo']>, ParentType, ContextType>;
   listings?: Resolver<Maybe<Array<Maybe<ResolversTypes['Listing']>>>, ParentType, ContextType>;
-  listingsByLister?: Resolver<Maybe<Array<Maybe<ResolversTypes['Listing']>>>, ParentType, ContextType, RequireFields<QuerylistingsByListerArgs, 'listerId'>>;
+  activeListingsByLister?: Resolver<Maybe<Array<Maybe<ResolversTypes['Listing']>>>, ParentType, ContextType, RequireFields<QueryactiveListingsByListerArgs, 'listerId'>>;
+  minter?: Resolver<Maybe<ResolversTypes['Minter']>, ParentType, ContextType, RequireFields<QueryminterArgs, 'minterId'>>;
 }>;
 
 export type MutationResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  updateThing?: Resolver<Maybe<ResolversTypes['UpdateThingPayload']>, ParentType, ContextType, RequireFields<MutationupdateThingArgs, 'input'>>;
   createThing?: Resolver<Maybe<ResolversTypes['CreateThingPayload']>, ParentType, ContextType, RequireFields<MutationcreateThingArgs, 'input'>>;
   createMedia?: Resolver<Maybe<ResolversTypes['CreateMediaPayload']>, ParentType, ContextType, RequireFields<MutationcreateMediaArgs, 'input'>>;
   proposeAttribute?: Resolver<Maybe<ResolversTypes['ProposeAttributePayload']>, ParentType, ContextType, RequireFields<MutationproposeAttributeArgs, 'input'>>;
@@ -9688,6 +9753,14 @@ export type UsersEdgeResolvers<ContextType = MeshContext, ParentType extends Res
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type UpdateThingPayloadResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['UpdateThingPayload'] = ResolversParentTypes['UpdateThingPayload']> = ResolversObject<{
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  thing?: Resolver<Maybe<ResolversTypes['Thing']>, ParentType, ContextType>;
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
+  thingEdge?: Resolver<Maybe<ResolversTypes['ThingsEdge']>, ParentType, ContextType, RequireFields<UpdateThingPayloadthingEdgeArgs, 'orderBy'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type CreateThingPayloadResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CreateThingPayload'] = ResolversParentTypes['CreateThingPayload']> = ResolversObject<{
   thing?: Resolver<Maybe<ResolversTypes['Thing']>, ParentType, ContextType>;
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
@@ -9723,10 +9796,10 @@ export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends 
   blocks_aggregate?: SubscriptionResolver<ResolversTypes['blocks_aggregate'], "blocks_aggregate", ParentType, ContextType, Partial<Subscriptionblocks_aggregateArgs>>;
   blocks_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['blocks']>, "blocks_by_pk", ParentType, ContextType, RequireFields<Subscriptionblocks_by_pkArgs, 'synced_height'>>;
   blocks_stream?: SubscriptionResolver<Array<ResolversTypes['blocks']>, "blocks_stream", ParentType, ContextType, RequireFields<Subscriptionblocks_streamArgs, 'batch_size' | 'cursor'>>;
-  mb_store_minters?: SubscriptionResolver<Array<ResolversTypes['mb_store_minters']>, "mb_store_minters", ParentType, ContextType, Partial<Subscriptionmb_store_mintersArgs>>;
+  mb_store_minters?: SubscriptionResolver<Array<ResolversTypes['Minter']>, "mb_store_minters", ParentType, ContextType, Partial<Subscriptionmb_store_mintersArgs>>;
   mb_store_minters_aggregate?: SubscriptionResolver<ResolversTypes['mb_store_minters_aggregate'], "mb_store_minters_aggregate", ParentType, ContextType, Partial<Subscriptionmb_store_minters_aggregateArgs>>;
-  mb_store_minters_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['mb_store_minters']>, "mb_store_minters_by_pk", ParentType, ContextType, RequireFields<Subscriptionmb_store_minters_by_pkArgs, 'minter_id' | 'nft_contract_id'>>;
-  mb_store_minters_stream?: SubscriptionResolver<Array<ResolversTypes['mb_store_minters']>, "mb_store_minters_stream", ParentType, ContextType, RequireFields<Subscriptionmb_store_minters_streamArgs, 'batch_size' | 'cursor'>>;
+  mb_store_minters_by_pk?: SubscriptionResolver<Maybe<ResolversTypes['Minter']>, "mb_store_minters_by_pk", ParentType, ContextType, RequireFields<Subscriptionmb_store_minters_by_pkArgs, 'minter_id' | 'nft_contract_id'>>;
+  mb_store_minters_stream?: SubscriptionResolver<Array<ResolversTypes['Minter']>, "mb_store_minters_stream", ParentType, ContextType, RequireFields<Subscriptionmb_store_minters_streamArgs, 'batch_size' | 'cursor'>>;
   mb_views_active_listings?: SubscriptionResolver<Array<ResolversTypes['Listing']>, "mb_views_active_listings", ParentType, ContextType, Partial<Subscriptionmb_views_active_listingsArgs>>;
   mb_views_active_listings_aggregate?: SubscriptionResolver<ResolversTypes['mb_views_active_listings_aggregate'], "mb_views_active_listings_aggregate", ParentType, ContextType, Partial<Subscriptionmb_views_active_listings_aggregateArgs>>;
   mb_views_active_listings_rollup?: SubscriptionResolver<Array<ResolversTypes['mb_views_active_listings_rollup']>, "mb_views_active_listings_rollup", ParentType, ContextType, Partial<Subscriptionmb_views_active_listings_rollupArgs>>;
@@ -9885,7 +9958,7 @@ export interface jsonbScalarConfig extends GraphQLScalarTypeConfig<ResolversType
   name: 'jsonb';
 }
 
-export type mb_store_mintersResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_store_minters'] = ResolversParentTypes['mb_store_minters']> = ResolversObject<{
+export type MinterResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Minter'] = ResolversParentTypes['Minter']> = ResolversObject<{
   minter_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   nft_contract?: Resolver<Maybe<ResolversTypes['nft_contracts']>, ParentType, ContextType>;
   nft_contract_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -9895,7 +9968,7 @@ export type mb_store_mintersResolvers<ContextType = MeshContext, ParentType exte
 
 export type mb_store_minters_aggregateResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['mb_store_minters_aggregate'] = ResolversParentTypes['mb_store_minters_aggregate']> = ResolversObject<{
   aggregate?: Resolver<Maybe<ResolversTypes['mb_store_minters_aggregate_fields']>, ParentType, ContextType>;
-  nodes?: Resolver<Array<ResolversTypes['mb_store_minters']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['Minter']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -12507,6 +12580,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   UsersConnection?: UsersConnectionResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UsersEdge?: UsersEdgeResolvers<ContextType>;
+  UpdateThingPayload?: UpdateThingPayloadResolvers<ContextType>;
   CreateThingPayload?: CreateThingPayloadResolvers<ContextType>;
   CreateMediaPayload?: CreateMediaPayloadResolvers<ContextType>;
   ProposeAttributePayload?: ProposeAttributePayloadResolvers<ContextType>;
@@ -12529,7 +12603,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   blocks_var_samp_fields?: blocks_var_samp_fieldsResolvers<ContextType>;
   blocks_variance_fields?: blocks_variance_fieldsResolvers<ContextType>;
   jsonb?: GraphQLScalarType;
-  mb_store_minters?: mb_store_mintersResolvers<ContextType>;
+  Minter?: MinterResolvers<ContextType>;
   mb_store_minters_aggregate?: mb_store_minters_aggregateResolvers<ContextType>;
   mb_store_minters_aggregate_fields?: mb_store_minters_aggregate_fieldsResolvers<ContextType>;
   mb_store_minters_max_fields?: mb_store_minters_max_fieldsResolvers<ContextType>;

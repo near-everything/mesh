@@ -26,6 +26,10 @@ sources:
                 type: mb_views_active_listings
               to:
                 type: Listing
+            - from:
+                type: mb_store_minters
+              to:
+                type: Minter
 
 additionalTypeDefs: |
   """
@@ -44,7 +48,8 @@ additionalTypeDefs: |
     """
     authInfo: AuthenticationInfo
     listings: [Listing]
-    listingsByLister(listerId: String!): [Listing]
+    activeListingsByLister(listerId: String!): [Listing]
+    minter(minterId: String!): Minter
   }
 
   extend type Thing {

@@ -13,7 +13,7 @@ export const resolvers = {
         info
       })
     },
-    listingsByLister: async (root, _args, context, info) => {
+    activeListingsByLister: async (root, _args, context, info) => {
       return await context.Mintbase.query_root.mb_views_active_listings({
         root,
         args: {
@@ -21,8 +21,19 @@ export const resolvers = {
         },
         context,
         info
-      })
-    }
+      });
+    },
+    minter: async (root, _args, context, info) => {
+      return await context.Mintbase.query_root.mb_store_minters_by_pk({
+        root,
+        args: {
+          nft_contract_id: "everything.mintspace2.testnet",
+          minter_id: _args.minterId
+        },
+        context,
+        info
+      });
+    },
   },
   Thing: {
     nft: {
@@ -32,8 +43,6 @@ export const resolvers = {
         }
       `,
       resolve: async (root, _args, context, info) => {
-        // this works, but it not optimal
-        // first fix should be checking if the thing has been minted or not
         const nft = await context.Mintbase.query_root.mb_views_nft_tokens({
           root,
           args: {
