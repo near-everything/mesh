@@ -2,7 +2,7 @@ sources:
   - name: everything
     handler:
       graphql:
-        endpoint: "http://localhost:4050/graphql"
+        endpoint: '{env.EVERYTHING_URL}'
     transforms:
       - hoist-field:
           - typeName: Query

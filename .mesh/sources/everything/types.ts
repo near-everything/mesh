@@ -27,6 +27,8 @@ export type Query = {
   attributes?: Maybe<AttributesConnection>;
   /** Reads and enables pagination through a set of `Characteristic`. */
   characteristics?: Maybe<CharacteristicsConnection>;
+  /** Reads and enables pagination through a set of `Kyc`. */
+  kycs?: Maybe<KycsConnection>;
   /** Reads and enables pagination through a set of `Media`. */
   medias?: Maybe<MediaConnection>;
   /** Reads and enables pagination through a set of `Option`. */
@@ -42,6 +44,7 @@ export type Query = {
   attribute?: Maybe<Attribute>;
   attributeByName?: Maybe<Attribute>;
   characteristic?: Maybe<Characteristic>;
+  kyc?: Maybe<Kyc>;
   media?: Maybe<Media>;
   option?: Maybe<Option>;
   relationship?: Maybe<Relationship>;
@@ -74,6 +77,18 @@ export type QuerycharacteristicsArgs = {
   after?: InputMaybe<Scalars['Cursor']>;
   orderBy?: InputMaybe<Array<CharacteristicsOrderBy>>;
   condition?: InputMaybe<CharacteristicCondition>;
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QuerykycsArgs = {
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  after?: InputMaybe<Scalars['Cursor']>;
+  orderBy?: InputMaybe<Array<KycsOrderBy>>;
+  condition?: InputMaybe<KycCondition>;
 };
 
 
@@ -166,6 +181,12 @@ export type QuerycharacteristicArgs = {
   thingId: Scalars['String'];
   attributeId: Scalars['Int'];
   optionId: Scalars['Int'];
+};
+
+
+/** The root query type which gives access points into the data universe. */
+export type QuerykycArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -558,6 +579,51 @@ export type AttributesEdge = {
   node: Attribute;
 };
 
+/** Methods to use when ordering `Kyc`. */
+export type KycsOrderBy =
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'REQUESTER_ID_ASC'
+  | 'REQUESTER_ID_DESC'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC';
+
+/** A condition to be used against `Kyc` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type KycCondition = {
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['Int']>;
+  /** Checks for equality with the object’s `requesterId` field. */
+  requesterId?: InputMaybe<Scalars['String']>;
+};
+
+/** A connection to a list of `Kyc` values. */
+export type KycsConnection = {
+  /** A list of `Kyc` objects. */
+  nodes: Array<Kyc>;
+  /** A list of edges which contains the `Kyc` and cursor to aid in pagination. */
+  edges: Array<KycsEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Kyc` you could get from the connection. */
+  totalCount: Scalars['Int'];
+};
+
+export type Kyc = {
+  createdAt: Scalars['Datetime'];
+  updatedAt: Scalars['Datetime'];
+  id: Scalars['Int'];
+  requesterId: Scalars['String'];
+};
+
+/** A `Kyc` edge in the connection. */
+export type KycsEdge = {
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']>;
+  /** The `Kyc` at the end of the edge. */
+  node: Kyc;
+};
+
 /** Methods to use when ordering `Media`. */
 export type MediaOrderBy =
   | 'NATURAL'
@@ -721,8 +787,12 @@ export type UsersEdge = {
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
+  /** Creates a single `Kyc`. */
+  createKyc?: Maybe<CreateKycPayload>;
   /** Updates a single `Thing` using a unique key and a patch. */
   updateThing?: Maybe<UpdateThingPayload>;
+  /** Deletes a single `Kyc` using a unique key. */
+  deleteKyc?: Maybe<DeleteKycPayload>;
   createThing?: Maybe<CreateThingPayload>;
   createMedia?: Maybe<CreateMediaPayload>;
   proposeAttribute?: Maybe<ProposeAttributePayload>;
@@ -732,8 +802,20 @@ export type Mutation = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationcreateKycArgs = {
+  input: CreateKycInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationupdateThingArgs = {
   input: UpdateThingInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationdeleteKycArgs = {
+  input: DeleteKycInput;
 };
 
 
@@ -764,6 +846,46 @@ export type MutationcreateAttributeArgs = {
 /** The root mutation type which contains root level fields which mutate data. */
 export type MutationproposeOptionArgs = {
   input: ProposeOptionInput;
+};
+
+/** All input for the create `Kyc` mutation. */
+export type CreateKycInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** The `Kyc` to be created by this mutation. */
+  kyc: KycInput;
+};
+
+/** An input for mutations affecting `Kyc` */
+export type KycInput = {
+  createdAt?: InputMaybe<Scalars['Datetime']>;
+  updatedAt?: InputMaybe<Scalars['Datetime']>;
+  id?: InputMaybe<Scalars['Int']>;
+  requesterId: Scalars['String'];
+};
+
+/** The output of our create `Kyc` mutation. */
+export type CreateKycPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Kyc` that was created by this mutation. */
+  kyc?: Maybe<Kyc>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+  /** An edge for our `Kyc`. May be used by Relay 1. */
+  kycEdge?: Maybe<KycsEdge>;
+};
+
+
+/** The output of our create `Kyc` mutation. */
+export type CreateKycPayloadkycEdgeArgs = {
+  orderBy?: InputMaybe<Array<KycsOrderBy>>;
 };
 
 /** All input for the `updateThing` mutation. */
@@ -807,6 +929,38 @@ export type UpdateThingPayload = {
 /** The output of our update `Thing` mutation. */
 export type UpdateThingPayloadthingEdgeArgs = {
   orderBy?: InputMaybe<Array<ThingsOrderBy>>;
+};
+
+/** All input for the `deleteKyc` mutation. */
+export type DeleteKycInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  id: Scalars['Int'];
+};
+
+/** The output of our delete `Kyc` mutation. */
+export type DeleteKycPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Kyc` that was deleted by this mutation. */
+  kyc?: Maybe<Kyc>;
+  deletedKycNodeId?: Maybe<Scalars['ID']>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+  /** An edge for our `Kyc`. May be used by Relay 1. */
+  kycEdge?: Maybe<KycsEdge>;
+};
+
+
+/** The output of our delete `Kyc` mutation. */
+export type DeleteKycPayloadkycEdgeArgs = {
+  orderBy?: InputMaybe<Array<KycsOrderBy>>;
 };
 
 export type CreateThingInput = {
@@ -873,6 +1027,8 @@ export type ProposeOptionPayload = {
   attributes: InContextSdkMethod<Query['attributes'], QueryattributesArgs, MeshContext>,
   /** Reads and enables pagination through a set of `Characteristic`. **/
   characteristics: InContextSdkMethod<Query['characteristics'], QuerycharacteristicsArgs, MeshContext>,
+  /** Reads and enables pagination through a set of `Kyc`. **/
+  kycs: InContextSdkMethod<Query['kycs'], QuerykycsArgs, MeshContext>,
   /** Reads and enables pagination through a set of `Media`. **/
   medias: InContextSdkMethod<Query['medias'], QuerymediasArgs, MeshContext>,
   /** Reads and enables pagination through a set of `Option`. **/
@@ -892,6 +1048,8 @@ export type ProposeOptionPayload = {
   /** null **/
   characteristic: InContextSdkMethod<Query['characteristic'], QuerycharacteristicArgs, MeshContext>,
   /** null **/
+  kyc: InContextSdkMethod<Query['kyc'], QuerykycArgs, MeshContext>,
+  /** null **/
   media: InContextSdkMethod<Query['media'], QuerymediaArgs, MeshContext>,
   /** null **/
   option: InContextSdkMethod<Query['option'], QueryoptionArgs, MeshContext>,
@@ -910,8 +1068,12 @@ export type ProposeOptionPayload = {
   };
 
   export type MutationSdk = {
-      /** Updates a single `Thing` using a unique key and a patch. **/
+      /** Creates a single `Kyc`. **/
+  createKyc: InContextSdkMethod<Mutation['createKyc'], MutationcreateKycArgs, MeshContext>,
+  /** Updates a single `Thing` using a unique key and a patch. **/
   updateThing: InContextSdkMethod<Mutation['updateThing'], MutationupdateThingArgs, MeshContext>,
+  /** Deletes a single `Kyc` using a unique key. **/
+  deleteKyc: InContextSdkMethod<Mutation['deleteKyc'], MutationdeleteKycArgs, MeshContext>,
   /** null **/
   createThing: InContextSdkMethod<Mutation['createThing'], MutationcreateThingArgs, MeshContext>,
   /** null **/

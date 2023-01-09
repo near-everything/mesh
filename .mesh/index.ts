@@ -39,6 +39,8 @@ export type Query = {
   attributes?: Maybe<AttributesConnection>;
   /** Reads and enables pagination through a set of `Characteristic`. */
   characteristics?: Maybe<CharacteristicsConnection>;
+  /** Reads and enables pagination through a set of `Kyc`. */
+  kycs?: Maybe<KycsConnection>;
   /** Reads and enables pagination through a set of `Media`. */
   medias?: Maybe<MediaConnection>;
   /** Reads and enables pagination through a set of `Option`. */
@@ -54,6 +56,7 @@ export type Query = {
   attribute?: Maybe<Attribute>;
   attributeByName?: Maybe<Attribute>;
   characteristic?: Maybe<Characteristic>;
+  kyc?: Maybe<Kyc>;
   media?: Maybe<Media>;
   option?: Maybe<Option>;
   relationship?: Maybe<Relationship>;
@@ -200,6 +203,17 @@ export type QuerycharacteristicsArgs = {
 };
 
 
+export type QuerykycsArgs = {
+  first?: InputMaybe<Scalars['Int']>;
+  last?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  before?: InputMaybe<Scalars['Cursor']>;
+  after?: InputMaybe<Scalars['Cursor']>;
+  orderBy?: InputMaybe<Array<KycsOrderBy>>;
+  condition?: InputMaybe<KycCondition>;
+};
+
+
 export type QuerymediasArgs = {
   first?: InputMaybe<Scalars['Int']>;
   last?: InputMaybe<Scalars['Int']>;
@@ -280,6 +294,11 @@ export type QuerycharacteristicArgs = {
   thingId: Scalars['String'];
   attributeId: Scalars['Int'];
   optionId: Scalars['Int'];
+};
+
+
+export type QuerykycArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -802,8 +821,12 @@ export type QueryminterArgs = {
 
 /** The root mutation type which contains root level fields which mutate data. */
 export type Mutation = {
+  /** Creates a single `Kyc`. */
+  createKyc?: Maybe<CreateKycPayload>;
   /** Updates a single `Thing` using a unique key and a patch. */
   updateThing?: Maybe<UpdateThingPayload>;
+  /** Deletes a single `Kyc` using a unique key. */
+  deleteKyc?: Maybe<DeleteKycPayload>;
   createThing?: Maybe<CreateThingPayload>;
   createMedia?: Maybe<CreateMediaPayload>;
   proposeAttribute?: Maybe<ProposeAttributePayload>;
@@ -813,8 +836,20 @@ export type Mutation = {
 
 
 /** The root mutation type which contains root level fields which mutate data. */
+export type MutationcreateKycArgs = {
+  input: CreateKycInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
 export type MutationupdateThingArgs = {
   input: UpdateThingInput;
+};
+
+
+/** The root mutation type which contains root level fields which mutate data. */
+export type MutationdeleteKycArgs = {
+  input: DeleteKycInput;
 };
 
 
@@ -1188,6 +1223,51 @@ export type AttributesEdge = {
   node: Attribute;
 };
 
+/** Methods to use when ordering `Kyc`. */
+export type KycsOrderBy =
+  | 'NATURAL'
+  | 'ID_ASC'
+  | 'ID_DESC'
+  | 'REQUESTER_ID_ASC'
+  | 'REQUESTER_ID_DESC'
+  | 'PRIMARY_KEY_ASC'
+  | 'PRIMARY_KEY_DESC';
+
+/** A condition to be used against `Kyc` object types. All fields are tested for equality and combined with a logical ‘and.’ */
+export type KycCondition = {
+  /** Checks for equality with the object’s `id` field. */
+  id?: InputMaybe<Scalars['Int']>;
+  /** Checks for equality with the object’s `requesterId` field. */
+  requesterId?: InputMaybe<Scalars['String']>;
+};
+
+/** A connection to a list of `Kyc` values. */
+export type KycsConnection = {
+  /** A list of `Kyc` objects. */
+  nodes: Array<Kyc>;
+  /** A list of edges which contains the `Kyc` and cursor to aid in pagination. */
+  edges: Array<KycsEdge>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+  /** The count of *all* `Kyc` you could get from the connection. */
+  totalCount: Scalars['Int'];
+};
+
+export type Kyc = {
+  createdAt: Scalars['Datetime'];
+  updatedAt: Scalars['Datetime'];
+  id: Scalars['Int'];
+  requesterId: Scalars['String'];
+};
+
+/** A `Kyc` edge in the connection. */
+export type KycsEdge = {
+  /** A cursor for use in pagination. */
+  cursor?: Maybe<Scalars['Cursor']>;
+  /** The `Kyc` at the end of the edge. */
+  node: Kyc;
+};
+
 /** Methods to use when ordering `Media`. */
 export type MediaOrderBy =
   | 'NATURAL'
@@ -1349,6 +1429,46 @@ export type UsersEdge = {
   node: User;
 };
 
+/** All input for the create `Kyc` mutation. */
+export type CreateKycInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  /** The `Kyc` to be created by this mutation. */
+  kyc: KycInput;
+};
+
+/** An input for mutations affecting `Kyc` */
+export type KycInput = {
+  createdAt?: InputMaybe<Scalars['Datetime']>;
+  updatedAt?: InputMaybe<Scalars['Datetime']>;
+  id?: InputMaybe<Scalars['Int']>;
+  requesterId: Scalars['String'];
+};
+
+/** The output of our create `Kyc` mutation. */
+export type CreateKycPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Kyc` that was created by this mutation. */
+  kyc?: Maybe<Kyc>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+  /** An edge for our `Kyc`. May be used by Relay 1. */
+  kycEdge?: Maybe<KycsEdge>;
+};
+
+
+/** The output of our create `Kyc` mutation. */
+export type CreateKycPayloadkycEdgeArgs = {
+  orderBy?: InputMaybe<Array<KycsOrderBy>>;
+};
+
 /** All input for the `updateThing` mutation. */
 export type UpdateThingInput = {
   /**
@@ -1390,6 +1510,38 @@ export type UpdateThingPayload = {
 /** The output of our update `Thing` mutation. */
 export type UpdateThingPayloadthingEdgeArgs = {
   orderBy?: InputMaybe<Array<ThingsOrderBy>>;
+};
+
+/** All input for the `deleteKyc` mutation. */
+export type DeleteKycInput = {
+  /**
+   * An arbitrary string value with no semantic meaning. Will be included in the
+   * payload verbatim. May be used to track mutations by the client.
+   */
+  clientMutationId?: InputMaybe<Scalars['String']>;
+  id: Scalars['Int'];
+};
+
+/** The output of our delete `Kyc` mutation. */
+export type DeleteKycPayload = {
+  /**
+   * The exact same `clientMutationId` that was provided in the mutation input,
+   * unchanged and unused. May be used by a client to track mutations.
+   */
+  clientMutationId?: Maybe<Scalars['String']>;
+  /** The `Kyc` that was deleted by this mutation. */
+  kyc?: Maybe<Kyc>;
+  deletedKycNodeId?: Maybe<Scalars['ID']>;
+  /** Our root query field type. Allows us to run any query from our mutation payload. */
+  query?: Maybe<Query>;
+  /** An edge for our `Kyc`. May be used by Relay 1. */
+  kycEdge?: Maybe<KycsEdge>;
+};
+
+
+/** The output of our delete `Kyc` mutation. */
+export type DeleteKycPayloadkycEdgeArgs = {
+  orderBy?: InputMaybe<Array<KycsOrderBy>>;
 };
 
 export type CreateThingInput = {
@@ -8540,6 +8692,11 @@ export type ResolversTypes = ResolversObject<{
   CharacteristicsEdge: ResolverTypeWrapper<CharacteristicsEdge>;
   RelationshipsEdge: ResolverTypeWrapper<RelationshipsEdge>;
   AttributesEdge: ResolverTypeWrapper<AttributesEdge>;
+  KycsOrderBy: KycsOrderBy;
+  KycCondition: KycCondition;
+  KycsConnection: ResolverTypeWrapper<KycsConnection>;
+  Kyc: ResolverTypeWrapper<Kyc>;
+  KycsEdge: ResolverTypeWrapper<KycsEdge>;
   MediaOrderBy: MediaOrderBy;
   MediaCondition: MediaCondition;
   MediaConnection: ResolverTypeWrapper<MediaConnection>;
@@ -8557,9 +8714,15 @@ export type ResolversTypes = ResolversObject<{
   UsersConnection: ResolverTypeWrapper<UsersConnection>;
   User: ResolverTypeWrapper<User>;
   UsersEdge: ResolverTypeWrapper<UsersEdge>;
+  CreateKycInput: CreateKycInput;
+  KycInput: KycInput;
+  CreateKycPayload: ResolverTypeWrapper<CreateKycPayload>;
   UpdateThingInput: UpdateThingInput;
   ThingPatch: ThingPatch;
   UpdateThingPayload: ResolverTypeWrapper<UpdateThingPayload>;
+  DeleteKycInput: DeleteKycInput;
+  DeleteKycPayload: ResolverTypeWrapper<DeleteKycPayload>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   CreateThingInput: CreateThingInput;
   NewCharacteristicInput: NewCharacteristicInput;
   CreateThingPayload: ResolverTypeWrapper<CreateThingPayload>;
@@ -9018,6 +9181,10 @@ export type ResolversParentTypes = ResolversObject<{
   CharacteristicsEdge: CharacteristicsEdge;
   RelationshipsEdge: RelationshipsEdge;
   AttributesEdge: AttributesEdge;
+  KycCondition: KycCondition;
+  KycsConnection: KycsConnection;
+  Kyc: Kyc;
+  KycsEdge: KycsEdge;
   MediaCondition: MediaCondition;
   MediaConnection: MediaConnection;
   MediaEdge: MediaEdge;
@@ -9031,9 +9198,15 @@ export type ResolversParentTypes = ResolversObject<{
   UsersConnection: UsersConnection;
   User: User;
   UsersEdge: UsersEdge;
+  CreateKycInput: CreateKycInput;
+  KycInput: KycInput;
+  CreateKycPayload: CreateKycPayload;
   UpdateThingInput: UpdateThingInput;
   ThingPatch: ThingPatch;
   UpdateThingPayload: UpdateThingPayload;
+  DeleteKycInput: DeleteKycInput;
+  DeleteKycPayload: DeleteKycPayload;
+  ID: Scalars['ID'];
   CreateThingInput: CreateThingInput;
   NewCharacteristicInput: NewCharacteristicInput;
   CreateThingPayload: CreateThingPayload;
@@ -9448,6 +9621,7 @@ export type cachedDirectiveResolver<Result, Parent, ContextType = MeshContext, A
 export type QueryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   attributes?: Resolver<Maybe<ResolversTypes['AttributesConnection']>, ParentType, ContextType, RequireFields<QueryattributesArgs, 'orderBy'>>;
   characteristics?: Resolver<Maybe<ResolversTypes['CharacteristicsConnection']>, ParentType, ContextType, RequireFields<QuerycharacteristicsArgs, 'orderBy'>>;
+  kycs?: Resolver<Maybe<ResolversTypes['KycsConnection']>, ParentType, ContextType, RequireFields<QuerykycsArgs, 'orderBy'>>;
   medias?: Resolver<Maybe<ResolversTypes['MediaConnection']>, ParentType, ContextType, RequireFields<QuerymediasArgs, 'orderBy'>>;
   options?: Resolver<Maybe<ResolversTypes['OptionsConnection']>, ParentType, ContextType, RequireFields<QueryoptionsArgs, 'orderBy'>>;
   relationships?: Resolver<Maybe<ResolversTypes['RelationshipsConnection']>, ParentType, ContextType, RequireFields<QueryrelationshipsArgs, 'orderBy'>>;
@@ -9457,6 +9631,7 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   attribute?: Resolver<Maybe<ResolversTypes['Attribute']>, ParentType, ContextType, RequireFields<QueryattributeArgs, 'id'>>;
   attributeByName?: Resolver<Maybe<ResolversTypes['Attribute']>, ParentType, ContextType, RequireFields<QueryattributeByNameArgs, 'name'>>;
   characteristic?: Resolver<Maybe<ResolversTypes['Characteristic']>, ParentType, ContextType, RequireFields<QuerycharacteristicArgs, 'thingId' | 'attributeId' | 'optionId'>>;
+  kyc?: Resolver<Maybe<ResolversTypes['Kyc']>, ParentType, ContextType, RequireFields<QuerykycArgs, 'id'>>;
   media?: Resolver<Maybe<ResolversTypes['Media']>, ParentType, ContextType, RequireFields<QuerymediaArgs, 'id'>>;
   option?: Resolver<Maybe<ResolversTypes['Option']>, ParentType, ContextType, RequireFields<QueryoptionArgs, 'id'>>;
   relationship?: Resolver<Maybe<ResolversTypes['Relationship']>, ParentType, ContextType, RequireFields<QueryrelationshipArgs, 'attributeId' | 'optionId'>>;
@@ -9526,7 +9701,9 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
 }>;
 
 export type MutationResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  createKyc?: Resolver<Maybe<ResolversTypes['CreateKycPayload']>, ParentType, ContextType, RequireFields<MutationcreateKycArgs, 'input'>>;
   updateThing?: Resolver<Maybe<ResolversTypes['UpdateThingPayload']>, ParentType, ContextType, RequireFields<MutationupdateThingArgs, 'input'>>;
+  deleteKyc?: Resolver<Maybe<ResolversTypes['DeleteKycPayload']>, ParentType, ContextType, RequireFields<MutationdeleteKycArgs, 'input'>>;
   createThing?: Resolver<Maybe<ResolversTypes['CreateThingPayload']>, ParentType, ContextType, RequireFields<MutationcreateThingArgs, 'input'>>;
   createMedia?: Resolver<Maybe<ResolversTypes['CreateMediaPayload']>, ParentType, ContextType, RequireFields<MutationcreateMediaArgs, 'input'>>;
   proposeAttribute?: Resolver<Maybe<ResolversTypes['ProposeAttributePayload']>, ParentType, ContextType, RequireFields<MutationproposeAttributeArgs, 'input'>>;
@@ -9686,6 +9863,28 @@ export type AttributesEdgeResolvers<ContextType = MeshContext, ParentType extend
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type KycsConnectionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['KycsConnection'] = ResolversParentTypes['KycsConnection']> = ResolversObject<{
+  nodes?: Resolver<Array<ResolversTypes['Kyc']>, ParentType, ContextType>;
+  edges?: Resolver<Array<ResolversTypes['KycsEdge']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type KycResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Kyc'] = ResolversParentTypes['Kyc']> = ResolversObject<{
+  createdAt?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['Datetime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  requesterId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type KycsEdgeResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['KycsEdge'] = ResolversParentTypes['KycsEdge']> = ResolversObject<{
+  cursor?: Resolver<Maybe<ResolversTypes['Cursor']>, ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['Kyc'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type MediaConnectionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['MediaConnection'] = ResolversParentTypes['MediaConnection']> = ResolversObject<{
   nodes?: Resolver<Array<ResolversTypes['Media']>, ParentType, ContextType>;
   edges?: Resolver<Array<ResolversTypes['MediaEdge']>, ParentType, ContextType>;
@@ -9753,11 +9952,28 @@ export type UsersEdgeResolvers<ContextType = MeshContext, ParentType extends Res
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type CreateKycPayloadResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['CreateKycPayload'] = ResolversParentTypes['CreateKycPayload']> = ResolversObject<{
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  kyc?: Resolver<Maybe<ResolversTypes['Kyc']>, ParentType, ContextType>;
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
+  kycEdge?: Resolver<Maybe<ResolversTypes['KycsEdge']>, ParentType, ContextType, RequireFields<CreateKycPayloadkycEdgeArgs, 'orderBy'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type UpdateThingPayloadResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['UpdateThingPayload'] = ResolversParentTypes['UpdateThingPayload']> = ResolversObject<{
   clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   thing?: Resolver<Maybe<ResolversTypes['Thing']>, ParentType, ContextType>;
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
   thingEdge?: Resolver<Maybe<ResolversTypes['ThingsEdge']>, ParentType, ContextType, RequireFields<UpdateThingPayloadthingEdgeArgs, 'orderBy'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type DeleteKycPayloadResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['DeleteKycPayload'] = ResolversParentTypes['DeleteKycPayload']> = ResolversObject<{
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  kyc?: Resolver<Maybe<ResolversTypes['Kyc']>, ParentType, ContextType>;
+  deletedKycNodeId?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
+  kycEdge?: Resolver<Maybe<ResolversTypes['KycsEdge']>, ParentType, ContextType, RequireFields<DeleteKycPayloadkycEdgeArgs, 'orderBy'>>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -12571,6 +12787,9 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   CharacteristicsEdge?: CharacteristicsEdgeResolvers<ContextType>;
   RelationshipsEdge?: RelationshipsEdgeResolvers<ContextType>;
   AttributesEdge?: AttributesEdgeResolvers<ContextType>;
+  KycsConnection?: KycsConnectionResolvers<ContextType>;
+  Kyc?: KycResolvers<ContextType>;
+  KycsEdge?: KycsEdgeResolvers<ContextType>;
   MediaConnection?: MediaConnectionResolvers<ContextType>;
   MediaEdge?: MediaEdgeResolvers<ContextType>;
   OptionsConnection?: OptionsConnectionResolvers<ContextType>;
@@ -12580,7 +12799,9 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   UsersConnection?: UsersConnectionResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
   UsersEdge?: UsersEdgeResolvers<ContextType>;
+  CreateKycPayload?: CreateKycPayloadResolvers<ContextType>;
   UpdateThingPayload?: UpdateThingPayloadResolvers<ContextType>;
+  DeleteKycPayload?: DeleteKycPayloadResolvers<ContextType>;
   CreateThingPayload?: CreateThingPayloadResolvers<ContextType>;
   CreateMediaPayload?: CreateMediaPayloadResolvers<ContextType>;
   ProposeAttributePayload?: ProposeAttributePayloadResolvers<ContextType>;
