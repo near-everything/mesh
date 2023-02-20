@@ -18,6 +18,7 @@ export type Scalars = {
   Float: number;
   _text: any;
   bigint: any;
+  date: any;
   jsonb: any;
   numeric: any;
   timestamp: any;
@@ -93,6 +94,298 @@ export type _text_comparison_exp = {
   _lte?: InputMaybe<Scalars['_text']>;
   _neq?: InputMaybe<Scalars['_text']>;
   _nin?: InputMaybe<Array<Scalars['_text']>>;
+};
+
+/** columns and relationships of "analytics_tmp.referrer_earnings_monthly" */
+export type analytics_tmp_referrer_earnings_monthly = {
+  date_trunc?: Maybe<Scalars['date']>;
+  referrer_id?: Maybe<Scalars['String']>;
+  sales_count?: Maybe<Scalars['bigint']>;
+  total_earned?: Maybe<Scalars['numeric']>;
+};
+
+/** aggregated selection of "analytics_tmp.referrer_earnings_monthly" */
+export type analytics_tmp_referrer_earnings_monthly_aggregate = {
+  aggregate?: Maybe<analytics_tmp_referrer_earnings_monthly_aggregate_fields>;
+  nodes: Array<analytics_tmp_referrer_earnings_monthly>;
+};
+
+/** aggregate fields of "analytics_tmp.referrer_earnings_monthly" */
+export type analytics_tmp_referrer_earnings_monthly_aggregate_fields = {
+  avg?: Maybe<analytics_tmp_referrer_earnings_monthly_avg_fields>;
+  count: Scalars['Int'];
+  max?: Maybe<analytics_tmp_referrer_earnings_monthly_max_fields>;
+  min?: Maybe<analytics_tmp_referrer_earnings_monthly_min_fields>;
+  stddev?: Maybe<analytics_tmp_referrer_earnings_monthly_stddev_fields>;
+  stddev_pop?: Maybe<analytics_tmp_referrer_earnings_monthly_stddev_pop_fields>;
+  stddev_samp?: Maybe<analytics_tmp_referrer_earnings_monthly_stddev_samp_fields>;
+  sum?: Maybe<analytics_tmp_referrer_earnings_monthly_sum_fields>;
+  var_pop?: Maybe<analytics_tmp_referrer_earnings_monthly_var_pop_fields>;
+  var_samp?: Maybe<analytics_tmp_referrer_earnings_monthly_var_samp_fields>;
+  variance?: Maybe<analytics_tmp_referrer_earnings_monthly_variance_fields>;
+};
+
+
+/** aggregate fields of "analytics_tmp.referrer_earnings_monthly" */
+export type analytics_tmp_referrer_earnings_monthly_aggregate_fieldscountArgs = {
+  columns?: InputMaybe<Array<analytics_tmp_referrer_earnings_monthly_select_column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type analytics_tmp_referrer_earnings_monthly_avg_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "analytics_tmp.referrer_earnings_monthly". All fields are combined with a logical 'AND'. */
+export type analytics_tmp_referrer_earnings_monthly_bool_exp = {
+  _and?: InputMaybe<Array<analytics_tmp_referrer_earnings_monthly_bool_exp>>;
+  _not?: InputMaybe<analytics_tmp_referrer_earnings_monthly_bool_exp>;
+  _or?: InputMaybe<Array<analytics_tmp_referrer_earnings_monthly_bool_exp>>;
+  date_trunc?: InputMaybe<date_comparison_exp>;
+  referrer_id?: InputMaybe<String_comparison_exp>;
+  sales_count?: InputMaybe<bigint_comparison_exp>;
+  total_earned?: InputMaybe<numeric_comparison_exp>;
+};
+
+/** aggregate max on columns */
+export type analytics_tmp_referrer_earnings_monthly_max_fields = {
+  date_trunc?: Maybe<Scalars['date']>;
+  referrer_id?: Maybe<Scalars['String']>;
+  sales_count?: Maybe<Scalars['bigint']>;
+  total_earned?: Maybe<Scalars['numeric']>;
+};
+
+/** aggregate min on columns */
+export type analytics_tmp_referrer_earnings_monthly_min_fields = {
+  date_trunc?: Maybe<Scalars['date']>;
+  referrer_id?: Maybe<Scalars['String']>;
+  sales_count?: Maybe<Scalars['bigint']>;
+  total_earned?: Maybe<Scalars['numeric']>;
+};
+
+/** Ordering options when selecting data from "analytics_tmp.referrer_earnings_monthly". */
+export type analytics_tmp_referrer_earnings_monthly_order_by = {
+  date_trunc?: InputMaybe<order_by>;
+  referrer_id?: InputMaybe<order_by>;
+  sales_count?: InputMaybe<order_by>;
+  total_earned?: InputMaybe<order_by>;
+};
+
+/** select columns of table "analytics_tmp.referrer_earnings_monthly" */
+export type analytics_tmp_referrer_earnings_monthly_select_column =
+  /** column name */
+  | 'date_trunc'
+  /** column name */
+  | 'referrer_id'
+  /** column name */
+  | 'sales_count'
+  /** column name */
+  | 'total_earned';
+
+/** aggregate stddev on columns */
+export type analytics_tmp_referrer_earnings_monthly_stddev_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type analytics_tmp_referrer_earnings_monthly_stddev_pop_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type analytics_tmp_referrer_earnings_monthly_stddev_samp_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "analytics_tmp_referrer_earnings_monthly" */
+export type analytics_tmp_referrer_earnings_monthly_stream_cursor_input = {
+  /** Stream column input with initial value */
+  initial_value: analytics_tmp_referrer_earnings_monthly_stream_cursor_value_input;
+  /** cursor ordering */
+  ordering?: InputMaybe<cursor_ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type analytics_tmp_referrer_earnings_monthly_stream_cursor_value_input = {
+  date_trunc?: InputMaybe<Scalars['date']>;
+  referrer_id?: InputMaybe<Scalars['String']>;
+  sales_count?: InputMaybe<Scalars['bigint']>;
+  total_earned?: InputMaybe<Scalars['numeric']>;
+};
+
+/** aggregate sum on columns */
+export type analytics_tmp_referrer_earnings_monthly_sum_fields = {
+  sales_count?: Maybe<Scalars['bigint']>;
+  total_earned?: Maybe<Scalars['numeric']>;
+};
+
+/** aggregate var_pop on columns */
+export type analytics_tmp_referrer_earnings_monthly_var_pop_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type analytics_tmp_referrer_earnings_monthly_var_samp_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type analytics_tmp_referrer_earnings_monthly_variance_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** columns and relationships of "analytics_tmp.referrer_earnings_yearly" */
+export type analytics_tmp_referrer_earnings_yearly = {
+  date_trunc?: Maybe<Scalars['date']>;
+  referrer_id?: Maybe<Scalars['String']>;
+  sales_count?: Maybe<Scalars['bigint']>;
+  total_earned?: Maybe<Scalars['numeric']>;
+};
+
+/** aggregated selection of "analytics_tmp.referrer_earnings_yearly" */
+export type analytics_tmp_referrer_earnings_yearly_aggregate = {
+  aggregate?: Maybe<analytics_tmp_referrer_earnings_yearly_aggregate_fields>;
+  nodes: Array<analytics_tmp_referrer_earnings_yearly>;
+};
+
+/** aggregate fields of "analytics_tmp.referrer_earnings_yearly" */
+export type analytics_tmp_referrer_earnings_yearly_aggregate_fields = {
+  avg?: Maybe<analytics_tmp_referrer_earnings_yearly_avg_fields>;
+  count: Scalars['Int'];
+  max?: Maybe<analytics_tmp_referrer_earnings_yearly_max_fields>;
+  min?: Maybe<analytics_tmp_referrer_earnings_yearly_min_fields>;
+  stddev?: Maybe<analytics_tmp_referrer_earnings_yearly_stddev_fields>;
+  stddev_pop?: Maybe<analytics_tmp_referrer_earnings_yearly_stddev_pop_fields>;
+  stddev_samp?: Maybe<analytics_tmp_referrer_earnings_yearly_stddev_samp_fields>;
+  sum?: Maybe<analytics_tmp_referrer_earnings_yearly_sum_fields>;
+  var_pop?: Maybe<analytics_tmp_referrer_earnings_yearly_var_pop_fields>;
+  var_samp?: Maybe<analytics_tmp_referrer_earnings_yearly_var_samp_fields>;
+  variance?: Maybe<analytics_tmp_referrer_earnings_yearly_variance_fields>;
+};
+
+
+/** aggregate fields of "analytics_tmp.referrer_earnings_yearly" */
+export type analytics_tmp_referrer_earnings_yearly_aggregate_fieldscountArgs = {
+  columns?: InputMaybe<Array<analytics_tmp_referrer_earnings_yearly_select_column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type analytics_tmp_referrer_earnings_yearly_avg_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "analytics_tmp.referrer_earnings_yearly". All fields are combined with a logical 'AND'. */
+export type analytics_tmp_referrer_earnings_yearly_bool_exp = {
+  _and?: InputMaybe<Array<analytics_tmp_referrer_earnings_yearly_bool_exp>>;
+  _not?: InputMaybe<analytics_tmp_referrer_earnings_yearly_bool_exp>;
+  _or?: InputMaybe<Array<analytics_tmp_referrer_earnings_yearly_bool_exp>>;
+  date_trunc?: InputMaybe<date_comparison_exp>;
+  referrer_id?: InputMaybe<String_comparison_exp>;
+  sales_count?: InputMaybe<bigint_comparison_exp>;
+  total_earned?: InputMaybe<numeric_comparison_exp>;
+};
+
+/** aggregate max on columns */
+export type analytics_tmp_referrer_earnings_yearly_max_fields = {
+  date_trunc?: Maybe<Scalars['date']>;
+  referrer_id?: Maybe<Scalars['String']>;
+  sales_count?: Maybe<Scalars['bigint']>;
+  total_earned?: Maybe<Scalars['numeric']>;
+};
+
+/** aggregate min on columns */
+export type analytics_tmp_referrer_earnings_yearly_min_fields = {
+  date_trunc?: Maybe<Scalars['date']>;
+  referrer_id?: Maybe<Scalars['String']>;
+  sales_count?: Maybe<Scalars['bigint']>;
+  total_earned?: Maybe<Scalars['numeric']>;
+};
+
+/** Ordering options when selecting data from "analytics_tmp.referrer_earnings_yearly". */
+export type analytics_tmp_referrer_earnings_yearly_order_by = {
+  date_trunc?: InputMaybe<order_by>;
+  referrer_id?: InputMaybe<order_by>;
+  sales_count?: InputMaybe<order_by>;
+  total_earned?: InputMaybe<order_by>;
+};
+
+/** select columns of table "analytics_tmp.referrer_earnings_yearly" */
+export type analytics_tmp_referrer_earnings_yearly_select_column =
+  /** column name */
+  | 'date_trunc'
+  /** column name */
+  | 'referrer_id'
+  /** column name */
+  | 'sales_count'
+  /** column name */
+  | 'total_earned';
+
+/** aggregate stddev on columns */
+export type analytics_tmp_referrer_earnings_yearly_stddev_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type analytics_tmp_referrer_earnings_yearly_stddev_pop_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type analytics_tmp_referrer_earnings_yearly_stddev_samp_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "analytics_tmp_referrer_earnings_yearly" */
+export type analytics_tmp_referrer_earnings_yearly_stream_cursor_input = {
+  /** Stream column input with initial value */
+  initial_value: analytics_tmp_referrer_earnings_yearly_stream_cursor_value_input;
+  /** cursor ordering */
+  ordering?: InputMaybe<cursor_ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type analytics_tmp_referrer_earnings_yearly_stream_cursor_value_input = {
+  date_trunc?: InputMaybe<Scalars['date']>;
+  referrer_id?: InputMaybe<Scalars['String']>;
+  sales_count?: InputMaybe<Scalars['bigint']>;
+  total_earned?: InputMaybe<Scalars['numeric']>;
+};
+
+/** aggregate sum on columns */
+export type analytics_tmp_referrer_earnings_yearly_sum_fields = {
+  sales_count?: Maybe<Scalars['bigint']>;
+  total_earned?: Maybe<Scalars['numeric']>;
+};
+
+/** aggregate var_pop on columns */
+export type analytics_tmp_referrer_earnings_yearly_var_pop_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type analytics_tmp_referrer_earnings_yearly_var_samp_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type analytics_tmp_referrer_earnings_yearly_variance_fields = {
+  sales_count?: Maybe<Scalars['Float']>;
+  total_earned?: Maybe<Scalars['Float']>;
 };
 
 /** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
@@ -228,6 +521,19 @@ export type cursor_ordering =
   | 'ASC'
   /** descending ordering of the cursor */
   | 'DESC';
+
+/** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
+export type date_comparison_exp = {
+  _eq?: InputMaybe<Scalars['date']>;
+  _gt?: InputMaybe<Scalars['date']>;
+  _gte?: InputMaybe<Scalars['date']>;
+  _in?: InputMaybe<Array<Scalars['date']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['date']>;
+  _lte?: InputMaybe<Scalars['date']>;
+  _neq?: InputMaybe<Scalars['date']>;
+  _nin?: InputMaybe<Array<Scalars['date']>>;
+};
 
 export type jsonb_cast_exp = {
   String?: InputMaybe<String_comparison_exp>;
@@ -489,6 +795,255 @@ export type mb_views_active_listings_bool_exp = {
   title?: InputMaybe<String_comparison_exp>;
   token?: InputMaybe<mb_views_nft_tokens_bool_exp>;
   token_id?: InputMaybe<String_comparison_exp>;
+};
+
+/** columns and relationships of "mb_views.active_listings_by_contract" */
+export type mb_views_active_listings_by_contract = {
+  approval_id?: Maybe<Scalars['numeric']>;
+  base_uri?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamp']>;
+  listed_by?: Maybe<Scalars['String']>;
+  market_id?: Maybe<Scalars['String']>;
+  media?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
+  nft_contract_id?: Maybe<Scalars['String']>;
+  /** An array relationship */
+  offers: Array<nft_offers>;
+  /** An aggregate relationship */
+  offers_aggregate: nft_offers_aggregate;
+  price?: Maybe<Scalars['numeric']>;
+  title?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  token?: Maybe<mb_views_nft_tokens>;
+  token_id?: Maybe<Scalars['String']>;
+  total_listings?: Maybe<Scalars['bigint']>;
+};
+
+
+/** columns and relationships of "mb_views.active_listings_by_contract" */
+export type mb_views_active_listings_by_contractoffersArgs = {
+  distinct_on?: InputMaybe<Array<nft_offers_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<nft_offers_order_by>>;
+  where?: InputMaybe<nft_offers_bool_exp>;
+};
+
+
+/** columns and relationships of "mb_views.active_listings_by_contract" */
+export type mb_views_active_listings_by_contractoffers_aggregateArgs = {
+  distinct_on?: InputMaybe<Array<nft_offers_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<nft_offers_order_by>>;
+  where?: InputMaybe<nft_offers_bool_exp>;
+};
+
+/** aggregated selection of "mb_views.active_listings_by_contract" */
+export type mb_views_active_listings_by_contract_aggregate = {
+  aggregate?: Maybe<mb_views_active_listings_by_contract_aggregate_fields>;
+  nodes: Array<mb_views_active_listings_by_contract>;
+};
+
+/** aggregate fields of "mb_views.active_listings_by_contract" */
+export type mb_views_active_listings_by_contract_aggregate_fields = {
+  avg?: Maybe<mb_views_active_listings_by_contract_avg_fields>;
+  count: Scalars['Int'];
+  max?: Maybe<mb_views_active_listings_by_contract_max_fields>;
+  min?: Maybe<mb_views_active_listings_by_contract_min_fields>;
+  stddev?: Maybe<mb_views_active_listings_by_contract_stddev_fields>;
+  stddev_pop?: Maybe<mb_views_active_listings_by_contract_stddev_pop_fields>;
+  stddev_samp?: Maybe<mb_views_active_listings_by_contract_stddev_samp_fields>;
+  sum?: Maybe<mb_views_active_listings_by_contract_sum_fields>;
+  var_pop?: Maybe<mb_views_active_listings_by_contract_var_pop_fields>;
+  var_samp?: Maybe<mb_views_active_listings_by_contract_var_samp_fields>;
+  variance?: Maybe<mb_views_active_listings_by_contract_variance_fields>;
+};
+
+
+/** aggregate fields of "mb_views.active_listings_by_contract" */
+export type mb_views_active_listings_by_contract_aggregate_fieldscountArgs = {
+  columns?: InputMaybe<Array<mb_views_active_listings_by_contract_select_column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type mb_views_active_listings_by_contract_avg_fields = {
+  approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  total_listings?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "mb_views.active_listings_by_contract". All fields are combined with a logical 'AND'. */
+export type mb_views_active_listings_by_contract_bool_exp = {
+  _and?: InputMaybe<Array<mb_views_active_listings_by_contract_bool_exp>>;
+  _not?: InputMaybe<mb_views_active_listings_by_contract_bool_exp>;
+  _or?: InputMaybe<Array<mb_views_active_listings_by_contract_bool_exp>>;
+  approval_id?: InputMaybe<numeric_comparison_exp>;
+  base_uri?: InputMaybe<String_comparison_exp>;
+  created_at?: InputMaybe<timestamp_comparison_exp>;
+  listed_by?: InputMaybe<String_comparison_exp>;
+  market_id?: InputMaybe<String_comparison_exp>;
+  media?: InputMaybe<String_comparison_exp>;
+  metadata_id?: InputMaybe<String_comparison_exp>;
+  nft_contract_id?: InputMaybe<String_comparison_exp>;
+  offers?: InputMaybe<nft_offers_bool_exp>;
+  offers_aggregate?: InputMaybe<nft_offers_aggregate_bool_exp>;
+  price?: InputMaybe<numeric_comparison_exp>;
+  title?: InputMaybe<String_comparison_exp>;
+  token?: InputMaybe<mb_views_nft_tokens_bool_exp>;
+  token_id?: InputMaybe<String_comparison_exp>;
+  total_listings?: InputMaybe<bigint_comparison_exp>;
+};
+
+/** aggregate max on columns */
+export type mb_views_active_listings_by_contract_max_fields = {
+  approval_id?: Maybe<Scalars['numeric']>;
+  base_uri?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamp']>;
+  listed_by?: Maybe<Scalars['String']>;
+  market_id?: Maybe<Scalars['String']>;
+  media?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
+  nft_contract_id?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
+  title?: Maybe<Scalars['String']>;
+  token_id?: Maybe<Scalars['String']>;
+  total_listings?: Maybe<Scalars['bigint']>;
+};
+
+/** aggregate min on columns */
+export type mb_views_active_listings_by_contract_min_fields = {
+  approval_id?: Maybe<Scalars['numeric']>;
+  base_uri?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['timestamp']>;
+  listed_by?: Maybe<Scalars['String']>;
+  market_id?: Maybe<Scalars['String']>;
+  media?: Maybe<Scalars['String']>;
+  metadata_id?: Maybe<Scalars['String']>;
+  nft_contract_id?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['numeric']>;
+  title?: Maybe<Scalars['String']>;
+  token_id?: Maybe<Scalars['String']>;
+  total_listings?: Maybe<Scalars['bigint']>;
+};
+
+/** Ordering options when selecting data from "mb_views.active_listings_by_contract". */
+export type mb_views_active_listings_by_contract_order_by = {
+  approval_id?: InputMaybe<order_by>;
+  base_uri?: InputMaybe<order_by>;
+  created_at?: InputMaybe<order_by>;
+  listed_by?: InputMaybe<order_by>;
+  market_id?: InputMaybe<order_by>;
+  media?: InputMaybe<order_by>;
+  metadata_id?: InputMaybe<order_by>;
+  nft_contract_id?: InputMaybe<order_by>;
+  offers_aggregate?: InputMaybe<nft_offers_aggregate_order_by>;
+  price?: InputMaybe<order_by>;
+  title?: InputMaybe<order_by>;
+  token?: InputMaybe<mb_views_nft_tokens_order_by>;
+  token_id?: InputMaybe<order_by>;
+  total_listings?: InputMaybe<order_by>;
+};
+
+/** select columns of table "mb_views.active_listings_by_contract" */
+export type mb_views_active_listings_by_contract_select_column =
+  /** column name */
+  | 'approval_id'
+  /** column name */
+  | 'base_uri'
+  /** column name */
+  | 'created_at'
+  /** column name */
+  | 'listed_by'
+  /** column name */
+  | 'market_id'
+  /** column name */
+  | 'media'
+  /** column name */
+  | 'metadata_id'
+  /** column name */
+  | 'nft_contract_id'
+  /** column name */
+  | 'price'
+  /** column name */
+  | 'title'
+  /** column name */
+  | 'token_id'
+  /** column name */
+  | 'total_listings';
+
+/** aggregate stddev on columns */
+export type mb_views_active_listings_by_contract_stddev_fields = {
+  approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  total_listings?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type mb_views_active_listings_by_contract_stddev_pop_fields = {
+  approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  total_listings?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type mb_views_active_listings_by_contract_stddev_samp_fields = {
+  approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  total_listings?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "mb_views_active_listings_by_contract" */
+export type mb_views_active_listings_by_contract_stream_cursor_input = {
+  /** Stream column input with initial value */
+  initial_value: mb_views_active_listings_by_contract_stream_cursor_value_input;
+  /** cursor ordering */
+  ordering?: InputMaybe<cursor_ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type mb_views_active_listings_by_contract_stream_cursor_value_input = {
+  approval_id?: InputMaybe<Scalars['numeric']>;
+  base_uri?: InputMaybe<Scalars['String']>;
+  created_at?: InputMaybe<Scalars['timestamp']>;
+  listed_by?: InputMaybe<Scalars['String']>;
+  market_id?: InputMaybe<Scalars['String']>;
+  media?: InputMaybe<Scalars['String']>;
+  metadata_id?: InputMaybe<Scalars['String']>;
+  nft_contract_id?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['numeric']>;
+  title?: InputMaybe<Scalars['String']>;
+  token_id?: InputMaybe<Scalars['String']>;
+  total_listings?: InputMaybe<Scalars['bigint']>;
+};
+
+/** aggregate sum on columns */
+export type mb_views_active_listings_by_contract_sum_fields = {
+  approval_id?: Maybe<Scalars['numeric']>;
+  price?: Maybe<Scalars['numeric']>;
+  total_listings?: Maybe<Scalars['bigint']>;
+};
+
+/** aggregate var_pop on columns */
+export type mb_views_active_listings_by_contract_var_pop_fields = {
+  approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  total_listings?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type mb_views_active_listings_by_contract_var_samp_fields = {
+  approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  total_listings?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type mb_views_active_listings_by_contract_variance_fields = {
+  approval_id?: Maybe<Scalars['Float']>;
+  price?: Maybe<Scalars['Float']>;
+  total_listings?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate max on columns */
@@ -6201,6 +6756,14 @@ export type order_by =
   | 'desc_nulls_last';
 
 export type query_root = {
+  /** fetch data from the table: "analytics_tmp.referrer_earnings_monthly" */
+  analytics_tmp_referrer_earnings_monthly: Array<analytics_tmp_referrer_earnings_monthly>;
+  /** fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_monthly" */
+  analytics_tmp_referrer_earnings_monthly_aggregate: analytics_tmp_referrer_earnings_monthly_aggregate;
+  /** fetch data from the table: "analytics_tmp.referrer_earnings_yearly" */
+  analytics_tmp_referrer_earnings_yearly: Array<analytics_tmp_referrer_earnings_yearly>;
+  /** fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_yearly" */
+  analytics_tmp_referrer_earnings_yearly_aggregate: analytics_tmp_referrer_earnings_yearly_aggregate;
   /** fetch data from the table: "blocks" */
   blocks: Array<blocks>;
   /** fetch aggregated fields from the table: "blocks" */
@@ -6217,6 +6780,10 @@ export type query_root = {
   mb_views_active_listings: Array<Listing>;
   /** fetch aggregated fields from the table: "mb_views.active_listings" */
   mb_views_active_listings_aggregate: mb_views_active_listings_aggregate;
+  /** fetch data from the table: "mb_views.active_listings_by_contract" */
+  mb_views_active_listings_by_contract: Array<mb_views_active_listings_by_contract>;
+  /** fetch aggregated fields from the table: "mb_views.active_listings_by_contract" */
+  mb_views_active_listings_by_contract_aggregate: mb_views_active_listings_by_contract_aggregate;
   /** fetch data from the table: "mb_views.active_listings_rollup" */
   mb_views_active_listings_rollup: Array<mb_views_active_listings_rollup>;
   /** fetch aggregated fields from the table: "mb_views.active_listings_rollup" */
@@ -6312,6 +6879,42 @@ export type query_root = {
 };
 
 
+export type query_rootanalytics_tmp_referrer_earnings_monthlyArgs = {
+  distinct_on?: InputMaybe<Array<analytics_tmp_referrer_earnings_monthly_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<analytics_tmp_referrer_earnings_monthly_order_by>>;
+  where?: InputMaybe<analytics_tmp_referrer_earnings_monthly_bool_exp>;
+};
+
+
+export type query_rootanalytics_tmp_referrer_earnings_monthly_aggregateArgs = {
+  distinct_on?: InputMaybe<Array<analytics_tmp_referrer_earnings_monthly_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<analytics_tmp_referrer_earnings_monthly_order_by>>;
+  where?: InputMaybe<analytics_tmp_referrer_earnings_monthly_bool_exp>;
+};
+
+
+export type query_rootanalytics_tmp_referrer_earnings_yearlyArgs = {
+  distinct_on?: InputMaybe<Array<analytics_tmp_referrer_earnings_yearly_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<analytics_tmp_referrer_earnings_yearly_order_by>>;
+  where?: InputMaybe<analytics_tmp_referrer_earnings_yearly_bool_exp>;
+};
+
+
+export type query_rootanalytics_tmp_referrer_earnings_yearly_aggregateArgs = {
+  distinct_on?: InputMaybe<Array<analytics_tmp_referrer_earnings_yearly_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<analytics_tmp_referrer_earnings_yearly_order_by>>;
+  where?: InputMaybe<analytics_tmp_referrer_earnings_yearly_bool_exp>;
+};
+
+
 export type query_rootblocksArgs = {
   distinct_on?: InputMaybe<Array<blocks_select_column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -6374,6 +6977,24 @@ export type query_rootmb_views_active_listings_aggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<mb_views_active_listings_order_by>>;
   where?: InputMaybe<mb_views_active_listings_bool_exp>;
+};
+
+
+export type query_rootmb_views_active_listings_by_contractArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_active_listings_by_contract_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_active_listings_by_contract_order_by>>;
+  where?: InputMaybe<mb_views_active_listings_by_contract_bool_exp>;
+};
+
+
+export type query_rootmb_views_active_listings_by_contract_aggregateArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_active_listings_by_contract_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_active_listings_by_contract_order_by>>;
+  where?: InputMaybe<mb_views_active_listings_by_contract_bool_exp>;
 };
 
 
@@ -6778,6 +7399,18 @@ export type query_rootnft_tokens_by_pkArgs = {
 };
 
 export type subscription_root = {
+  /** fetch data from the table: "analytics_tmp.referrer_earnings_monthly" */
+  analytics_tmp_referrer_earnings_monthly: Array<analytics_tmp_referrer_earnings_monthly>;
+  /** fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_monthly" */
+  analytics_tmp_referrer_earnings_monthly_aggregate: analytics_tmp_referrer_earnings_monthly_aggregate;
+  /** fetch data from the table in a streaming manner: "analytics_tmp.referrer_earnings_monthly" */
+  analytics_tmp_referrer_earnings_monthly_stream: Array<analytics_tmp_referrer_earnings_monthly>;
+  /** fetch data from the table: "analytics_tmp.referrer_earnings_yearly" */
+  analytics_tmp_referrer_earnings_yearly: Array<analytics_tmp_referrer_earnings_yearly>;
+  /** fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_yearly" */
+  analytics_tmp_referrer_earnings_yearly_aggregate: analytics_tmp_referrer_earnings_yearly_aggregate;
+  /** fetch data from the table in a streaming manner: "analytics_tmp.referrer_earnings_yearly" */
+  analytics_tmp_referrer_earnings_yearly_stream: Array<analytics_tmp_referrer_earnings_yearly>;
   /** fetch data from the table: "blocks" */
   blocks: Array<blocks>;
   /** fetch aggregated fields from the table: "blocks" */
@@ -6798,6 +7431,12 @@ export type subscription_root = {
   mb_views_active_listings: Array<Listing>;
   /** fetch aggregated fields from the table: "mb_views.active_listings" */
   mb_views_active_listings_aggregate: mb_views_active_listings_aggregate;
+  /** fetch data from the table: "mb_views.active_listings_by_contract" */
+  mb_views_active_listings_by_contract: Array<mb_views_active_listings_by_contract>;
+  /** fetch aggregated fields from the table: "mb_views.active_listings_by_contract" */
+  mb_views_active_listings_by_contract_aggregate: mb_views_active_listings_by_contract_aggregate;
+  /** fetch data from the table in a streaming manner: "mb_views.active_listings_by_contract" */
+  mb_views_active_listings_by_contract_stream: Array<mb_views_active_listings_by_contract>;
   /** fetch data from the table: "mb_views.active_listings_rollup" */
   mb_views_active_listings_rollup: Array<mb_views_active_listings_rollup>;
   /** fetch aggregated fields from the table: "mb_views.active_listings_rollup" */
@@ -6933,6 +7572,56 @@ export type subscription_root = {
 };
 
 
+export type subscription_rootanalytics_tmp_referrer_earnings_monthlyArgs = {
+  distinct_on?: InputMaybe<Array<analytics_tmp_referrer_earnings_monthly_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<analytics_tmp_referrer_earnings_monthly_order_by>>;
+  where?: InputMaybe<analytics_tmp_referrer_earnings_monthly_bool_exp>;
+};
+
+
+export type subscription_rootanalytics_tmp_referrer_earnings_monthly_aggregateArgs = {
+  distinct_on?: InputMaybe<Array<analytics_tmp_referrer_earnings_monthly_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<analytics_tmp_referrer_earnings_monthly_order_by>>;
+  where?: InputMaybe<analytics_tmp_referrer_earnings_monthly_bool_exp>;
+};
+
+
+export type subscription_rootanalytics_tmp_referrer_earnings_monthly_streamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<analytics_tmp_referrer_earnings_monthly_stream_cursor_input>>;
+  where?: InputMaybe<analytics_tmp_referrer_earnings_monthly_bool_exp>;
+};
+
+
+export type subscription_rootanalytics_tmp_referrer_earnings_yearlyArgs = {
+  distinct_on?: InputMaybe<Array<analytics_tmp_referrer_earnings_yearly_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<analytics_tmp_referrer_earnings_yearly_order_by>>;
+  where?: InputMaybe<analytics_tmp_referrer_earnings_yearly_bool_exp>;
+};
+
+
+export type subscription_rootanalytics_tmp_referrer_earnings_yearly_aggregateArgs = {
+  distinct_on?: InputMaybe<Array<analytics_tmp_referrer_earnings_yearly_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<analytics_tmp_referrer_earnings_yearly_order_by>>;
+  where?: InputMaybe<analytics_tmp_referrer_earnings_yearly_bool_exp>;
+};
+
+
+export type subscription_rootanalytics_tmp_referrer_earnings_yearly_streamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<analytics_tmp_referrer_earnings_yearly_stream_cursor_input>>;
+  where?: InputMaybe<analytics_tmp_referrer_earnings_yearly_bool_exp>;
+};
+
+
 export type subscription_rootblocksArgs = {
   distinct_on?: InputMaybe<Array<blocks_select_column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7009,6 +7698,31 @@ export type subscription_rootmb_views_active_listings_aggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<mb_views_active_listings_order_by>>;
   where?: InputMaybe<mb_views_active_listings_bool_exp>;
+};
+
+
+export type subscription_rootmb_views_active_listings_by_contractArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_active_listings_by_contract_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_active_listings_by_contract_order_by>>;
+  where?: InputMaybe<mb_views_active_listings_by_contract_bool_exp>;
+};
+
+
+export type subscription_rootmb_views_active_listings_by_contract_aggregateArgs = {
+  distinct_on?: InputMaybe<Array<mb_views_active_listings_by_contract_select_column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<mb_views_active_listings_by_contract_order_by>>;
+  where?: InputMaybe<mb_views_active_listings_by_contract_bool_exp>;
+};
+
+
+export type subscription_rootmb_views_active_listings_by_contract_streamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<mb_views_active_listings_by_contract_stream_cursor_input>>;
+  where?: InputMaybe<mb_views_active_listings_by_contract_bool_exp>;
 };
 
 
@@ -7566,7 +8280,15 @@ export type timestamp_comparison_exp = {
 };
 
   export type QuerySdk = {
-      /** fetch data from the table: "blocks" **/
+      /** fetch data from the table: "analytics_tmp.referrer_earnings_monthly" **/
+  analytics_tmp_referrer_earnings_monthly: InContextSdkMethod<query_root['analytics_tmp_referrer_earnings_monthly'], query_rootanalytics_tmp_referrer_earnings_monthlyArgs, MeshContext>,
+  /** fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_monthly" **/
+  analytics_tmp_referrer_earnings_monthly_aggregate: InContextSdkMethod<query_root['analytics_tmp_referrer_earnings_monthly_aggregate'], query_rootanalytics_tmp_referrer_earnings_monthly_aggregateArgs, MeshContext>,
+  /** fetch data from the table: "analytics_tmp.referrer_earnings_yearly" **/
+  analytics_tmp_referrer_earnings_yearly: InContextSdkMethod<query_root['analytics_tmp_referrer_earnings_yearly'], query_rootanalytics_tmp_referrer_earnings_yearlyArgs, MeshContext>,
+  /** fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_yearly" **/
+  analytics_tmp_referrer_earnings_yearly_aggregate: InContextSdkMethod<query_root['analytics_tmp_referrer_earnings_yearly_aggregate'], query_rootanalytics_tmp_referrer_earnings_yearly_aggregateArgs, MeshContext>,
+  /** fetch data from the table: "blocks" **/
   blocks: InContextSdkMethod<query_root['blocks'], query_rootblocksArgs, MeshContext>,
   /** fetch aggregated fields from the table: "blocks" **/
   blocks_aggregate: InContextSdkMethod<query_root['blocks_aggregate'], query_rootblocks_aggregateArgs, MeshContext>,
@@ -7582,6 +8304,10 @@ export type timestamp_comparison_exp = {
   mb_views_active_listings: InContextSdkMethod<query_root['mb_views_active_listings'], query_rootmb_views_active_listingsArgs, MeshContext>,
   /** fetch aggregated fields from the table: "mb_views.active_listings" **/
   mb_views_active_listings_aggregate: InContextSdkMethod<query_root['mb_views_active_listings_aggregate'], query_rootmb_views_active_listings_aggregateArgs, MeshContext>,
+  /** fetch data from the table: "mb_views.active_listings_by_contract" **/
+  mb_views_active_listings_by_contract: InContextSdkMethod<query_root['mb_views_active_listings_by_contract'], query_rootmb_views_active_listings_by_contractArgs, MeshContext>,
+  /** fetch aggregated fields from the table: "mb_views.active_listings_by_contract" **/
+  mb_views_active_listings_by_contract_aggregate: InContextSdkMethod<query_root['mb_views_active_listings_by_contract_aggregate'], query_rootmb_views_active_listings_by_contract_aggregateArgs, MeshContext>,
   /** fetch data from the table: "mb_views.active_listings_rollup" **/
   mb_views_active_listings_rollup: InContextSdkMethod<query_root['mb_views_active_listings_rollup'], query_rootmb_views_active_listings_rollupArgs, MeshContext>,
   /** fetch aggregated fields from the table: "mb_views.active_listings_rollup" **/
@@ -7681,7 +8407,19 @@ export type timestamp_comparison_exp = {
   };
 
   export type SubscriptionSdk = {
-      /** fetch data from the table: "blocks" **/
+      /** fetch data from the table: "analytics_tmp.referrer_earnings_monthly" **/
+  analytics_tmp_referrer_earnings_monthly: InContextSdkMethod<subscription_root['analytics_tmp_referrer_earnings_monthly'], subscription_rootanalytics_tmp_referrer_earnings_monthlyArgs, MeshContext>,
+  /** fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_monthly" **/
+  analytics_tmp_referrer_earnings_monthly_aggregate: InContextSdkMethod<subscription_root['analytics_tmp_referrer_earnings_monthly_aggregate'], subscription_rootanalytics_tmp_referrer_earnings_monthly_aggregateArgs, MeshContext>,
+  /** fetch data from the table in a streaming manner: "analytics_tmp.referrer_earnings_monthly" **/
+  analytics_tmp_referrer_earnings_monthly_stream: InContextSdkMethod<subscription_root['analytics_tmp_referrer_earnings_monthly_stream'], subscription_rootanalytics_tmp_referrer_earnings_monthly_streamArgs, MeshContext>,
+  /** fetch data from the table: "analytics_tmp.referrer_earnings_yearly" **/
+  analytics_tmp_referrer_earnings_yearly: InContextSdkMethod<subscription_root['analytics_tmp_referrer_earnings_yearly'], subscription_rootanalytics_tmp_referrer_earnings_yearlyArgs, MeshContext>,
+  /** fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_yearly" **/
+  analytics_tmp_referrer_earnings_yearly_aggregate: InContextSdkMethod<subscription_root['analytics_tmp_referrer_earnings_yearly_aggregate'], subscription_rootanalytics_tmp_referrer_earnings_yearly_aggregateArgs, MeshContext>,
+  /** fetch data from the table in a streaming manner: "analytics_tmp.referrer_earnings_yearly" **/
+  analytics_tmp_referrer_earnings_yearly_stream: InContextSdkMethod<subscription_root['analytics_tmp_referrer_earnings_yearly_stream'], subscription_rootanalytics_tmp_referrer_earnings_yearly_streamArgs, MeshContext>,
+  /** fetch data from the table: "blocks" **/
   blocks: InContextSdkMethod<subscription_root['blocks'], subscription_rootblocksArgs, MeshContext>,
   /** fetch aggregated fields from the table: "blocks" **/
   blocks_aggregate: InContextSdkMethod<subscription_root['blocks_aggregate'], subscription_rootblocks_aggregateArgs, MeshContext>,
@@ -7701,6 +8439,12 @@ export type timestamp_comparison_exp = {
   mb_views_active_listings: InContextSdkMethod<subscription_root['mb_views_active_listings'], subscription_rootmb_views_active_listingsArgs, MeshContext>,
   /** fetch aggregated fields from the table: "mb_views.active_listings" **/
   mb_views_active_listings_aggregate: InContextSdkMethod<subscription_root['mb_views_active_listings_aggregate'], subscription_rootmb_views_active_listings_aggregateArgs, MeshContext>,
+  /** fetch data from the table: "mb_views.active_listings_by_contract" **/
+  mb_views_active_listings_by_contract: InContextSdkMethod<subscription_root['mb_views_active_listings_by_contract'], subscription_rootmb_views_active_listings_by_contractArgs, MeshContext>,
+  /** fetch aggregated fields from the table: "mb_views.active_listings_by_contract" **/
+  mb_views_active_listings_by_contract_aggregate: InContextSdkMethod<subscription_root['mb_views_active_listings_by_contract_aggregate'], subscription_rootmb_views_active_listings_by_contract_aggregateArgs, MeshContext>,
+  /** fetch data from the table in a streaming manner: "mb_views.active_listings_by_contract" **/
+  mb_views_active_listings_by_contract_stream: InContextSdkMethod<subscription_root['mb_views_active_listings_by_contract_stream'], subscription_rootmb_views_active_listings_by_contract_streamArgs, MeshContext>,
   /** fetch data from the table: "mb_views.active_listings_rollup" **/
   mb_views_active_listings_rollup: InContextSdkMethod<subscription_root['mb_views_active_listings_rollup'], subscription_rootmb_views_active_listings_rollupArgs, MeshContext>,
   /** fetch aggregated fields from the table: "mb_views.active_listings_rollup" **/

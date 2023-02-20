@@ -101,6 +101,314 @@ input _text_comparison_exp {
   _nin: [_text!]
 }
 
+"""
+columns and relationships of "analytics_tmp.referrer_earnings_monthly"
+"""
+type analytics_tmp_referrer_earnings_monthly {
+  date_trunc: date
+  referrer_id: String
+  sales_count: bigint
+  total_earned: numeric
+}
+
+"""
+aggregated selection of "analytics_tmp.referrer_earnings_monthly"
+"""
+type analytics_tmp_referrer_earnings_monthly_aggregate {
+  aggregate: analytics_tmp_referrer_earnings_monthly_aggregate_fields
+  nodes: [analytics_tmp_referrer_earnings_monthly!]!
+}
+
+"""
+aggregate fields of "analytics_tmp.referrer_earnings_monthly"
+"""
+type analytics_tmp_referrer_earnings_monthly_aggregate_fields {
+  avg: analytics_tmp_referrer_earnings_monthly_avg_fields
+  count(columns: [analytics_tmp_referrer_earnings_monthly_select_column!], distinct: Boolean): Int!
+  max: analytics_tmp_referrer_earnings_monthly_max_fields
+  min: analytics_tmp_referrer_earnings_monthly_min_fields
+  stddev: analytics_tmp_referrer_earnings_monthly_stddev_fields
+  stddev_pop: analytics_tmp_referrer_earnings_monthly_stddev_pop_fields
+  stddev_samp: analytics_tmp_referrer_earnings_monthly_stddev_samp_fields
+  sum: analytics_tmp_referrer_earnings_monthly_sum_fields
+  var_pop: analytics_tmp_referrer_earnings_monthly_var_pop_fields
+  var_samp: analytics_tmp_referrer_earnings_monthly_var_samp_fields
+  variance: analytics_tmp_referrer_earnings_monthly_variance_fields
+}
+
+"""aggregate avg on columns"""
+type analytics_tmp_referrer_earnings_monthly_avg_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""
+Boolean expression to filter rows from the table "analytics_tmp.referrer_earnings_monthly". All fields are combined with a logical 'AND'.
+"""
+input analytics_tmp_referrer_earnings_monthly_bool_exp {
+  _and: [analytics_tmp_referrer_earnings_monthly_bool_exp!]
+  _not: analytics_tmp_referrer_earnings_monthly_bool_exp
+  _or: [analytics_tmp_referrer_earnings_monthly_bool_exp!]
+  date_trunc: date_comparison_exp
+  referrer_id: String_comparison_exp
+  sales_count: bigint_comparison_exp
+  total_earned: numeric_comparison_exp
+}
+
+"""aggregate max on columns"""
+type analytics_tmp_referrer_earnings_monthly_max_fields {
+  date_trunc: date
+  referrer_id: String
+  sales_count: bigint
+  total_earned: numeric
+}
+
+"""aggregate min on columns"""
+type analytics_tmp_referrer_earnings_monthly_min_fields {
+  date_trunc: date
+  referrer_id: String
+  sales_count: bigint
+  total_earned: numeric
+}
+
+"""
+Ordering options when selecting data from "analytics_tmp.referrer_earnings_monthly".
+"""
+input analytics_tmp_referrer_earnings_monthly_order_by {
+  date_trunc: order_by
+  referrer_id: order_by
+  sales_count: order_by
+  total_earned: order_by
+}
+
+"""
+select columns of table "analytics_tmp.referrer_earnings_monthly"
+"""
+enum analytics_tmp_referrer_earnings_monthly_select_column {
+  """column name"""
+  date_trunc
+  """column name"""
+  referrer_id
+  """column name"""
+  sales_count
+  """column name"""
+  total_earned
+}
+
+"""aggregate stddev on columns"""
+type analytics_tmp_referrer_earnings_monthly_stddev_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type analytics_tmp_referrer_earnings_monthly_stddev_pop_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type analytics_tmp_referrer_earnings_monthly_stddev_samp_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""
+Streaming cursor of the table "analytics_tmp_referrer_earnings_monthly"
+"""
+input analytics_tmp_referrer_earnings_monthly_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: analytics_tmp_referrer_earnings_monthly_stream_cursor_value_input!
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input analytics_tmp_referrer_earnings_monthly_stream_cursor_value_input {
+  date_trunc: date
+  referrer_id: String
+  sales_count: bigint
+  total_earned: numeric
+}
+
+"""aggregate sum on columns"""
+type analytics_tmp_referrer_earnings_monthly_sum_fields {
+  sales_count: bigint
+  total_earned: numeric
+}
+
+"""aggregate var_pop on columns"""
+type analytics_tmp_referrer_earnings_monthly_var_pop_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""aggregate var_samp on columns"""
+type analytics_tmp_referrer_earnings_monthly_var_samp_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""aggregate variance on columns"""
+type analytics_tmp_referrer_earnings_monthly_variance_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""
+columns and relationships of "analytics_tmp.referrer_earnings_yearly"
+"""
+type analytics_tmp_referrer_earnings_yearly {
+  date_trunc: date
+  referrer_id: String
+  sales_count: bigint
+  total_earned: numeric
+}
+
+"""
+aggregated selection of "analytics_tmp.referrer_earnings_yearly"
+"""
+type analytics_tmp_referrer_earnings_yearly_aggregate {
+  aggregate: analytics_tmp_referrer_earnings_yearly_aggregate_fields
+  nodes: [analytics_tmp_referrer_earnings_yearly!]!
+}
+
+"""
+aggregate fields of "analytics_tmp.referrer_earnings_yearly"
+"""
+type analytics_tmp_referrer_earnings_yearly_aggregate_fields {
+  avg: analytics_tmp_referrer_earnings_yearly_avg_fields
+  count(columns: [analytics_tmp_referrer_earnings_yearly_select_column!], distinct: Boolean): Int!
+  max: analytics_tmp_referrer_earnings_yearly_max_fields
+  min: analytics_tmp_referrer_earnings_yearly_min_fields
+  stddev: analytics_tmp_referrer_earnings_yearly_stddev_fields
+  stddev_pop: analytics_tmp_referrer_earnings_yearly_stddev_pop_fields
+  stddev_samp: analytics_tmp_referrer_earnings_yearly_stddev_samp_fields
+  sum: analytics_tmp_referrer_earnings_yearly_sum_fields
+  var_pop: analytics_tmp_referrer_earnings_yearly_var_pop_fields
+  var_samp: analytics_tmp_referrer_earnings_yearly_var_samp_fields
+  variance: analytics_tmp_referrer_earnings_yearly_variance_fields
+}
+
+"""aggregate avg on columns"""
+type analytics_tmp_referrer_earnings_yearly_avg_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""
+Boolean expression to filter rows from the table "analytics_tmp.referrer_earnings_yearly". All fields are combined with a logical 'AND'.
+"""
+input analytics_tmp_referrer_earnings_yearly_bool_exp {
+  _and: [analytics_tmp_referrer_earnings_yearly_bool_exp!]
+  _not: analytics_tmp_referrer_earnings_yearly_bool_exp
+  _or: [analytics_tmp_referrer_earnings_yearly_bool_exp!]
+  date_trunc: date_comparison_exp
+  referrer_id: String_comparison_exp
+  sales_count: bigint_comparison_exp
+  total_earned: numeric_comparison_exp
+}
+
+"""aggregate max on columns"""
+type analytics_tmp_referrer_earnings_yearly_max_fields {
+  date_trunc: date
+  referrer_id: String
+  sales_count: bigint
+  total_earned: numeric
+}
+
+"""aggregate min on columns"""
+type analytics_tmp_referrer_earnings_yearly_min_fields {
+  date_trunc: date
+  referrer_id: String
+  sales_count: bigint
+  total_earned: numeric
+}
+
+"""
+Ordering options when selecting data from "analytics_tmp.referrer_earnings_yearly".
+"""
+input analytics_tmp_referrer_earnings_yearly_order_by {
+  date_trunc: order_by
+  referrer_id: order_by
+  sales_count: order_by
+  total_earned: order_by
+}
+
+"""
+select columns of table "analytics_tmp.referrer_earnings_yearly"
+"""
+enum analytics_tmp_referrer_earnings_yearly_select_column {
+  """column name"""
+  date_trunc
+  """column name"""
+  referrer_id
+  """column name"""
+  sales_count
+  """column name"""
+  total_earned
+}
+
+"""aggregate stddev on columns"""
+type analytics_tmp_referrer_earnings_yearly_stddev_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type analytics_tmp_referrer_earnings_yearly_stddev_pop_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type analytics_tmp_referrer_earnings_yearly_stddev_samp_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""
+Streaming cursor of the table "analytics_tmp_referrer_earnings_yearly"
+"""
+input analytics_tmp_referrer_earnings_yearly_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: analytics_tmp_referrer_earnings_yearly_stream_cursor_value_input!
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input analytics_tmp_referrer_earnings_yearly_stream_cursor_value_input {
+  date_trunc: date
+  referrer_id: String
+  sales_count: bigint
+  total_earned: numeric
+}
+
+"""aggregate sum on columns"""
+type analytics_tmp_referrer_earnings_yearly_sum_fields {
+  sales_count: bigint
+  total_earned: numeric
+}
+
+"""aggregate var_pop on columns"""
+type analytics_tmp_referrer_earnings_yearly_var_pop_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""aggregate var_samp on columns"""
+type analytics_tmp_referrer_earnings_yearly_var_samp_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
+"""aggregate variance on columns"""
+type analytics_tmp_referrer_earnings_yearly_variance_fields {
+  sales_count: Float
+  total_earned: Float
+}
+
 scalar bigint
 
 """
@@ -244,6 +552,23 @@ enum cursor_ordering {
   ASC
   """descending ordering of the cursor"""
   DESC
+}
+
+scalar date
+
+"""
+Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'.
+"""
+input date_comparison_exp {
+  _eq: date
+  _gt: date
+  _gte: date
+  _in: [date!]
+  _is_null: Boolean
+  _lt: date
+  _lte: date
+  _neq: date
+  _nin: [date!]
 }
 
 scalar jsonb
@@ -520,6 +845,265 @@ input mb_views_active_listings_bool_exp {
   title: String_comparison_exp
   token: mb_views_nft_tokens_bool_exp
   token_id: String_comparison_exp
+}
+
+"""
+columns and relationships of "mb_views.active_listings_by_contract"
+"""
+type mb_views_active_listings_by_contract {
+  approval_id: numeric
+  base_uri: String
+  created_at: timestamp
+  listed_by: String
+  market_id: String
+  media: String
+  metadata_id: String
+  nft_contract_id: String
+  """An array relationship"""
+  offers(
+    """distinct select on columns"""
+    distinct_on: [nft_offers_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [nft_offers_order_by!]
+    """filter the rows returned"""
+    where: nft_offers_bool_exp
+  ): [nft_offers!]!
+  """An aggregate relationship"""
+  offers_aggregate(
+    """distinct select on columns"""
+    distinct_on: [nft_offers_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [nft_offers_order_by!]
+    """filter the rows returned"""
+    where: nft_offers_bool_exp
+  ): nft_offers_aggregate!
+  price: numeric
+  title: String
+  """An object relationship"""
+  token: mb_views_nft_tokens
+  token_id: String
+  total_listings: bigint
+}
+
+"""
+aggregated selection of "mb_views.active_listings_by_contract"
+"""
+type mb_views_active_listings_by_contract_aggregate {
+  aggregate: mb_views_active_listings_by_contract_aggregate_fields
+  nodes: [mb_views_active_listings_by_contract!]!
+}
+
+"""
+aggregate fields of "mb_views.active_listings_by_contract"
+"""
+type mb_views_active_listings_by_contract_aggregate_fields {
+  avg: mb_views_active_listings_by_contract_avg_fields
+  count(columns: [mb_views_active_listings_by_contract_select_column!], distinct: Boolean): Int!
+  max: mb_views_active_listings_by_contract_max_fields
+  min: mb_views_active_listings_by_contract_min_fields
+  stddev: mb_views_active_listings_by_contract_stddev_fields
+  stddev_pop: mb_views_active_listings_by_contract_stddev_pop_fields
+  stddev_samp: mb_views_active_listings_by_contract_stddev_samp_fields
+  sum: mb_views_active_listings_by_contract_sum_fields
+  var_pop: mb_views_active_listings_by_contract_var_pop_fields
+  var_samp: mb_views_active_listings_by_contract_var_samp_fields
+  variance: mb_views_active_listings_by_contract_variance_fields
+}
+
+"""aggregate avg on columns"""
+type mb_views_active_listings_by_contract_avg_fields {
+  approval_id: Float
+  price: Float
+  total_listings: Float
+}
+
+"""
+Boolean expression to filter rows from the table "mb_views.active_listings_by_contract". All fields are combined with a logical 'AND'.
+"""
+input mb_views_active_listings_by_contract_bool_exp {
+  _and: [mb_views_active_listings_by_contract_bool_exp!]
+  _not: mb_views_active_listings_by_contract_bool_exp
+  _or: [mb_views_active_listings_by_contract_bool_exp!]
+  approval_id: numeric_comparison_exp
+  base_uri: String_comparison_exp
+  created_at: timestamp_comparison_exp
+  listed_by: String_comparison_exp
+  market_id: String_comparison_exp
+  media: String_comparison_exp
+  metadata_id: String_comparison_exp
+  nft_contract_id: String_comparison_exp
+  offers: nft_offers_bool_exp
+  offers_aggregate: nft_offers_aggregate_bool_exp
+  price: numeric_comparison_exp
+  title: String_comparison_exp
+  token: mb_views_nft_tokens_bool_exp
+  token_id: String_comparison_exp
+  total_listings: bigint_comparison_exp
+}
+
+"""aggregate max on columns"""
+type mb_views_active_listings_by_contract_max_fields {
+  approval_id: numeric
+  base_uri: String
+  created_at: timestamp
+  listed_by: String
+  market_id: String
+  media: String
+  metadata_id: String
+  nft_contract_id: String
+  price: numeric
+  title: String
+  token_id: String
+  total_listings: bigint
+}
+
+"""aggregate min on columns"""
+type mb_views_active_listings_by_contract_min_fields {
+  approval_id: numeric
+  base_uri: String
+  created_at: timestamp
+  listed_by: String
+  market_id: String
+  media: String
+  metadata_id: String
+  nft_contract_id: String
+  price: numeric
+  title: String
+  token_id: String
+  total_listings: bigint
+}
+
+"""
+Ordering options when selecting data from "mb_views.active_listings_by_contract".
+"""
+input mb_views_active_listings_by_contract_order_by {
+  approval_id: order_by
+  base_uri: order_by
+  created_at: order_by
+  listed_by: order_by
+  market_id: order_by
+  media: order_by
+  metadata_id: order_by
+  nft_contract_id: order_by
+  offers_aggregate: nft_offers_aggregate_order_by
+  price: order_by
+  title: order_by
+  token: mb_views_nft_tokens_order_by
+  token_id: order_by
+  total_listings: order_by
+}
+
+"""
+select columns of table "mb_views.active_listings_by_contract"
+"""
+enum mb_views_active_listings_by_contract_select_column {
+  """column name"""
+  approval_id
+  """column name"""
+  base_uri
+  """column name"""
+  created_at
+  """column name"""
+  listed_by
+  """column name"""
+  market_id
+  """column name"""
+  media
+  """column name"""
+  metadata_id
+  """column name"""
+  nft_contract_id
+  """column name"""
+  price
+  """column name"""
+  title
+  """column name"""
+  token_id
+  """column name"""
+  total_listings
+}
+
+"""aggregate stddev on columns"""
+type mb_views_active_listings_by_contract_stddev_fields {
+  approval_id: Float
+  price: Float
+  total_listings: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type mb_views_active_listings_by_contract_stddev_pop_fields {
+  approval_id: Float
+  price: Float
+  total_listings: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type mb_views_active_listings_by_contract_stddev_samp_fields {
+  approval_id: Float
+  price: Float
+  total_listings: Float
+}
+
+"""
+Streaming cursor of the table "mb_views_active_listings_by_contract"
+"""
+input mb_views_active_listings_by_contract_stream_cursor_input {
+  """Stream column input with initial value"""
+  initial_value: mb_views_active_listings_by_contract_stream_cursor_value_input!
+  """cursor ordering"""
+  ordering: cursor_ordering
+}
+
+"""Initial value of the column from where the streaming should start"""
+input mb_views_active_listings_by_contract_stream_cursor_value_input {
+  approval_id: numeric
+  base_uri: String
+  created_at: timestamp
+  listed_by: String
+  market_id: String
+  media: String
+  metadata_id: String
+  nft_contract_id: String
+  price: numeric
+  title: String
+  token_id: String
+  total_listings: bigint
+}
+
+"""aggregate sum on columns"""
+type mb_views_active_listings_by_contract_sum_fields {
+  approval_id: numeric
+  price: numeric
+  total_listings: bigint
+}
+
+"""aggregate var_pop on columns"""
+type mb_views_active_listings_by_contract_var_pop_fields {
+  approval_id: Float
+  price: Float
+  total_listings: Float
+}
+
+"""aggregate var_samp on columns"""
+type mb_views_active_listings_by_contract_var_samp_fields {
+  approval_id: Float
+  price: Float
+  total_listings: Float
+}
+
+"""aggregate variance on columns"""
+type mb_views_active_listings_by_contract_variance_fields {
+  approval_id: Float
+  price: Float
+  total_listings: Float
 }
 
 """aggregate max on columns"""
@@ -6386,6 +6970,66 @@ enum order_by {
 
 type query_root {
   """
+  fetch data from the table: "analytics_tmp.referrer_earnings_monthly"
+  """
+  analytics_tmp_referrer_earnings_monthly(
+    """distinct select on columns"""
+    distinct_on: [analytics_tmp_referrer_earnings_monthly_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [analytics_tmp_referrer_earnings_monthly_order_by!]
+    """filter the rows returned"""
+    where: analytics_tmp_referrer_earnings_monthly_bool_exp
+  ): [analytics_tmp_referrer_earnings_monthly!]!
+  """
+  fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_monthly"
+  """
+  analytics_tmp_referrer_earnings_monthly_aggregate(
+    """distinct select on columns"""
+    distinct_on: [analytics_tmp_referrer_earnings_monthly_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [analytics_tmp_referrer_earnings_monthly_order_by!]
+    """filter the rows returned"""
+    where: analytics_tmp_referrer_earnings_monthly_bool_exp
+  ): analytics_tmp_referrer_earnings_monthly_aggregate!
+  """
+  fetch data from the table: "analytics_tmp.referrer_earnings_yearly"
+  """
+  analytics_tmp_referrer_earnings_yearly(
+    """distinct select on columns"""
+    distinct_on: [analytics_tmp_referrer_earnings_yearly_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [analytics_tmp_referrer_earnings_yearly_order_by!]
+    """filter the rows returned"""
+    where: analytics_tmp_referrer_earnings_yearly_bool_exp
+  ): [analytics_tmp_referrer_earnings_yearly!]!
+  """
+  fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_yearly"
+  """
+  analytics_tmp_referrer_earnings_yearly_aggregate(
+    """distinct select on columns"""
+    distinct_on: [analytics_tmp_referrer_earnings_yearly_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [analytics_tmp_referrer_earnings_yearly_order_by!]
+    """filter the rows returned"""
+    where: analytics_tmp_referrer_earnings_yearly_bool_exp
+  ): analytics_tmp_referrer_earnings_yearly_aggregate!
+  """
   fetch data from the table: "blocks"
   """
   blocks(
@@ -6481,6 +7125,36 @@ type query_root {
     """filter the rows returned"""
     where: mb_views_active_listings_bool_exp
   ): mb_views_active_listings_aggregate!
+  """
+  fetch data from the table: "mb_views.active_listings_by_contract"
+  """
+  mb_views_active_listings_by_contract(
+    """distinct select on columns"""
+    distinct_on: [mb_views_active_listings_by_contract_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [mb_views_active_listings_by_contract_order_by!]
+    """filter the rows returned"""
+    where: mb_views_active_listings_by_contract_bool_exp
+  ): [mb_views_active_listings_by_contract!]!
+  """
+  fetch aggregated fields from the table: "mb_views.active_listings_by_contract"
+  """
+  mb_views_active_listings_by_contract_aggregate(
+    """distinct select on columns"""
+    distinct_on: [mb_views_active_listings_by_contract_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [mb_views_active_listings_by_contract_order_by!]
+    """filter the rows returned"""
+    where: mb_views_active_listings_by_contract_bool_exp
+  ): mb_views_active_listings_by_contract_aggregate!
   """
   fetch data from the table: "mb_views.active_listings_rollup"
   """
@@ -7067,6 +7741,88 @@ type query_root {
 
 type subscription_root {
   """
+  fetch data from the table: "analytics_tmp.referrer_earnings_monthly"
+  """
+  analytics_tmp_referrer_earnings_monthly(
+    """distinct select on columns"""
+    distinct_on: [analytics_tmp_referrer_earnings_monthly_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [analytics_tmp_referrer_earnings_monthly_order_by!]
+    """filter the rows returned"""
+    where: analytics_tmp_referrer_earnings_monthly_bool_exp
+  ): [analytics_tmp_referrer_earnings_monthly!]!
+  """
+  fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_monthly"
+  """
+  analytics_tmp_referrer_earnings_monthly_aggregate(
+    """distinct select on columns"""
+    distinct_on: [analytics_tmp_referrer_earnings_monthly_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [analytics_tmp_referrer_earnings_monthly_order_by!]
+    """filter the rows returned"""
+    where: analytics_tmp_referrer_earnings_monthly_bool_exp
+  ): analytics_tmp_referrer_earnings_monthly_aggregate!
+  """
+  fetch data from the table in a streaming manner: "analytics_tmp.referrer_earnings_monthly"
+  """
+  analytics_tmp_referrer_earnings_monthly_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+    """cursor to stream the results returned by the query"""
+    cursor: [analytics_tmp_referrer_earnings_monthly_stream_cursor_input]!
+    """filter the rows returned"""
+    where: analytics_tmp_referrer_earnings_monthly_bool_exp
+  ): [analytics_tmp_referrer_earnings_monthly!]!
+  """
+  fetch data from the table: "analytics_tmp.referrer_earnings_yearly"
+  """
+  analytics_tmp_referrer_earnings_yearly(
+    """distinct select on columns"""
+    distinct_on: [analytics_tmp_referrer_earnings_yearly_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [analytics_tmp_referrer_earnings_yearly_order_by!]
+    """filter the rows returned"""
+    where: analytics_tmp_referrer_earnings_yearly_bool_exp
+  ): [analytics_tmp_referrer_earnings_yearly!]!
+  """
+  fetch aggregated fields from the table: "analytics_tmp.referrer_earnings_yearly"
+  """
+  analytics_tmp_referrer_earnings_yearly_aggregate(
+    """distinct select on columns"""
+    distinct_on: [analytics_tmp_referrer_earnings_yearly_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [analytics_tmp_referrer_earnings_yearly_order_by!]
+    """filter the rows returned"""
+    where: analytics_tmp_referrer_earnings_yearly_bool_exp
+  ): analytics_tmp_referrer_earnings_yearly_aggregate!
+  """
+  fetch data from the table in a streaming manner: "analytics_tmp.referrer_earnings_yearly"
+  """
+  analytics_tmp_referrer_earnings_yearly_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+    """cursor to stream the results returned by the query"""
+    cursor: [analytics_tmp_referrer_earnings_yearly_stream_cursor_input]!
+    """filter the rows returned"""
+    where: analytics_tmp_referrer_earnings_yearly_bool_exp
+  ): [analytics_tmp_referrer_earnings_yearly!]!
+  """
   fetch data from the table: "blocks"
   """
   blocks(
@@ -7184,6 +7940,47 @@ type subscription_root {
     """filter the rows returned"""
     where: mb_views_active_listings_bool_exp
   ): mb_views_active_listings_aggregate!
+  """
+  fetch data from the table: "mb_views.active_listings_by_contract"
+  """
+  mb_views_active_listings_by_contract(
+    """distinct select on columns"""
+    distinct_on: [mb_views_active_listings_by_contract_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [mb_views_active_listings_by_contract_order_by!]
+    """filter the rows returned"""
+    where: mb_views_active_listings_by_contract_bool_exp
+  ): [mb_views_active_listings_by_contract!]!
+  """
+  fetch aggregated fields from the table: "mb_views.active_listings_by_contract"
+  """
+  mb_views_active_listings_by_contract_aggregate(
+    """distinct select on columns"""
+    distinct_on: [mb_views_active_listings_by_contract_select_column!]
+    """limit the number of rows returned"""
+    limit: Int
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+    """sort the rows by one or more columns"""
+    order_by: [mb_views_active_listings_by_contract_order_by!]
+    """filter the rows returned"""
+    where: mb_views_active_listings_by_contract_bool_exp
+  ): mb_views_active_listings_by_contract_aggregate!
+  """
+  fetch data from the table in a streaming manner: "mb_views.active_listings_by_contract"
+  """
+  mb_views_active_listings_by_contract_stream(
+    """maximum number of rows returned in a single batch"""
+    batch_size: Int!
+    """cursor to stream the results returned by the query"""
+    cursor: [mb_views_active_listings_by_contract_stream_cursor_input]!
+    """filter the rows returned"""
+    where: mb_views_active_listings_by_contract_bool_exp
+  ): [mb_views_active_listings_by_contract!]!
   """
   fetch data from the table: "mb_views.active_listings_rollup"
   """
