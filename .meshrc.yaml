@@ -3,6 +3,8 @@ sources:
     handler:
       graphql:
         endpoint: https://everything.fibery.io/api/graphql/space/Things
+        operationHeaders:
+          Authorization: Bearer {env.FIBERY_TOKEN}
         schemaHeaders:
           Authorization: Bearer {env.FIBERY_TOKEN}
 #   - name: everything
