@@ -52,6 +52,7 @@ export type QueryfindThingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
+  idea?: InputMaybe<IdeationIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -88,6 +89,8 @@ export type ThingsThing = {
   createdBy?: Maybe<FiberyUser>;
   /** Things/Description */
   description?: Maybe<RichField>;
+  /** Things/Idea */
+  idea?: Maybe<IdeationIdea>;
   /** Things/Name */
   name?: Maybe<Scalars['String']>;
   /** Things/Type */
@@ -97,6 +100,8 @@ export type ThingsThing = {
 export type ThingsThingInput = {
   /** fibery/rank */
   rank?: InputMaybe<Scalars['Float']>;
+  /** Things/Idea */
+  idea?: InputMaybe<IdeationIdeaFilter>;
   /** Things/Name */
   name?: InputMaybe<Scalars['String']>;
   /** Things/Type */
@@ -116,6 +121,8 @@ export type ThingsThingOrder = {
   rank?: InputMaybe<Order>;
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserOrder>;
+  /** Things/Idea */
+  idea?: InputMaybe<IdeationIdeaOrder>;
   /** Things/Name */
   name?: InputMaybe<Order>;
   /** Things/Type */
@@ -150,6 +157,18 @@ export type ThingsThingOperations = {
   overwriteDescription?: Maybe<MutationResult>;
   /** Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
   overwriteDescriptionBatch?: Maybe<MutationResult>;
+  /** Add Idea. Create new Idea and link to Thing */
+  addIdea?: Maybe<MutationResult>;
+  /** Batch Add Idea. Create new Idea and link to Thing */
+  addIdeaBatch?: Maybe<MutationResult>;
+  /** Update Idea. Update Idea linked to Thing */
+  updateIdea?: Maybe<MutationResult>;
+  /** Batch Update Idea. Update Idea linked to Thing */
+  updateIdeaBatch?: Maybe<MutationResult>;
+  /** Unlink Idea. Unlink Idea from Thing while not deleting it */
+  unlinkIdea?: Maybe<MutationResult>;
+  /** Delete Idea. Delete Idea linked to Thing */
+  deleteIdea?: Maybe<MutationResult>;
   /** Add Type. Create new Type and link to Thing */
   addType?: Maybe<MutationResult>;
   /** Batch Add Type. Create new Type and link to Thing */
@@ -180,6 +199,7 @@ export type ThingsThingOperations = {
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationscreateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
+  idea?: InputMaybe<IdeationIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -194,6 +214,7 @@ export type ThingsThingOperationscreateBatchArgs = {
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsupdateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
+  idea?: InputMaybe<IdeationIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -250,6 +271,36 @@ export type ThingsThingOperationsoverwriteDescriptionArgs = {
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsoverwriteDescriptionBatchArgs = {
   data?: InputMaybe<Array<InputMaybe<OverwriteDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found things via provided query or created */
+export type ThingsThingOperationsaddIdeaArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+  thing?: InputMaybe<ThingsThingFilter>;
+  state?: InputMaybe<WorkflowStateIdeationIdeaFilter>;
+};
+
+
+/** Available operations which can be done with found things via provided query or created */
+export type ThingsThingOperationsaddIdeaBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<IdeationIdeaInput>>>;
+};
+
+
+/** Available operations which can be done with found things via provided query or created */
+export type ThingsThingOperationsupdateIdeaArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+  thing?: InputMaybe<ThingsThingFilter>;
+  state?: InputMaybe<WorkflowStateIdeationIdeaFilter>;
+};
+
+
+/** Available operations which can be done with found things via provided query or created */
+export type ThingsThingOperationsupdateIdeaBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<IdeationIdeaInput>>>;
 };
 
 
@@ -327,6 +378,8 @@ export type ThingsThingFilter = {
   rank?: InputMaybe<FloatFilter>;
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserFilter>;
+  /** Things/Idea */
+  idea?: InputMaybe<IdeationIdeaFilter>;
   /** Things/Name */
   name?: InputMaybe<StringFilter>;
   /** Things/Type */
@@ -374,6 +427,7 @@ export type ThingsTypethingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
+  idea?: InputMaybe<IdeationIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -510,6 +564,7 @@ export type ThingsTypeOperationsscriptBatchArgs = {
 /** Available operations which can be done with found types via provided query or created */
 export type ThingsTypeOperationsaddThingsItemArgs = {
   rank?: InputMaybe<Scalars['Float']>;
+  idea?: InputMaybe<IdeationIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -542,6 +597,7 @@ export type ThingsTypeOperationslinkThingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
+  idea?: InputMaybe<IdeationIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -561,6 +617,7 @@ export type ThingsTypeOperationsunlinkThingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
+  idea?: InputMaybe<IdeationIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -580,6 +637,7 @@ export type ThingsTypeOperationsdeleteThingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
+  idea?: InputMaybe<IdeationIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -762,6 +820,170 @@ export type FiberyUserCollectionFilter = {
   containsAny?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
   notContains?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
   notContainsAny?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
+};
+
+/** Available fields and relations for Ideation/Idea */
+export type IdeationIdea = {
+  /** fibery/id */
+  id?: Maybe<Scalars['ID']>;
+  /** fibery/public-id */
+  publicId?: Maybe<Scalars['String']>;
+  /** fibery/creation-date */
+  creationDate?: Maybe<Scalars['String']>;
+  /** fibery/modification-date */
+  modificationDate?: Maybe<Scalars['String']>;
+  /** fibery/rank */
+  rank?: Maybe<Scalars['Float']>;
+  /** fibery/created-by */
+  createdBy?: Maybe<FiberyUser>;
+  /** Ideation/Description */
+  description?: Maybe<RichField>;
+  /** Ideation/Name */
+  name?: Maybe<Scalars['String']>;
+  /** Ideation/Number of Recent Cases */
+  numberOfRecentCases?: Maybe<Scalars['Int']>;
+  /** Things/Thing */
+  thing?: Maybe<ThingsThing>;
+  /** workflow/state */
+  state?: Maybe<WorkflowStateIdeationIdea>;
+};
+
+export type IdeationIdeaInput = {
+  /** fibery/rank */
+  rank?: InputMaybe<Scalars['Float']>;
+  /** Ideation/Name */
+  name?: InputMaybe<Scalars['String']>;
+  /** Things/Thing */
+  thing?: InputMaybe<ThingsThingFilter>;
+  /** workflow/state */
+  state?: InputMaybe<WorkflowStateIdeationIdeaFilter>;
+};
+
+export type IdeationIdeaOrder = {
+  /** fibery/id */
+  id?: InputMaybe<Order>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<Order>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<Order>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<Order>;
+  /** fibery/rank */
+  rank?: InputMaybe<Order>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserOrder>;
+  /** Ideation/Name */
+  name?: InputMaybe<Order>;
+  /** Ideation/Number of Recent Cases */
+  numberOfRecentCases?: InputMaybe<Order>;
+  /** Things/Thing */
+  thing?: InputMaybe<ThingsThingOrder>;
+  /** workflow/state */
+  state?: InputMaybe<WorkflowStateIdeationIdeaOrder>;
+};
+
+/** Filter for Ideation/Idea */
+export type IdeationIdeaFilter = {
+  orderBy?: InputMaybe<IdeationIdeaOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  /** fibery/id */
+  id?: InputMaybe<IDFilter>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<StringFilter>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<StringFilter>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<StringFilter>;
+  /** fibery/rank */
+  rank?: InputMaybe<FloatFilter>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  /** Ideation/Name */
+  name?: InputMaybe<StringFilter>;
+  /** Ideation/Number of Recent Cases */
+  numberOfRecentCases?: InputMaybe<IntFilter>;
+  /** Things/Thing */
+  thing?: InputMaybe<ThingsThingFilter>;
+  /** workflow/state */
+  state?: InputMaybe<WorkflowStateIdeationIdeaFilter>;
+};
+
+export type IdeationIdeaCollectionFilter = {
+  isEmpty?: InputMaybe<Scalars['Boolean']>;
+  contains?: InputMaybe<Array<InputMaybe<IdeationIdeaFilter>>>;
+  containsAny?: InputMaybe<Array<InputMaybe<IdeationIdeaFilter>>>;
+  notContains?: InputMaybe<Array<InputMaybe<IdeationIdeaFilter>>>;
+  notContainsAny?: InputMaybe<Array<InputMaybe<IdeationIdeaFilter>>>;
+};
+
+/** Available fields and relations for workflow/state_Ideation/Idea */
+export type WorkflowStateIdeationIdea = {
+  /** fibery/id */
+  id?: Maybe<Scalars['ID']>;
+  /** fibery/public-id */
+  publicId?: Maybe<Scalars['String']>;
+  /** fibery/rank */
+  rank?: Maybe<Scalars['Float']>;
+  /** enum/icon */
+  icon?: Maybe<Scalars['String']>;
+  /** enum/name */
+  name?: Maybe<Scalars['String']>;
+  /** workflow/Final */
+  final?: Maybe<Scalars['Boolean']>;
+};
+
+export type WorkflowStateIdeationIdeaInput = {
+  /** fibery/rank */
+  rank?: InputMaybe<Scalars['Float']>;
+  /** enum/icon */
+  icon?: InputMaybe<Scalars['String']>;
+  /** enum/name */
+  name?: InputMaybe<Scalars['String']>;
+  /** workflow/Final */
+  final?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type WorkflowStateIdeationIdeaOrder = {
+  /** fibery/id */
+  id?: InputMaybe<Order>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<Order>;
+  /** fibery/rank */
+  rank?: InputMaybe<Order>;
+  /** enum/icon */
+  icon?: InputMaybe<Order>;
+  /** enum/name */
+  name?: InputMaybe<Order>;
+  /** workflow/Final */
+  final?: InputMaybe<Order>;
+};
+
+/** Filter for workflow/state_Ideation/Idea */
+export type WorkflowStateIdeationIdeaFilter = {
+  orderBy?: InputMaybe<WorkflowStateIdeationIdeaOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  /** fibery/id */
+  id?: InputMaybe<IDFilter>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<StringFilter>;
+  /** fibery/rank */
+  rank?: InputMaybe<FloatFilter>;
+  /** enum/icon */
+  icon?: InputMaybe<StringFilter>;
+  /** enum/name */
+  name?: InputMaybe<StringFilter>;
+  /** workflow/Final */
+  final?: InputMaybe<BooleanFilter>;
+};
+
+export type WorkflowStateIdeationIdeaCollectionFilter = {
+  isEmpty?: InputMaybe<Scalars['Boolean']>;
+  contains?: InputMaybe<Array<InputMaybe<WorkflowStateIdeationIdeaFilter>>>;
+  containsAny?: InputMaybe<Array<InputMaybe<WorkflowStateIdeationIdeaFilter>>>;
+  notContains?: InputMaybe<Array<InputMaybe<WorkflowStateIdeationIdeaFilter>>>;
+  notContainsAny?: InputMaybe<Array<InputMaybe<WorkflowStateIdeationIdeaFilter>>>;
 };
 
 export type StringFilter = {
@@ -967,6 +1189,7 @@ export type MutationthingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
+  idea?: InputMaybe<IdeationIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
