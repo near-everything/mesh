@@ -23,6 +23,14 @@ export type Query = {
   /** Retrieves current user */
   me?: Maybe<FiberyUser>;
   /**
+   * Find ThingsIdea records.
+   *
+   * By default, offset equals to 0 and limit equals to 100
+   *
+   * ```{findIdeas{id,name}}```
+   */
+  findIdeas?: Maybe<Array<Maybe<ThingsIdea>>>;
+  /**
    * Find ThingsThing records.
    *
    * By default, offset equals to 0 and limit equals to 100
@@ -42,6 +50,22 @@ export type Query = {
 
 
 /** Below the list of queries available for database. */
+export type QueryfindIdeasArgs = {
+  orderBy?: InputMaybe<ThingsIdeaOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<IDFilter>;
+  publicId?: InputMaybe<StringFilter>;
+  creationDate?: InputMaybe<StringFilter>;
+  modificationDate?: InputMaybe<StringFilter>;
+  rank?: InputMaybe<FloatFilter>;
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  thing?: InputMaybe<ThingsThingFilter>;
+  name?: InputMaybe<StringFilter>;
+};
+
+
+/** Below the list of queries available for database. */
 export type QueryfindThingsArgs = {
   orderBy?: InputMaybe<ThingsThingOrder>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -52,7 +76,7 @@ export type QueryfindThingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  idea?: InputMaybe<IdeationIdeaFilter>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -73,6 +97,277 @@ export type QueryfindTypesArgs = {
   name?: InputMaybe<StringFilter>;
 };
 
+/** Available fields and relations for Things/Idea */
+export type ThingsIdea = {
+  /** fibery/id */
+  id?: Maybe<Scalars['ID']>;
+  /** fibery/public-id */
+  publicId?: Maybe<Scalars['String']>;
+  /** fibery/creation-date */
+  creationDate?: Maybe<Scalars['String']>;
+  /** fibery/modification-date */
+  modificationDate?: Maybe<Scalars['String']>;
+  /** fibery/rank */
+  rank?: Maybe<Scalars['Float']>;
+  /** fibery/created-by */
+  createdBy?: Maybe<FiberyUser>;
+  /** Things/Thing */
+  thing?: Maybe<ThingsThing>;
+  /** Things/description */
+  description?: Maybe<RichField>;
+  /** Things/name */
+  name?: Maybe<Scalars['String']>;
+};
+
+export type ThingsIdeaInput = {
+  /** fibery/rank */
+  rank?: InputMaybe<Scalars['Float']>;
+  /** Things/Thing */
+  thing?: InputMaybe<ThingsThingFilter>;
+  /** Things/name */
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type ThingsIdeaOrder = {
+  /** fibery/id */
+  id?: InputMaybe<Order>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<Order>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<Order>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<Order>;
+  /** fibery/rank */
+  rank?: InputMaybe<Order>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserOrder>;
+  /** Things/Thing */
+  thing?: InputMaybe<ThingsThingOrder>;
+  /** Things/name */
+  name?: InputMaybe<Order>;
+};
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperations = {
+  /** Create. Create a new Idea and specify field values */
+  create?: Maybe<MutationResult>;
+  /** Batch Create. Create a new Idea and specify field values */
+  createBatch?: Maybe<MutationResult>;
+  /** Update. Set new values for fields */
+  update?: Maybe<MutationResult>;
+  /** Batch Update. Set new values for fields */
+  updateBatch?: Maybe<MutationResult>;
+  /** Delete. Delete Idea */
+  delete?: Maybe<MutationResult>;
+  /** Script. Execute Javascript code */
+  script?: Maybe<MutationResult>;
+  /** Batch Script. Execute Javascript code */
+  scriptBatch?: Maybe<MutationResult>;
+  /** Add Thing. Create new Thing and link to Idea */
+  addThing?: Maybe<MutationResult>;
+  /** Batch Add Thing. Create new Thing and link to Idea */
+  addThingBatch?: Maybe<MutationResult>;
+  /** Update Thing. Update Thing linked to Idea */
+  updateThing?: Maybe<MutationResult>;
+  /** Batch Update Thing. Update Thing linked to Idea */
+  updateThingBatch?: Maybe<MutationResult>;
+  /** Unlink Thing. Unlink Thing from Idea while not deleting it */
+  unlinkThing?: Maybe<MutationResult>;
+  /** Delete Thing. Delete Thing linked to Idea */
+  deleteThing?: Maybe<MutationResult>;
+  /** Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  appendContentToDescription?: Maybe<MutationResult>;
+  /** Batch Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  appendContentToDescriptionBatch?: Maybe<MutationResult>;
+  /** Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  prependContentToDescription?: Maybe<MutationResult>;
+  /** Batch Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  prependContentToDescriptionBatch?: Maybe<MutationResult>;
+  /** Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  overwriteDescription?: Maybe<MutationResult>;
+  /** Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  overwriteDescriptionBatch?: Maybe<MutationResult>;
+  /** Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyCreatedBy?: Maybe<MutationResult>;
+  /** Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyCreatedByBatch?: Maybe<MutationResult>;
+  /** Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyUsers?: Maybe<MutationResult>;
+  /** Batch Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyUsersBatch?: Maybe<MutationResult>;
+  /** countOfEntities. Count of found or created ideas to be modified */
+  countOfEntities?: Maybe<Scalars['Int']>;
+  /** listEntities. List of found or created ideas to be modified */
+  listEntities?: Maybe<Array<Maybe<Entity>>>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationscreateArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  thing?: InputMaybe<ThingsThingFilter>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationscreateBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsIdeaInput>>>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsupdateArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  thing?: InputMaybe<ThingsThingFilter>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsupdateBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsIdeaInput>>>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsscriptArgs = {
+  script?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsscriptBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ScriptInput>>>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsaddThingArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
+  name?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<ThingsTypeFilter>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsaddThingBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsThingInput>>>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsupdateThingArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
+  name?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<ThingsTypeFilter>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsupdateThingBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsThingInput>>>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsappendContentToDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsappendContentToDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<AppendContentToDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsprependContentToDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsprependContentToDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<PrependContentToDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsoverwriteDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsoverwriteDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<OverwriteDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsnotifyCreatedByArgs = {
+  subject?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsnotifyCreatedByBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<NotifyCreatedByInput>>>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsnotifyUsersArgs = {
+  to?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
+  subject?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
+  noEmptySend?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Available operations which can be done with found ideas via provided query or created */
+export type ThingsIdeaOperationsnotifyUsersBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<NotifyUsersInput>>>;
+};
+
+/** Filter for Things/Idea */
+export type ThingsIdeaFilter = {
+  orderBy?: InputMaybe<ThingsIdeaOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  /** fibery/id */
+  id?: InputMaybe<IDFilter>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<StringFilter>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<StringFilter>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<StringFilter>;
+  /** fibery/rank */
+  rank?: InputMaybe<FloatFilter>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  /** Things/Thing */
+  thing?: InputMaybe<ThingsThingFilter>;
+  /** Things/name */
+  name?: InputMaybe<StringFilter>;
+};
+
+export type ThingsIdeaCollectionFilter = {
+  isEmpty?: InputMaybe<Scalars['Boolean']>;
+  contains?: InputMaybe<Array<InputMaybe<ThingsIdeaFilter>>>;
+  containsAny?: InputMaybe<Array<InputMaybe<ThingsIdeaFilter>>>;
+  notContains?: InputMaybe<Array<InputMaybe<ThingsIdeaFilter>>>;
+  notContainsAny?: InputMaybe<Array<InputMaybe<ThingsIdeaFilter>>>;
+};
+
 /** Available fields and relations for Things/Thing */
 export type ThingsThing = {
   /** fibery/id */
@@ -90,7 +385,7 @@ export type ThingsThing = {
   /** Things/Description */
   description?: Maybe<RichField>;
   /** Things/Idea */
-  idea?: Maybe<IdeationIdea>;
+  idea?: Maybe<ThingsIdea>;
   /** Things/Name */
   name?: Maybe<Scalars['String']>;
   /** Things/Type */
@@ -101,7 +396,7 @@ export type ThingsThingInput = {
   /** fibery/rank */
   rank?: InputMaybe<Scalars['Float']>;
   /** Things/Idea */
-  idea?: InputMaybe<IdeationIdeaFilter>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
   /** Things/Name */
   name?: InputMaybe<Scalars['String']>;
   /** Things/Type */
@@ -122,7 +417,7 @@ export type ThingsThingOrder = {
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserOrder>;
   /** Things/Idea */
-  idea?: InputMaybe<IdeationIdeaOrder>;
+  idea?: InputMaybe<ThingsIdeaOrder>;
   /** Things/Name */
   name?: InputMaybe<Order>;
   /** Things/Type */
@@ -199,7 +494,7 @@ export type ThingsThingOperations = {
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationscreateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  idea?: InputMaybe<IdeationIdeaFilter>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -214,7 +509,7 @@ export type ThingsThingOperationscreateBatchArgs = {
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsupdateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  idea?: InputMaybe<IdeationIdeaFilter>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -277,30 +572,28 @@ export type ThingsThingOperationsoverwriteDescriptionBatchArgs = {
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsaddIdeaArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  name?: InputMaybe<Scalars['String']>;
   thing?: InputMaybe<ThingsThingFilter>;
-  state?: InputMaybe<WorkflowStateIdeationIdeaFilter>;
+  name?: InputMaybe<Scalars['String']>;
 };
 
 
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsaddIdeaBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<IdeationIdeaInput>>>;
+  data?: InputMaybe<Array<InputMaybe<ThingsIdeaInput>>>;
 };
 
 
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsupdateIdeaArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  name?: InputMaybe<Scalars['String']>;
   thing?: InputMaybe<ThingsThingFilter>;
-  state?: InputMaybe<WorkflowStateIdeationIdeaFilter>;
+  name?: InputMaybe<Scalars['String']>;
 };
 
 
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsupdateIdeaBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<IdeationIdeaInput>>>;
+  data?: InputMaybe<Array<InputMaybe<ThingsIdeaInput>>>;
 };
 
 
@@ -379,7 +672,7 @@ export type ThingsThingFilter = {
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserFilter>;
   /** Things/Idea */
-  idea?: InputMaybe<IdeationIdeaFilter>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
   /** Things/Name */
   name?: InputMaybe<StringFilter>;
   /** Things/Type */
@@ -427,7 +720,7 @@ export type ThingsTypethingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  idea?: InputMaybe<IdeationIdeaFilter>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -564,7 +857,7 @@ export type ThingsTypeOperationsscriptBatchArgs = {
 /** Available operations which can be done with found types via provided query or created */
 export type ThingsTypeOperationsaddThingsItemArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  idea?: InputMaybe<IdeationIdeaFilter>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -597,7 +890,7 @@ export type ThingsTypeOperationslinkThingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  idea?: InputMaybe<IdeationIdeaFilter>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -617,7 +910,7 @@ export type ThingsTypeOperationsunlinkThingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  idea?: InputMaybe<IdeationIdeaFilter>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -637,7 +930,7 @@ export type ThingsTypeOperationsdeleteThingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  idea?: InputMaybe<IdeationIdeaFilter>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -822,170 +1115,6 @@ export type FiberyUserCollectionFilter = {
   notContainsAny?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
 };
 
-/** Available fields and relations for Ideation/Idea */
-export type IdeationIdea = {
-  /** fibery/id */
-  id?: Maybe<Scalars['ID']>;
-  /** fibery/public-id */
-  publicId?: Maybe<Scalars['String']>;
-  /** fibery/creation-date */
-  creationDate?: Maybe<Scalars['String']>;
-  /** fibery/modification-date */
-  modificationDate?: Maybe<Scalars['String']>;
-  /** fibery/rank */
-  rank?: Maybe<Scalars['Float']>;
-  /** fibery/created-by */
-  createdBy?: Maybe<FiberyUser>;
-  /** Ideation/Description */
-  description?: Maybe<RichField>;
-  /** Ideation/Name */
-  name?: Maybe<Scalars['String']>;
-  /** Ideation/Number of Recent Cases */
-  numberOfRecentCases?: Maybe<Scalars['Int']>;
-  /** Things/Thing */
-  thing?: Maybe<ThingsThing>;
-  /** workflow/state */
-  state?: Maybe<WorkflowStateIdeationIdea>;
-};
-
-export type IdeationIdeaInput = {
-  /** fibery/rank */
-  rank?: InputMaybe<Scalars['Float']>;
-  /** Ideation/Name */
-  name?: InputMaybe<Scalars['String']>;
-  /** Things/Thing */
-  thing?: InputMaybe<ThingsThingFilter>;
-  /** workflow/state */
-  state?: InputMaybe<WorkflowStateIdeationIdeaFilter>;
-};
-
-export type IdeationIdeaOrder = {
-  /** fibery/id */
-  id?: InputMaybe<Order>;
-  /** fibery/public-id */
-  publicId?: InputMaybe<Order>;
-  /** fibery/creation-date */
-  creationDate?: InputMaybe<Order>;
-  /** fibery/modification-date */
-  modificationDate?: InputMaybe<Order>;
-  /** fibery/rank */
-  rank?: InputMaybe<Order>;
-  /** fibery/created-by */
-  createdBy?: InputMaybe<FiberyUserOrder>;
-  /** Ideation/Name */
-  name?: InputMaybe<Order>;
-  /** Ideation/Number of Recent Cases */
-  numberOfRecentCases?: InputMaybe<Order>;
-  /** Things/Thing */
-  thing?: InputMaybe<ThingsThingOrder>;
-  /** workflow/state */
-  state?: InputMaybe<WorkflowStateIdeationIdeaOrder>;
-};
-
-/** Filter for Ideation/Idea */
-export type IdeationIdeaFilter = {
-  orderBy?: InputMaybe<IdeationIdeaOrder>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  /** fibery/id */
-  id?: InputMaybe<IDFilter>;
-  /** fibery/public-id */
-  publicId?: InputMaybe<StringFilter>;
-  /** fibery/creation-date */
-  creationDate?: InputMaybe<StringFilter>;
-  /** fibery/modification-date */
-  modificationDate?: InputMaybe<StringFilter>;
-  /** fibery/rank */
-  rank?: InputMaybe<FloatFilter>;
-  /** fibery/created-by */
-  createdBy?: InputMaybe<FiberyUserFilter>;
-  /** Ideation/Name */
-  name?: InputMaybe<StringFilter>;
-  /** Ideation/Number of Recent Cases */
-  numberOfRecentCases?: InputMaybe<IntFilter>;
-  /** Things/Thing */
-  thing?: InputMaybe<ThingsThingFilter>;
-  /** workflow/state */
-  state?: InputMaybe<WorkflowStateIdeationIdeaFilter>;
-};
-
-export type IdeationIdeaCollectionFilter = {
-  isEmpty?: InputMaybe<Scalars['Boolean']>;
-  contains?: InputMaybe<Array<InputMaybe<IdeationIdeaFilter>>>;
-  containsAny?: InputMaybe<Array<InputMaybe<IdeationIdeaFilter>>>;
-  notContains?: InputMaybe<Array<InputMaybe<IdeationIdeaFilter>>>;
-  notContainsAny?: InputMaybe<Array<InputMaybe<IdeationIdeaFilter>>>;
-};
-
-/** Available fields and relations for workflow/state_Ideation/Idea */
-export type WorkflowStateIdeationIdea = {
-  /** fibery/id */
-  id?: Maybe<Scalars['ID']>;
-  /** fibery/public-id */
-  publicId?: Maybe<Scalars['String']>;
-  /** fibery/rank */
-  rank?: Maybe<Scalars['Float']>;
-  /** enum/icon */
-  icon?: Maybe<Scalars['String']>;
-  /** enum/name */
-  name?: Maybe<Scalars['String']>;
-  /** workflow/Final */
-  final?: Maybe<Scalars['Boolean']>;
-};
-
-export type WorkflowStateIdeationIdeaInput = {
-  /** fibery/rank */
-  rank?: InputMaybe<Scalars['Float']>;
-  /** enum/icon */
-  icon?: InputMaybe<Scalars['String']>;
-  /** enum/name */
-  name?: InputMaybe<Scalars['String']>;
-  /** workflow/Final */
-  final?: InputMaybe<Scalars['Boolean']>;
-};
-
-export type WorkflowStateIdeationIdeaOrder = {
-  /** fibery/id */
-  id?: InputMaybe<Order>;
-  /** fibery/public-id */
-  publicId?: InputMaybe<Order>;
-  /** fibery/rank */
-  rank?: InputMaybe<Order>;
-  /** enum/icon */
-  icon?: InputMaybe<Order>;
-  /** enum/name */
-  name?: InputMaybe<Order>;
-  /** workflow/Final */
-  final?: InputMaybe<Order>;
-};
-
-/** Filter for workflow/state_Ideation/Idea */
-export type WorkflowStateIdeationIdeaFilter = {
-  orderBy?: InputMaybe<WorkflowStateIdeationIdeaOrder>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  /** fibery/id */
-  id?: InputMaybe<IDFilter>;
-  /** fibery/public-id */
-  publicId?: InputMaybe<StringFilter>;
-  /** fibery/rank */
-  rank?: InputMaybe<FloatFilter>;
-  /** enum/icon */
-  icon?: InputMaybe<StringFilter>;
-  /** enum/name */
-  name?: InputMaybe<StringFilter>;
-  /** workflow/Final */
-  final?: InputMaybe<BooleanFilter>;
-};
-
-export type WorkflowStateIdeationIdeaCollectionFilter = {
-  isEmpty?: InputMaybe<Scalars['Boolean']>;
-  contains?: InputMaybe<Array<InputMaybe<WorkflowStateIdeationIdeaFilter>>>;
-  containsAny?: InputMaybe<Array<InputMaybe<WorkflowStateIdeationIdeaFilter>>>;
-  notContains?: InputMaybe<Array<InputMaybe<WorkflowStateIdeationIdeaFilter>>>;
-  notContainsAny?: InputMaybe<Array<InputMaybe<WorkflowStateIdeationIdeaFilter>>>;
-};
-
 export type StringFilter = {
   is?: InputMaybe<Scalars['String']>;
   isNot?: InputMaybe<Scalars['String']>;
@@ -1157,6 +1286,17 @@ export type Mutation = {
    * Modify selected entities using multiple actions (update, link and etc.)
    * ```
    * mutation {
+   *     ideas(id:{is: "AAAA-BBBB-CCCC"}){
+   *         update(name:"Updated"){message}
+   *     }
+   * }
+   * ```
+   */
+  ideas?: Maybe<ThingsIdeaOperations>;
+  /**
+   * Modify selected entities using multiple actions (update, link and etc.)
+   * ```
+   * mutation {
    *     things(id:{is: "AAAA-BBBB-CCCC"}){
    *         update(name:"Updated"){message}
    *     }
@@ -1179,6 +1319,22 @@ export type Mutation = {
 
 
 /** Use mutations to modify database */
+export type MutationideasArgs = {
+  orderBy?: InputMaybe<ThingsIdeaOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<IDFilter>;
+  publicId?: InputMaybe<StringFilter>;
+  creationDate?: InputMaybe<StringFilter>;
+  modificationDate?: InputMaybe<StringFilter>;
+  rank?: InputMaybe<FloatFilter>;
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  thing?: InputMaybe<ThingsThingFilter>;
+  name?: InputMaybe<StringFilter>;
+};
+
+
+/** Use mutations to modify database */
 export type MutationthingsArgs = {
   orderBy?: InputMaybe<ThingsThingOrder>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1189,7 +1345,7 @@ export type MutationthingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  idea?: InputMaybe<IdeationIdeaFilter>;
+  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<StringFilter>;
   type?: InputMaybe<ThingsTypeFilter>;
 };
@@ -1213,6 +1369,12 @@ export type MutationtypesArgs = {
   export type QuerySdk = {
       /** Retrieves current user **/
   me: InContextSdkMethod<Query['me'], {}, MeshContext>,
+  /** Find ThingsIdea records.
+
+By default, offset equals to 0 and limit equals to 100
+
+```{findIdeas{id,name}}``` **/
+  findIdeas: InContextSdkMethod<Query['findIdeas'], QueryfindIdeasArgs, MeshContext>,
   /** Find ThingsThing records.
 
 By default, offset equals to 0 and limit equals to 100
@@ -1229,6 +1391,15 @@ By default, offset equals to 0 and limit equals to 100
 
   export type MutationSdk = {
       /** Modify selected entities using multiple actions (update, link and etc.)
+```
+mutation {
+    ideas(id:{is: "AAAA-BBBB-CCCC"}){
+        update(name:"Updated"){message}
+    }
+}
+``` **/
+  ideas: InContextSdkMethod<Mutation['ideas'], MutationideasArgs, MeshContext>,
+  /** Modify selected entities using multiple actions (update, link and etc.)
 ```
 mutation {
     things(id:{is: "AAAA-BBBB-CCCC"}){
