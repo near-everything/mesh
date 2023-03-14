@@ -8,6 +8,34 @@ type Query {
   """Retrieves current user"""
   me: FiberyUser
   """
+  Find ThingsEvent records.
+  
+  By default, offset equals to 0 and limit equals to 100
+  
+  ```{findEvents{id,name}}```
+  """
+  findEvents(
+    orderBy: ThingsEventOrder
+    limit: Int
+    offset: Int
+    """fibery/id"""
+    id: IDFilter
+    """fibery/public-id"""
+    publicId: StringFilter
+    """fibery/creation-date"""
+    creationDate: StringFilter
+    """fibery/modification-date"""
+    modificationDate: StringFilter
+    """fibery/rank"""
+    rank: FloatFilter
+    """fibery/created-by"""
+    createdBy: FiberyUserFilter
+    """Things/Thing"""
+    thing: ThingsThingFilter
+    """Things/name"""
+    name: StringFilter
+  ): [ThingsEvent]
+  """
   Find ThingsIdea records.
   
   By default, offset equals to 0 and limit equals to 100
@@ -58,10 +86,14 @@ type Query {
     rank: FloatFilter
     """fibery/created-by"""
     createdBy: FiberyUserFilter
+    """Things/Event"""
+    event: ThingsEventFilter
     """Things/Idea"""
     idea: ThingsIdeaFilter
     """Things/Name"""
     name: StringFilter
+    """Things/Query"""
+    query: StringFilter
     """Things/Type"""
     type: ThingsTypeFilter
   ): [ThingsThing]
@@ -93,6 +125,233 @@ type Query {
     """Things/name"""
     name: StringFilter
   ): [ThingsType]
+}
+
+"""Available fields and relations for Things/Event"""
+type ThingsEvent {
+  """fibery/id"""
+  id: ID
+  """fibery/public-id"""
+  publicId: String
+  """fibery/creation-date"""
+  creationDate: String
+  """fibery/modification-date"""
+  modificationDate: String
+  """fibery/rank"""
+  rank: Float
+  """fibery/created-by"""
+  createdBy: FiberyUser
+  """Things/Thing"""
+  thing: ThingsThing
+  """Things/description"""
+  description: RichField
+  """Things/name"""
+  name: String
+}
+
+input ThingsEventInput {
+  """fibery/rank"""
+  rank: Float
+  """Things/Thing"""
+  thing: ThingsThingFilter
+  """Things/name"""
+  name: String
+}
+
+input ThingsEventOrder {
+  """fibery/id"""
+  id: Order
+  """fibery/public-id"""
+  publicId: Order
+  """fibery/creation-date"""
+  creationDate: Order
+  """fibery/modification-date"""
+  modificationDate: Order
+  """fibery/rank"""
+  rank: Order
+  """fibery/created-by"""
+  createdBy: FiberyUserOrder
+  """Things/Thing"""
+  thing: ThingsThingOrder
+  """Things/name"""
+  name: Order
+}
+
+"""
+Available operations which can be done with found events via provided query or created
+"""
+type ThingsEventOperations {
+  """Create. Create a new Event and specify field values"""
+  create(
+    """fibery/rank"""
+    rank: Float
+    """Things/Thing"""
+    thing: ThingsThingFilter
+    """Things/name"""
+    name: String
+  ): MutationResult
+  """Batch Create. Create a new Event and specify field values"""
+  createBatch(data: [ThingsEventInput]): MutationResult
+  """Update. Set new values for fields"""
+  update(
+    """fibery/rank"""
+    rank: Float
+    """Things/Thing"""
+    thing: ThingsThingFilter
+    """Things/name"""
+    name: String
+  ): MutationResult
+  """Batch Update. Set new values for fields"""
+  updateBatch(data: [ThingsEventInput]): MutationResult
+  """Delete. Delete Event"""
+  delete: MutationResult
+  """Script. Execute Javascript code"""
+  script(
+    """Script code"""
+    script: String
+  ): MutationResult
+  """Batch Script. Execute Javascript code"""
+  scriptBatch(data: [ScriptInput]): MutationResult
+  """Add Thing. Create new Thing and link to Event"""
+  addThing(
+    """fibery/rank"""
+    rank: Float
+    """Things/Event"""
+    event: ThingsEventFilter
+    """Things/Idea"""
+    idea: ThingsIdeaFilter
+    """Things/Name"""
+    name: String
+    """Things/Query"""
+    query: String
+    """Things/Type"""
+    type: ThingsTypeFilter
+  ): MutationResult
+  """Batch Add Thing. Create new Thing and link to Event"""
+  addThingBatch(data: [ThingsThingInput]): MutationResult
+  """Update Thing. Update Thing linked to Event"""
+  updateThing(
+    """fibery/rank"""
+    rank: Float
+    """Things/Event"""
+    event: ThingsEventFilter
+    """Things/Idea"""
+    idea: ThingsIdeaFilter
+    """Things/Name"""
+    name: String
+    """Things/Query"""
+    query: String
+    """Things/Type"""
+    type: ThingsTypeFilter
+  ): MutationResult
+  """Batch Update Thing. Update Thing linked to Event"""
+  updateThingBatch(data: [ThingsThingInput]): MutationResult
+  """Unlink Thing. Unlink Thing from Event while not deleting it"""
+  unlinkThing: MutationResult
+  """Delete Thing. Delete Thing linked to Event"""
+  deleteThing: MutationResult
+  """
+  Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  appendContentToDescription(
+    """Document"""
+    value: String
+  ): MutationResult
+  """
+  Batch Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  appendContentToDescriptionBatch(data: [AppendContentToDescriptionInput]): MutationResult
+  """
+  Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  prependContentToDescription(
+    """Document"""
+    value: String
+  ): MutationResult
+  """
+  Batch Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  prependContentToDescriptionBatch(data: [PrependContentToDescriptionInput]): MutationResult
+  """
+  Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  overwriteDescription(
+    """Document"""
+    value: String
+  ): MutationResult
+  """
+  Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  overwriteDescriptionBatch(data: [OverwriteDescriptionInput]): MutationResult
+  """
+  Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt;
+  """
+  notifyCreatedBy(
+    """Subject"""
+    subject: String
+    """Message"""
+    message: String
+    """Notify the author of modifications"""
+    notifyAuthor: Boolean
+  ): MutationResult
+  """
+  Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt;
+  """
+  notifyCreatedByBatch(data: [NotifyCreatedByInput]): MutationResult
+  """
+  Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt;
+  """
+  notifyUsers(
+    """To"""
+    to: [FiberyUserFilter]
+    """Subject"""
+    subject: String
+    """Message"""
+    message: String
+    """Notify the author of modifications"""
+    notifyAuthor: Boolean
+    """Don&#39;t notify if there are no entities to be processed"""
+    noEmptySend: Boolean
+  ): MutationResult
+  """
+  Batch Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt;
+  """
+  notifyUsersBatch(data: [NotifyUsersInput]): MutationResult
+  """countOfEntities. Count of found or created events to be modified"""
+  countOfEntities: Int
+  """listEntities. List of found or created events to be modified"""
+  listEntities: [Entity]
+}
+
+"""Filter for Things/Event"""
+input ThingsEventFilter {
+  orderBy: ThingsEventOrder
+  limit: Int
+  offset: Int
+  """fibery/id"""
+  id: IDFilter
+  """fibery/public-id"""
+  publicId: StringFilter
+  """fibery/creation-date"""
+  creationDate: StringFilter
+  """fibery/modification-date"""
+  modificationDate: StringFilter
+  """fibery/rank"""
+  rank: FloatFilter
+  """fibery/created-by"""
+  createdBy: FiberyUserFilter
+  """Things/Thing"""
+  thing: ThingsThingFilter
+  """Things/name"""
+  name: StringFilter
+}
+
+input ThingsEventCollectionFilter {
+  isEmpty: Boolean
+  contains: [ThingsEventFilter]
+  containsAny: [ThingsEventFilter]
+  notContains: [ThingsEventFilter]
+  notContainsAny: [ThingsEventFilter]
 }
 
 """Available fields and relations for Things/Idea"""
@@ -184,10 +443,14 @@ type ThingsIdeaOperations {
   addThing(
     """fibery/rank"""
     rank: Float
+    """Things/Event"""
+    event: ThingsEventFilter
     """Things/Idea"""
     idea: ThingsIdeaFilter
     """Things/Name"""
     name: String
+    """Things/Query"""
+    query: String
     """Things/Type"""
     type: ThingsTypeFilter
   ): MutationResult
@@ -197,10 +460,14 @@ type ThingsIdeaOperations {
   updateThing(
     """fibery/rank"""
     rank: Float
+    """Things/Event"""
+    event: ThingsEventFilter
     """Things/Idea"""
     idea: ThingsIdeaFilter
     """Things/Name"""
     name: String
+    """Things/Query"""
+    query: String
     """Things/Type"""
     type: ThingsTypeFilter
   ): MutationResult
@@ -330,10 +597,14 @@ type ThingsThing {
   createdBy: FiberyUser
   """Things/Description"""
   description: RichField
+  """Things/Event"""
+  event: ThingsEvent
   """Things/Idea"""
   idea: ThingsIdea
   """Things/Name"""
   name: String
+  """Things/Query"""
+  query: String
   """Things/Type"""
   type: ThingsType
 }
@@ -341,10 +612,14 @@ type ThingsThing {
 input ThingsThingInput {
   """fibery/rank"""
   rank: Float
+  """Things/Event"""
+  event: ThingsEventFilter
   """Things/Idea"""
   idea: ThingsIdeaFilter
   """Things/Name"""
   name: String
+  """Things/Query"""
+  query: String
   """Things/Type"""
   type: ThingsTypeFilter
 }
@@ -362,10 +637,14 @@ input ThingsThingOrder {
   rank: Order
   """fibery/created-by"""
   createdBy: FiberyUserOrder
+  """Things/Event"""
+  event: ThingsEventOrder
   """Things/Idea"""
   idea: ThingsIdeaOrder
   """Things/Name"""
   name: Order
+  """Things/Query"""
+  query: Order
   """Things/Type"""
   type: ThingsTypeOrder
 }
@@ -378,10 +657,14 @@ type ThingsThingOperations {
   create(
     """fibery/rank"""
     rank: Float
+    """Things/Event"""
+    event: ThingsEventFilter
     """Things/Idea"""
     idea: ThingsIdeaFilter
     """Things/Name"""
     name: String
+    """Things/Query"""
+    query: String
     """Things/Type"""
     type: ThingsTypeFilter
   ): MutationResult
@@ -391,10 +674,14 @@ type ThingsThingOperations {
   update(
     """fibery/rank"""
     rank: Float
+    """Things/Event"""
+    event: ThingsEventFilter
     """Things/Idea"""
     idea: ThingsIdeaFilter
     """Things/Name"""
     name: String
+    """Things/Query"""
+    query: String
     """Things/Type"""
     type: ThingsTypeFilter
   ): MutationResult
@@ -442,6 +729,32 @@ type ThingsThingOperations {
   Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
   """
   overwriteDescriptionBatch(data: [OverwriteDescriptionInput]): MutationResult
+  """Add Event. Create new Event and link to Thing"""
+  addEvent(
+    """fibery/rank"""
+    rank: Float
+    """Things/Thing"""
+    thing: ThingsThingFilter
+    """Things/name"""
+    name: String
+  ): MutationResult
+  """Batch Add Event. Create new Event and link to Thing"""
+  addEventBatch(data: [ThingsEventInput]): MutationResult
+  """Update Event. Update Event linked to Thing"""
+  updateEvent(
+    """fibery/rank"""
+    rank: Float
+    """Things/Thing"""
+    thing: ThingsThingFilter
+    """Things/name"""
+    name: String
+  ): MutationResult
+  """Batch Update Event. Update Event linked to Thing"""
+  updateEventBatch(data: [ThingsEventInput]): MutationResult
+  """Unlink Event. Unlink Event from Thing while not deleting it"""
+  unlinkEvent: MutationResult
+  """Delete Event. Delete Event linked to Thing"""
+  deleteEvent: MutationResult
   """Add Idea. Create new Idea and link to Thing"""
   addIdea(
     """fibery/rank"""
@@ -551,10 +864,14 @@ input ThingsThingFilter {
   rank: FloatFilter
   """fibery/created-by"""
   createdBy: FiberyUserFilter
+  """Things/Event"""
+  event: ThingsEventFilter
   """Things/Idea"""
   idea: ThingsIdeaFilter
   """Things/Name"""
   name: StringFilter
+  """Things/Query"""
+  query: StringFilter
   """Things/Type"""
   type: ThingsTypeFilter
 }
@@ -597,10 +914,14 @@ type ThingsType {
     rank: FloatFilter
     """fibery/created-by"""
     createdBy: FiberyUserFilter
+    """Things/Event"""
+    event: ThingsEventFilter
     """Things/Idea"""
     idea: ThingsIdeaFilter
     """Things/Name"""
     name: StringFilter
+    """Things/Query"""
+    query: StringFilter
     """Things/Type"""
     type: ThingsTypeFilter
   ): [ThingsThing]
@@ -675,10 +996,14 @@ type ThingsTypeOperations {
   addThingsItem(
     """fibery/rank"""
     rank: Float
+    """Things/Event"""
+    event: ThingsEventFilter
     """Things/Idea"""
     idea: ThingsIdeaFilter
     """Things/Name"""
     name: String
+    """Things/Query"""
+    query: String
     """Things/Type"""
     type: ThingsTypeFilter
   ): MutationResult
@@ -694,15 +1019,15 @@ type ThingsTypeOperations {
   """Batch Update Things. Update Things linked to Type"""
   updateThingsBatch(data: [UpdateThingsInput]): MutationResult
   """Link Things. Link Things to Type"""
-  linkThings(id: IDFilter, publicId: StringFilter, creationDate: StringFilter, modificationDate: StringFilter, rank: FloatFilter, createdBy: FiberyUserFilter, idea: ThingsIdeaFilter, name: StringFilter, type: ThingsTypeFilter): MutationResult
+  linkThings(id: IDFilter, publicId: StringFilter, creationDate: StringFilter, modificationDate: StringFilter, rank: FloatFilter, createdBy: FiberyUserFilter, event: ThingsEventFilter, idea: ThingsIdeaFilter, name: StringFilter, query: StringFilter, type: ThingsTypeFilter): MutationResult
   """Batch Link Things. Link Things to Type"""
   linkThingsBatch(data: [ThingsThingInput]): MutationResult
   """Unlink Things. Unlink Things from Type while not deleting it"""
-  unlinkThings(id: IDFilter, publicId: StringFilter, creationDate: StringFilter, modificationDate: StringFilter, rank: FloatFilter, createdBy: FiberyUserFilter, idea: ThingsIdeaFilter, name: StringFilter, type: ThingsTypeFilter): MutationResult
+  unlinkThings(id: IDFilter, publicId: StringFilter, creationDate: StringFilter, modificationDate: StringFilter, rank: FloatFilter, createdBy: FiberyUserFilter, event: ThingsEventFilter, idea: ThingsIdeaFilter, name: StringFilter, query: StringFilter, type: ThingsTypeFilter): MutationResult
   """Batch Unlink Things. Unlink Things from Type while not deleting it"""
   unlinkThingsBatch(data: [ThingsThingInput]): MutationResult
   """Delete Things. Delete Things linked to Type"""
-  deleteThings(id: IDFilter, publicId: StringFilter, creationDate: StringFilter, modificationDate: StringFilter, rank: FloatFilter, createdBy: FiberyUserFilter, idea: ThingsIdeaFilter, name: StringFilter, type: ThingsTypeFilter): MutationResult
+  deleteThings(id: IDFilter, publicId: StringFilter, creationDate: StringFilter, modificationDate: StringFilter, rank: FloatFilter, createdBy: FiberyUserFilter, event: ThingsEventFilter, idea: ThingsIdeaFilter, name: StringFilter, query: StringFilter, type: ThingsTypeFilter): MutationResult
   """Batch Delete Things. Delete Things linked to Type"""
   deleteThingsBatch(data: [ThingsThingInput]): MutationResult
   """
@@ -1058,6 +1383,37 @@ type Mutation {
   Modify selected entities using multiple actions (update, link and etc.)
   ```
   mutation {
+      events(id:{is: "AAAA-BBBB-CCCC"}){
+          update(name:"Updated"){message}
+      }
+  }
+  ```
+  """
+  events(
+    orderBy: ThingsEventOrder
+    limit: Int
+    offset: Int
+    """fibery/id"""
+    id: IDFilter
+    """fibery/public-id"""
+    publicId: StringFilter
+    """fibery/creation-date"""
+    creationDate: StringFilter
+    """fibery/modification-date"""
+    modificationDate: StringFilter
+    """fibery/rank"""
+    rank: FloatFilter
+    """fibery/created-by"""
+    createdBy: FiberyUserFilter
+    """Things/Thing"""
+    thing: ThingsThingFilter
+    """Things/name"""
+    name: StringFilter
+  ): ThingsEventOperations
+  """
+  Modify selected entities using multiple actions (update, link and etc.)
+  ```
+  mutation {
       ideas(id:{is: "AAAA-BBBB-CCCC"}){
           update(name:"Updated"){message}
       }
@@ -1111,10 +1467,14 @@ type Mutation {
     rank: FloatFilter
     """fibery/created-by"""
     createdBy: FiberyUserFilter
+    """Things/Event"""
+    event: ThingsEventFilter
     """Things/Idea"""
     idea: ThingsIdeaFilter
     """Things/Name"""
     name: StringFilter
+    """Things/Query"""
+    query: StringFilter
     """Things/Type"""
     type: ThingsTypeFilter
   ): ThingsThingOperations
