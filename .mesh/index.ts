@@ -39,14 +39,6 @@ export type Query = {
   /** Retrieves current user */
   me?: Maybe<FiberyUser>;
   /**
-   * Find ThingsEvent records.
-   *
-   * By default, offset equals to 0 and limit equals to 100
-   *
-   * ```{findEvents{id,name}}```
-   */
-  findEvents?: Maybe<Array<Maybe<ThingsEvent>>>;
-  /**
    * Find ThingsIdea records.
    *
    * By default, offset equals to 0 and limit equals to 100
@@ -62,30 +54,6 @@ export type Query = {
    * ```{findThings{id,name}}```
    */
   findThings?: Maybe<Array<Maybe<ThingsThing>>>;
-  /**
-   * Find ThingsType records.
-   *
-   * By default, offset equals to 0 and limit equals to 100
-   *
-   * ```{findTypes{id,name}}```
-   */
-  findTypes?: Maybe<Array<Maybe<ThingsType>>>;
-};
-
-
-/** Below the list of queries available for database. */
-export type QueryfindEventsArgs = {
-  orderBy?: InputMaybe<ThingsEventOrder>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  id?: InputMaybe<IDFilter>;
-  publicId?: InputMaybe<StringFilter>;
-  creationDate?: InputMaybe<StringFilter>;
-  modificationDate?: InputMaybe<StringFilter>;
-  rank?: InputMaybe<FloatFilter>;
-  createdBy?: InputMaybe<FiberyUserFilter>;
-  thing?: InputMaybe<ThingsThingFilter>;
-  name?: InputMaybe<StringFilter>;
 };
 
 
@@ -116,302 +84,9 @@ export type QueryfindThingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  event?: InputMaybe<ThingsEventFilter>;
   idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<StringFilter>;
-  query?: InputMaybe<StringFilter>;
-  type?: InputMaybe<ThingsTypeFilter>;
-};
-
-
-/** Below the list of queries available for database. */
-export type QueryfindTypesArgs = {
-  orderBy?: InputMaybe<ThingsTypeOrder>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  id?: InputMaybe<IDFilter>;
-  publicId?: InputMaybe<StringFilter>;
-  creationDate?: InputMaybe<StringFilter>;
-  modificationDate?: InputMaybe<StringFilter>;
-  rank?: InputMaybe<FloatFilter>;
-  createdBy?: InputMaybe<FiberyUserFilter>;
-  things?: InputMaybe<ThingsThingCollectionFilter>;
-  name?: InputMaybe<StringFilter>;
-};
-
-/** Available fields and relations for Things/Event */
-export type ThingsEvent = {
-  /** fibery/id */
-  id?: Maybe<Scalars['ID']>;
-  /** fibery/public-id */
-  publicId?: Maybe<Scalars['String']>;
-  /** fibery/creation-date */
-  creationDate?: Maybe<Scalars['String']>;
-  /** fibery/modification-date */
-  modificationDate?: Maybe<Scalars['String']>;
-  /** fibery/rank */
-  rank?: Maybe<Scalars['Float']>;
-  /** fibery/created-by */
-  createdBy?: Maybe<FiberyUser>;
-  /** Things/Thing */
-  thing?: Maybe<ThingsThing>;
-  /** Things/description */
-  description?: Maybe<RichField>;
-  /** Things/name */
-  name?: Maybe<Scalars['String']>;
-};
-
-export type ThingsEventInput = {
-  /** fibery/rank */
-  rank?: InputMaybe<Scalars['Float']>;
-  /** Things/Thing */
-  thing?: InputMaybe<ThingsThingFilter>;
-  /** Things/name */
-  name?: InputMaybe<Scalars['String']>;
-};
-
-export type ThingsEventOrder = {
-  /** fibery/id */
-  id?: InputMaybe<Order>;
-  /** fibery/public-id */
-  publicId?: InputMaybe<Order>;
-  /** fibery/creation-date */
-  creationDate?: InputMaybe<Order>;
-  /** fibery/modification-date */
-  modificationDate?: InputMaybe<Order>;
-  /** fibery/rank */
-  rank?: InputMaybe<Order>;
-  /** fibery/created-by */
-  createdBy?: InputMaybe<FiberyUserOrder>;
-  /** Things/Thing */
-  thing?: InputMaybe<ThingsThingOrder>;
-  /** Things/name */
-  name?: InputMaybe<Order>;
-};
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperations = {
-  /** Create. Create a new Event and specify field values */
-  create?: Maybe<MutationResult>;
-  /** Batch Create. Create a new Event and specify field values */
-  createBatch?: Maybe<MutationResult>;
-  /** Update. Set new values for fields */
-  update?: Maybe<MutationResult>;
-  /** Batch Update. Set new values for fields */
-  updateBatch?: Maybe<MutationResult>;
-  /** Delete. Delete Event */
-  delete?: Maybe<MutationResult>;
-  /** Script. Execute Javascript code */
-  script?: Maybe<MutationResult>;
-  /** Batch Script. Execute Javascript code */
-  scriptBatch?: Maybe<MutationResult>;
-  /** Add Thing. Create new Thing and link to Event */
-  addThing?: Maybe<MutationResult>;
-  /** Batch Add Thing. Create new Thing and link to Event */
-  addThingBatch?: Maybe<MutationResult>;
-  /** Update Thing. Update Thing linked to Event */
-  updateThing?: Maybe<MutationResult>;
-  /** Batch Update Thing. Update Thing linked to Event */
-  updateThingBatch?: Maybe<MutationResult>;
-  /** Unlink Thing. Unlink Thing from Event while not deleting it */
-  unlinkThing?: Maybe<MutationResult>;
-  /** Delete Thing. Delete Thing linked to Event */
-  deleteThing?: Maybe<MutationResult>;
-  /** Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  appendContentToDescription?: Maybe<MutationResult>;
-  /** Batch Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  appendContentToDescriptionBatch?: Maybe<MutationResult>;
-  /** Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  prependContentToDescription?: Maybe<MutationResult>;
-  /** Batch Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  prependContentToDescriptionBatch?: Maybe<MutationResult>;
-  /** Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  overwriteDescription?: Maybe<MutationResult>;
-  /** Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  overwriteDescriptionBatch?: Maybe<MutationResult>;
-  /** Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
-  notifyCreatedBy?: Maybe<MutationResult>;
-  /** Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
-  notifyCreatedByBatch?: Maybe<MutationResult>;
-  /** Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
-  notifyUsers?: Maybe<MutationResult>;
-  /** Batch Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
-  notifyUsersBatch?: Maybe<MutationResult>;
-  /** countOfEntities. Count of found or created events to be modified */
-  countOfEntities?: Maybe<Scalars['Int']>;
-  /** listEntities. List of found or created events to be modified */
-  listEntities?: Maybe<Array<Maybe<Entity>>>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationscreateArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  thing?: InputMaybe<ThingsThingFilter>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationscreateBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsEventInput>>>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsupdateArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  thing?: InputMaybe<ThingsThingFilter>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsupdateBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsEventInput>>>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsscriptArgs = {
-  script?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsscriptBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ScriptInput>>>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsaddThingArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  event?: InputMaybe<ThingsEventFilter>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
-  name?: InputMaybe<Scalars['String']>;
-  query?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<ThingsTypeFilter>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsaddThingBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsThingInput>>>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsupdateThingArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  event?: InputMaybe<ThingsEventFilter>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
-  name?: InputMaybe<Scalars['String']>;
-  query?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<ThingsTypeFilter>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsupdateThingBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsThingInput>>>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsappendContentToDescriptionArgs = {
-  value?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsappendContentToDescriptionBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<AppendContentToDescriptionInput>>>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsprependContentToDescriptionArgs = {
-  value?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsprependContentToDescriptionBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<PrependContentToDescriptionInput>>>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsoverwriteDescriptionArgs = {
-  value?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsoverwriteDescriptionBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<OverwriteDescriptionInput>>>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsnotifyCreatedByArgs = {
-  subject?: InputMaybe<Scalars['String']>;
-  message?: InputMaybe<Scalars['String']>;
-  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsnotifyCreatedByBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<NotifyCreatedByInput>>>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsnotifyUsersArgs = {
-  to?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
-  subject?: InputMaybe<Scalars['String']>;
-  message?: InputMaybe<Scalars['String']>;
-  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
-  noEmptySend?: InputMaybe<Scalars['Boolean']>;
-};
-
-
-/** Available operations which can be done with found events via provided query or created */
-export type ThingsEventOperationsnotifyUsersBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<NotifyUsersInput>>>;
-};
-
-/** Filter for Things/Event */
-export type ThingsEventFilter = {
-  orderBy?: InputMaybe<ThingsEventOrder>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  /** fibery/id */
-  id?: InputMaybe<IDFilter>;
-  /** fibery/public-id */
-  publicId?: InputMaybe<StringFilter>;
-  /** fibery/creation-date */
-  creationDate?: InputMaybe<StringFilter>;
-  /** fibery/modification-date */
-  modificationDate?: InputMaybe<StringFilter>;
-  /** fibery/rank */
-  rank?: InputMaybe<FloatFilter>;
-  /** fibery/created-by */
-  createdBy?: InputMaybe<FiberyUserFilter>;
-  /** Things/Thing */
-  thing?: InputMaybe<ThingsThingFilter>;
-  /** Things/name */
-  name?: InputMaybe<StringFilter>;
-};
-
-export type ThingsEventCollectionFilter = {
-  isEmpty?: InputMaybe<Scalars['Boolean']>;
-  contains?: InputMaybe<Array<InputMaybe<ThingsEventFilter>>>;
-  containsAny?: InputMaybe<Array<InputMaybe<ThingsEventFilter>>>;
-  notContains?: InputMaybe<Array<InputMaybe<ThingsEventFilter>>>;
-  notContainsAny?: InputMaybe<Array<InputMaybe<ThingsEventFilter>>>;
+  type?: InputMaybe<StringFilter>;
 };
 
 /** Available fields and relations for Things/Idea */
@@ -562,11 +237,9 @@ export type ThingsIdeaOperationsscriptBatchArgs = {
 /** Available operations which can be done with found ideas via provided query or created */
 export type ThingsIdeaOperationsaddThingArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  event?: InputMaybe<ThingsEventFilter>;
   idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
-  query?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<ThingsTypeFilter>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -579,11 +252,9 @@ export type ThingsIdeaOperationsaddThingBatchArgs = {
 /** Available operations which can be done with found ideas via provided query or created */
 export type ThingsIdeaOperationsupdateThingArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  event?: InputMaybe<ThingsEventFilter>;
   idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
-  query?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<ThingsTypeFilter>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -705,31 +376,23 @@ export type ThingsThing = {
   createdBy?: Maybe<FiberyUser>;
   /** Things/Description */
   description?: Maybe<RichField>;
-  /** Things/Event */
-  event?: Maybe<ThingsEvent>;
   /** Things/Idea */
   idea?: Maybe<ThingsIdea>;
   /** Things/Name */
   name?: Maybe<Scalars['String']>;
-  /** Things/Query */
-  query?: Maybe<Scalars['String']>;
   /** Things/Type */
-  type?: Maybe<ThingsType>;
+  type?: Maybe<Scalars['String']>;
 };
 
 export type ThingsThingInput = {
   /** fibery/rank */
   rank?: InputMaybe<Scalars['Float']>;
-  /** Things/Event */
-  event?: InputMaybe<ThingsEventFilter>;
   /** Things/Idea */
   idea?: InputMaybe<ThingsIdeaFilter>;
   /** Things/Name */
   name?: InputMaybe<Scalars['String']>;
-  /** Things/Query */
-  query?: InputMaybe<Scalars['String']>;
   /** Things/Type */
-  type?: InputMaybe<ThingsTypeFilter>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 export type ThingsThingOrder = {
@@ -745,16 +408,12 @@ export type ThingsThingOrder = {
   rank?: InputMaybe<Order>;
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserOrder>;
-  /** Things/Event */
-  event?: InputMaybe<ThingsEventOrder>;
   /** Things/Idea */
   idea?: InputMaybe<ThingsIdeaOrder>;
   /** Things/Name */
   name?: InputMaybe<Order>;
-  /** Things/Query */
-  query?: InputMaybe<Order>;
   /** Things/Type */
-  type?: InputMaybe<ThingsTypeOrder>;
+  type?: InputMaybe<Order>;
 };
 
 /** Available operations which can be done with found things via provided query or created */
@@ -785,18 +444,6 @@ export type ThingsThingOperations = {
   overwriteDescription?: Maybe<MutationResult>;
   /** Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
   overwriteDescriptionBatch?: Maybe<MutationResult>;
-  /** Add Event. Create new Event and link to Thing */
-  addEvent?: Maybe<MutationResult>;
-  /** Batch Add Event. Create new Event and link to Thing */
-  addEventBatch?: Maybe<MutationResult>;
-  /** Update Event. Update Event linked to Thing */
-  updateEvent?: Maybe<MutationResult>;
-  /** Batch Update Event. Update Event linked to Thing */
-  updateEventBatch?: Maybe<MutationResult>;
-  /** Unlink Event. Unlink Event from Thing while not deleting it */
-  unlinkEvent?: Maybe<MutationResult>;
-  /** Delete Event. Delete Event linked to Thing */
-  deleteEvent?: Maybe<MutationResult>;
   /** Add Idea. Create new Idea and link to Thing */
   addIdea?: Maybe<MutationResult>;
   /** Batch Add Idea. Create new Idea and link to Thing */
@@ -809,18 +456,6 @@ export type ThingsThingOperations = {
   unlinkIdea?: Maybe<MutationResult>;
   /** Delete Idea. Delete Idea linked to Thing */
   deleteIdea?: Maybe<MutationResult>;
-  /** Add Type. Create new Type and link to Thing */
-  addType?: Maybe<MutationResult>;
-  /** Batch Add Type. Create new Type and link to Thing */
-  addTypeBatch?: Maybe<MutationResult>;
-  /** Update Type. Update Type linked to Thing */
-  updateType?: Maybe<MutationResult>;
-  /** Batch Update Type. Update Type linked to Thing */
-  updateTypeBatch?: Maybe<MutationResult>;
-  /** Unlink Type. Unlink Type from Thing while not deleting it */
-  unlinkType?: Maybe<MutationResult>;
-  /** Delete Type. Delete Type linked to Thing */
-  deleteType?: Maybe<MutationResult>;
   /** Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
   notifyCreatedBy?: Maybe<MutationResult>;
   /** Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
@@ -839,11 +474,9 @@ export type ThingsThingOperations = {
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationscreateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  event?: InputMaybe<ThingsEventFilter>;
   idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
-  query?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<ThingsTypeFilter>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -856,11 +489,9 @@ export type ThingsThingOperationscreateBatchArgs = {
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsupdateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  event?: InputMaybe<ThingsEventFilter>;
   idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
-  query?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<ThingsTypeFilter>;
+  type?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -919,34 +550,6 @@ export type ThingsThingOperationsoverwriteDescriptionBatchArgs = {
 
 
 /** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsaddEventArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  thing?: InputMaybe<ThingsThingFilter>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsaddEventBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsEventInput>>>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsupdateEventArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  thing?: InputMaybe<ThingsThingFilter>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsupdateEventBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsEventInput>>>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsaddIdeaArgs = {
   rank?: InputMaybe<Scalars['Float']>;
   thing?: InputMaybe<ThingsThingFilter>;
@@ -971,34 +574,6 @@ export type ThingsThingOperationsupdateIdeaArgs = {
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsupdateIdeaBatchArgs = {
   data?: InputMaybe<Array<InputMaybe<ThingsIdeaInput>>>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsaddTypeArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  things?: InputMaybe<Array<InputMaybe<ThingsThingFilter>>>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsaddTypeBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsTypeInput>>>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsupdateTypeArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  things?: InputMaybe<Array<InputMaybe<ThingsThingFilter>>>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsupdateTypeBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsTypeInput>>>;
 };
 
 
@@ -1048,16 +623,12 @@ export type ThingsThingFilter = {
   rank?: InputMaybe<FloatFilter>;
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserFilter>;
-  /** Things/Event */
-  event?: InputMaybe<ThingsEventFilter>;
   /** Things/Idea */
   idea?: InputMaybe<ThingsIdeaFilter>;
   /** Things/Name */
   name?: InputMaybe<StringFilter>;
-  /** Things/Query */
-  query?: InputMaybe<StringFilter>;
   /** Things/Type */
-  type?: InputMaybe<ThingsTypeFilter>;
+  type?: InputMaybe<StringFilter>;
 };
 
 export type ThingsThingCollectionFilter = {
@@ -1066,367 +637,6 @@ export type ThingsThingCollectionFilter = {
   containsAny?: InputMaybe<Array<InputMaybe<ThingsThingFilter>>>;
   notContains?: InputMaybe<Array<InputMaybe<ThingsThingFilter>>>;
   notContainsAny?: InputMaybe<Array<InputMaybe<ThingsThingFilter>>>;
-};
-
-/** Available fields and relations for Things/Type */
-export type ThingsType = {
-  /** fibery/id */
-  id?: Maybe<Scalars['ID']>;
-  /** fibery/public-id */
-  publicId?: Maybe<Scalars['String']>;
-  /** fibery/creation-date */
-  creationDate?: Maybe<Scalars['String']>;
-  /** fibery/modification-date */
-  modificationDate?: Maybe<Scalars['String']>;
-  /** fibery/rank */
-  rank?: Maybe<Scalars['Float']>;
-  /** fibery/created-by */
-  createdBy?: Maybe<FiberyUser>;
-  /** Things/Things. By default, the inner list is limited by 100 records */
-  things?: Maybe<Array<Maybe<ThingsThing>>>;
-  /** Things/description */
-  description?: Maybe<RichField>;
-  /** Things/name */
-  name?: Maybe<Scalars['String']>;
-};
-
-
-/** Available fields and relations for Things/Type */
-export type ThingsTypethingsArgs = {
-  orderBy?: InputMaybe<ThingsThingOrder>;
-  limit?: InputMaybe<Scalars['Int']>;
-  id?: InputMaybe<IDFilter>;
-  publicId?: InputMaybe<StringFilter>;
-  creationDate?: InputMaybe<StringFilter>;
-  modificationDate?: InputMaybe<StringFilter>;
-  rank?: InputMaybe<FloatFilter>;
-  createdBy?: InputMaybe<FiberyUserFilter>;
-  event?: InputMaybe<ThingsEventFilter>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
-  name?: InputMaybe<StringFilter>;
-  query?: InputMaybe<StringFilter>;
-  type?: InputMaybe<ThingsTypeFilter>;
-};
-
-export type ThingsTypeInput = {
-  /** fibery/rank */
-  rank?: InputMaybe<Scalars['Float']>;
-  /** Things/Things */
-  things?: InputMaybe<Array<InputMaybe<ThingsThingFilter>>>;
-  /** Things/name */
-  name?: InputMaybe<Scalars['String']>;
-};
-
-export type ThingsTypeOrder = {
-  /** fibery/id */
-  id?: InputMaybe<Order>;
-  /** fibery/public-id */
-  publicId?: InputMaybe<Order>;
-  /** fibery/creation-date */
-  creationDate?: InputMaybe<Order>;
-  /** fibery/modification-date */
-  modificationDate?: InputMaybe<Order>;
-  /** fibery/rank */
-  rank?: InputMaybe<Order>;
-  /** fibery/created-by */
-  createdBy?: InputMaybe<FiberyUserOrder>;
-  /** Things/name */
-  name?: InputMaybe<Order>;
-};
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperations = {
-  /** Create. Create a new Type and specify field values */
-  create?: Maybe<MutationResult>;
-  /** Batch Create. Create a new Type and specify field values */
-  createBatch?: Maybe<MutationResult>;
-  /** Update. Set new values for fields */
-  update?: Maybe<MutationResult>;
-  /** Batch Update. Set new values for fields */
-  updateBatch?: Maybe<MutationResult>;
-  /** Delete. Delete Type */
-  delete?: Maybe<MutationResult>;
-  /** Script. Execute Javascript code */
-  script?: Maybe<MutationResult>;
-  /** Batch Script. Execute Javascript code */
-  scriptBatch?: Maybe<MutationResult>;
-  /** Add Things Item. Add new Thing to Things list */
-  addThingsItem?: Maybe<MutationResult>;
-  /** Batch Add Things Item. Add new Thing to Things list */
-  addThingsItemBatch?: Maybe<MutationResult>;
-  /** Update Things. Update Things linked to Type */
-  updateThings?: Maybe<MutationResult>;
-  /** Batch Update Things. Update Things linked to Type */
-  updateThingsBatch?: Maybe<MutationResult>;
-  /** Link Things. Link Things to Type */
-  linkThings?: Maybe<MutationResult>;
-  /** Batch Link Things. Link Things to Type */
-  linkThingsBatch?: Maybe<MutationResult>;
-  /** Unlink Things. Unlink Things from Type while not deleting it */
-  unlinkThings?: Maybe<MutationResult>;
-  /** Batch Unlink Things. Unlink Things from Type while not deleting it */
-  unlinkThingsBatch?: Maybe<MutationResult>;
-  /** Delete Things. Delete Things linked to Type */
-  deleteThings?: Maybe<MutationResult>;
-  /** Batch Delete Things. Delete Things linked to Type */
-  deleteThingsBatch?: Maybe<MutationResult>;
-  /** Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  appendContentToDescription?: Maybe<MutationResult>;
-  /** Batch Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  appendContentToDescriptionBatch?: Maybe<MutationResult>;
-  /** Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  prependContentToDescription?: Maybe<MutationResult>;
-  /** Batch Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  prependContentToDescriptionBatch?: Maybe<MutationResult>;
-  /** Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  overwriteDescription?: Maybe<MutationResult>;
-  /** Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
-  overwriteDescriptionBatch?: Maybe<MutationResult>;
-  /** Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
-  notifyCreatedBy?: Maybe<MutationResult>;
-  /** Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
-  notifyCreatedByBatch?: Maybe<MutationResult>;
-  /** Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
-  notifyUsers?: Maybe<MutationResult>;
-  /** Batch Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
-  notifyUsersBatch?: Maybe<MutationResult>;
-  /** countOfEntities. Count of found or created types to be modified */
-  countOfEntities?: Maybe<Scalars['Int']>;
-  /** listEntities. List of found or created types to be modified */
-  listEntities?: Maybe<Array<Maybe<Entity>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationscreateArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  things?: InputMaybe<Array<InputMaybe<ThingsThingFilter>>>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationscreateBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsTypeInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsupdateArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  things?: InputMaybe<Array<InputMaybe<ThingsThingFilter>>>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsupdateBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsTypeInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsscriptArgs = {
-  script?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsscriptBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ScriptInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsaddThingsItemArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  event?: InputMaybe<ThingsEventFilter>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
-  name?: InputMaybe<Scalars['String']>;
-  query?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<ThingsTypeFilter>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsaddThingsItemBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsThingInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsupdateThingsArgs = {
-  filter?: InputMaybe<ThingsThingFilter>;
-  fields?: InputMaybe<ThingsThingInput>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsupdateThingsBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<UpdateThingsInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationslinkThingsArgs = {
-  id?: InputMaybe<IDFilter>;
-  publicId?: InputMaybe<StringFilter>;
-  creationDate?: InputMaybe<StringFilter>;
-  modificationDate?: InputMaybe<StringFilter>;
-  rank?: InputMaybe<FloatFilter>;
-  createdBy?: InputMaybe<FiberyUserFilter>;
-  event?: InputMaybe<ThingsEventFilter>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
-  name?: InputMaybe<StringFilter>;
-  query?: InputMaybe<StringFilter>;
-  type?: InputMaybe<ThingsTypeFilter>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationslinkThingsBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsThingInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsunlinkThingsArgs = {
-  id?: InputMaybe<IDFilter>;
-  publicId?: InputMaybe<StringFilter>;
-  creationDate?: InputMaybe<StringFilter>;
-  modificationDate?: InputMaybe<StringFilter>;
-  rank?: InputMaybe<FloatFilter>;
-  createdBy?: InputMaybe<FiberyUserFilter>;
-  event?: InputMaybe<ThingsEventFilter>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
-  name?: InputMaybe<StringFilter>;
-  query?: InputMaybe<StringFilter>;
-  type?: InputMaybe<ThingsTypeFilter>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsunlinkThingsBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsThingInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsdeleteThingsArgs = {
-  id?: InputMaybe<IDFilter>;
-  publicId?: InputMaybe<StringFilter>;
-  creationDate?: InputMaybe<StringFilter>;
-  modificationDate?: InputMaybe<StringFilter>;
-  rank?: InputMaybe<FloatFilter>;
-  createdBy?: InputMaybe<FiberyUserFilter>;
-  event?: InputMaybe<ThingsEventFilter>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
-  name?: InputMaybe<StringFilter>;
-  query?: InputMaybe<StringFilter>;
-  type?: InputMaybe<ThingsTypeFilter>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsdeleteThingsBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsThingInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsappendContentToDescriptionArgs = {
-  value?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsappendContentToDescriptionBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<AppendContentToDescriptionInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsprependContentToDescriptionArgs = {
-  value?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsprependContentToDescriptionBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<PrependContentToDescriptionInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsoverwriteDescriptionArgs = {
-  value?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsoverwriteDescriptionBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<OverwriteDescriptionInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsnotifyCreatedByArgs = {
-  subject?: InputMaybe<Scalars['String']>;
-  message?: InputMaybe<Scalars['String']>;
-  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsnotifyCreatedByBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<NotifyCreatedByInput>>>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsnotifyUsersArgs = {
-  to?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
-  subject?: InputMaybe<Scalars['String']>;
-  message?: InputMaybe<Scalars['String']>;
-  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
-  noEmptySend?: InputMaybe<Scalars['Boolean']>;
-};
-
-
-/** Available operations which can be done with found types via provided query or created */
-export type ThingsTypeOperationsnotifyUsersBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<NotifyUsersInput>>>;
-};
-
-/** Filter for Things/Type */
-export type ThingsTypeFilter = {
-  orderBy?: InputMaybe<ThingsTypeOrder>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  /** fibery/id */
-  id?: InputMaybe<IDFilter>;
-  /** fibery/public-id */
-  publicId?: InputMaybe<StringFilter>;
-  /** fibery/creation-date */
-  creationDate?: InputMaybe<StringFilter>;
-  /** fibery/modification-date */
-  modificationDate?: InputMaybe<StringFilter>;
-  /** fibery/rank */
-  rank?: InputMaybe<FloatFilter>;
-  /** fibery/created-by */
-  createdBy?: InputMaybe<FiberyUserFilter>;
-  /** Things/Things */
-  things?: InputMaybe<ThingsThingCollectionFilter>;
-  /** Things/name */
-  name?: InputMaybe<StringFilter>;
-};
-
-export type ThingsTypeCollectionFilter = {
-  isEmpty?: InputMaybe<Scalars['Boolean']>;
-  contains?: InputMaybe<Array<InputMaybe<ThingsTypeFilter>>>;
-  containsAny?: InputMaybe<Array<InputMaybe<ThingsTypeFilter>>>;
-  notContains?: InputMaybe<Array<InputMaybe<ThingsTypeFilter>>>;
-  notContainsAny?: InputMaybe<Array<InputMaybe<ThingsTypeFilter>>>;
 };
 
 /** Available fields and relations for fibery/user */
@@ -1663,27 +873,8 @@ export type NotifyUsersInput = {
   noEmptySend?: InputMaybe<Scalars['Boolean']>;
 };
 
-/** Input for Update Things */
-export type UpdateThingsInput = {
-  /** Add a filter for Things */
-  filter?: InputMaybe<ThingsThingFilter>;
-  /** Select fields you want to change */
-  fields?: InputMaybe<ThingsThingInput>;
-};
-
 /** Use mutations to modify database */
 export type Mutation = {
-  /**
-   * Modify selected entities using multiple actions (update, link and etc.)
-   * ```
-   * mutation {
-   *     events(id:{is: "AAAA-BBBB-CCCC"}){
-   *         update(name:"Updated"){message}
-   *     }
-   * }
-   * ```
-   */
-  events?: Maybe<ThingsEventOperations>;
   /**
    * Modify selected entities using multiple actions (update, link and etc.)
    * ```
@@ -1706,33 +897,6 @@ export type Mutation = {
    * ```
    */
   things?: Maybe<ThingsThingOperations>;
-  /**
-   * Modify selected entities using multiple actions (update, link and etc.)
-   * ```
-   * mutation {
-   *     types(id:{is: "AAAA-BBBB-CCCC"}){
-   *         update(name:"Updated"){message}
-   *     }
-   * }
-   * ```
-   */
-  types?: Maybe<ThingsTypeOperations>;
-};
-
-
-/** Use mutations to modify database */
-export type MutationeventsArgs = {
-  orderBy?: InputMaybe<ThingsEventOrder>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  id?: InputMaybe<IDFilter>;
-  publicId?: InputMaybe<StringFilter>;
-  creationDate?: InputMaybe<StringFilter>;
-  modificationDate?: InputMaybe<StringFilter>;
-  rank?: InputMaybe<FloatFilter>;
-  createdBy?: InputMaybe<FiberyUserFilter>;
-  thing?: InputMaybe<ThingsThingFilter>;
-  name?: InputMaybe<StringFilter>;
 };
 
 
@@ -1763,27 +927,9 @@ export type MutationthingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  event?: InputMaybe<ThingsEventFilter>;
   idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<StringFilter>;
-  query?: InputMaybe<StringFilter>;
-  type?: InputMaybe<ThingsTypeFilter>;
-};
-
-
-/** Use mutations to modify database */
-export type MutationtypesArgs = {
-  orderBy?: InputMaybe<ThingsTypeOrder>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  id?: InputMaybe<IDFilter>;
-  publicId?: InputMaybe<StringFilter>;
-  creationDate?: InputMaybe<StringFilter>;
-  modificationDate?: InputMaybe<StringFilter>;
-  rank?: InputMaybe<FloatFilter>;
-  createdBy?: InputMaybe<FiberyUserFilter>;
-  things?: InputMaybe<ThingsThingCollectionFilter>;
-  name?: InputMaybe<StringFilter>;
+  type?: InputMaybe<StringFilter>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -1872,20 +1018,14 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
-  ThingsEvent: ResolverTypeWrapper<ThingsEvent>;
+  ThingsIdea: ResolverTypeWrapper<ThingsIdea>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
-  ThingsEventInput: ThingsEventInput;
-  ThingsEventOrder: ThingsEventOrder;
-  ThingsEventOperations: ResolverTypeWrapper<ThingsEventOperations>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  ThingsEventFilter: ThingsEventFilter;
-  ThingsEventCollectionFilter: ThingsEventCollectionFilter;
-  ThingsIdea: ResolverTypeWrapper<ThingsIdea>;
   ThingsIdeaInput: ThingsIdeaInput;
   ThingsIdeaOrder: ThingsIdeaOrder;
   ThingsIdeaOperations: ResolverTypeWrapper<ThingsIdeaOperations>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ThingsIdeaFilter: ThingsIdeaFilter;
   ThingsIdeaCollectionFilter: ThingsIdeaCollectionFilter;
   ThingsThing: ResolverTypeWrapper<ThingsThing>;
@@ -1894,12 +1034,6 @@ export type ResolversTypes = ResolversObject<{
   ThingsThingOperations: ResolverTypeWrapper<ThingsThingOperations>;
   ThingsThingFilter: ThingsThingFilter;
   ThingsThingCollectionFilter: ThingsThingCollectionFilter;
-  ThingsType: ResolverTypeWrapper<ThingsType>;
-  ThingsTypeInput: ThingsTypeInput;
-  ThingsTypeOrder: ThingsTypeOrder;
-  ThingsTypeOperations: ResolverTypeWrapper<ThingsTypeOperations>;
-  ThingsTypeFilter: ThingsTypeFilter;
-  ThingsTypeCollectionFilter: ThingsTypeCollectionFilter;
   FiberyUser: ResolverTypeWrapper<FiberyUser>;
   FiberyUserInput: FiberyUserInput;
   FiberyUserOrder: FiberyUserOrder;
@@ -1926,7 +1060,6 @@ export type ResolversTypes = ResolversObject<{
   OverwriteDescriptionInput: OverwriteDescriptionInput;
   NotifyCreatedByInput: NotifyCreatedByInput;
   NotifyUsersInput: NotifyUsersInput;
-  UpdateThingsInput: UpdateThingsInput;
   Mutation: ResolverTypeWrapper<{}>;
 }>;
 
@@ -1934,20 +1067,14 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Query: {};
   Int: Scalars['Int'];
-  ThingsEvent: ThingsEvent;
+  ThingsIdea: ThingsIdea;
   ID: Scalars['ID'];
   String: Scalars['String'];
   Float: Scalars['Float'];
-  ThingsEventInput: ThingsEventInput;
-  ThingsEventOrder: ThingsEventOrder;
-  ThingsEventOperations: ThingsEventOperations;
-  Boolean: Scalars['Boolean'];
-  ThingsEventFilter: ThingsEventFilter;
-  ThingsEventCollectionFilter: ThingsEventCollectionFilter;
-  ThingsIdea: ThingsIdea;
   ThingsIdeaInput: ThingsIdeaInput;
   ThingsIdeaOrder: ThingsIdeaOrder;
   ThingsIdeaOperations: ThingsIdeaOperations;
+  Boolean: Scalars['Boolean'];
   ThingsIdeaFilter: ThingsIdeaFilter;
   ThingsIdeaCollectionFilter: ThingsIdeaCollectionFilter;
   ThingsThing: ThingsThing;
@@ -1956,12 +1083,6 @@ export type ResolversParentTypes = ResolversObject<{
   ThingsThingOperations: ThingsThingOperations;
   ThingsThingFilter: ThingsThingFilter;
   ThingsThingCollectionFilter: ThingsThingCollectionFilter;
-  ThingsType: ThingsType;
-  ThingsTypeInput: ThingsTypeInput;
-  ThingsTypeOrder: ThingsTypeOrder;
-  ThingsTypeOperations: ThingsTypeOperations;
-  ThingsTypeFilter: ThingsTypeFilter;
-  ThingsTypeCollectionFilter: ThingsTypeCollectionFilter;
   FiberyUser: FiberyUser;
   FiberyUserInput: FiberyUserInput;
   FiberyUserOrder: FiberyUserOrder;
@@ -1987,58 +1108,13 @@ export type ResolversParentTypes = ResolversObject<{
   OverwriteDescriptionInput: OverwriteDescriptionInput;
   NotifyCreatedByInput: NotifyCreatedByInput;
   NotifyUsersInput: NotifyUsersInput;
-  UpdateThingsInput: UpdateThingsInput;
   Mutation: {};
 }>;
 
 export type QueryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   me?: Resolver<Maybe<ResolversTypes['FiberyUser']>, ParentType, ContextType>;
-  findEvents?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingsEvent']>>>, ParentType, ContextType, Partial<QueryfindEventsArgs>>;
   findIdeas?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingsIdea']>>>, ParentType, ContextType, Partial<QueryfindIdeasArgs>>;
   findThings?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingsThing']>>>, ParentType, ContextType, Partial<QueryfindThingsArgs>>;
-  findTypes?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingsType']>>>, ParentType, ContextType, Partial<QueryfindTypesArgs>>;
-}>;
-
-export type ThingsEventResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ThingsEvent'] = ResolversParentTypes['ThingsEvent']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  publicId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  creationDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  modificationDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  rank?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  createdBy?: Resolver<Maybe<ResolversTypes['FiberyUser']>, ParentType, ContextType>;
-  thing?: Resolver<Maybe<ResolversTypes['ThingsThing']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['RichField']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ThingsEventOperationsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ThingsEventOperations'] = ResolversParentTypes['ThingsEventOperations']> = ResolversObject<{
-  create?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationscreateArgs>>;
-  createBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationscreateBatchArgs>>;
-  update?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsupdateArgs>>;
-  updateBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsupdateBatchArgs>>;
-  delete?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
-  script?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsscriptArgs>>;
-  scriptBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsscriptBatchArgs>>;
-  addThing?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsaddThingArgs>>;
-  addThingBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsaddThingBatchArgs>>;
-  updateThing?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsupdateThingArgs>>;
-  updateThingBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsupdateThingBatchArgs>>;
-  unlinkThing?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
-  deleteThing?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
-  appendContentToDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsappendContentToDescriptionArgs>>;
-  appendContentToDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsappendContentToDescriptionBatchArgs>>;
-  prependContentToDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsprependContentToDescriptionArgs>>;
-  prependContentToDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsprependContentToDescriptionBatchArgs>>;
-  overwriteDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsoverwriteDescriptionArgs>>;
-  overwriteDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsoverwriteDescriptionBatchArgs>>;
-  notifyCreatedBy?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsnotifyCreatedByArgs>>;
-  notifyCreatedByBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsnotifyCreatedByBatchArgs>>;
-  notifyUsers?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsnotifyUsersArgs>>;
-  notifyUsersBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsnotifyUsersBatchArgs>>;
-  countOfEntities?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  listEntities?: Resolver<Maybe<Array<Maybe<ResolversTypes['Entity']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type ThingsIdeaResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ThingsIdea'] = ResolversParentTypes['ThingsIdea']> = ResolversObject<{
@@ -2091,11 +1167,9 @@ export type ThingsThingResolvers<ContextType = MeshContext, ParentType extends R
   rank?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   createdBy?: Resolver<Maybe<ResolversTypes['FiberyUser']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['RichField']>, ParentType, ContextType>;
-  event?: Resolver<Maybe<ResolversTypes['ThingsEvent']>, ParentType, ContextType>;
   idea?: Resolver<Maybe<ResolversTypes['ThingsIdea']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  query?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['ThingsType']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2113,74 +1187,16 @@ export type ThingsThingOperationsResolvers<ContextType = MeshContext, ParentType
   prependContentToDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsprependContentToDescriptionBatchArgs>>;
   overwriteDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsoverwriteDescriptionArgs>>;
   overwriteDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsoverwriteDescriptionBatchArgs>>;
-  addEvent?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsaddEventArgs>>;
-  addEventBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsaddEventBatchArgs>>;
-  updateEvent?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsupdateEventArgs>>;
-  updateEventBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsupdateEventBatchArgs>>;
-  unlinkEvent?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
-  deleteEvent?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
   addIdea?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsaddIdeaArgs>>;
   addIdeaBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsaddIdeaBatchArgs>>;
   updateIdea?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsupdateIdeaArgs>>;
   updateIdeaBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsupdateIdeaBatchArgs>>;
   unlinkIdea?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
   deleteIdea?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
-  addType?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsaddTypeArgs>>;
-  addTypeBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsaddTypeBatchArgs>>;
-  updateType?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsupdateTypeArgs>>;
-  updateTypeBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsupdateTypeBatchArgs>>;
-  unlinkType?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
-  deleteType?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
   notifyCreatedBy?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsnotifyCreatedByArgs>>;
   notifyCreatedByBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsnotifyCreatedByBatchArgs>>;
   notifyUsers?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsnotifyUsersArgs>>;
   notifyUsersBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsnotifyUsersBatchArgs>>;
-  countOfEntities?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  listEntities?: Resolver<Maybe<Array<Maybe<ResolversTypes['Entity']>>>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ThingsTypeResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ThingsType'] = ResolversParentTypes['ThingsType']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
-  publicId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  creationDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  modificationDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  rank?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  createdBy?: Resolver<Maybe<ResolversTypes['FiberyUser']>, ParentType, ContextType>;
-  things?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingsThing']>>>, ParentType, ContextType, Partial<ThingsTypethingsArgs>>;
-  description?: Resolver<Maybe<ResolversTypes['RichField']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ThingsTypeOperationsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ThingsTypeOperations'] = ResolversParentTypes['ThingsTypeOperations']> = ResolversObject<{
-  create?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationscreateArgs>>;
-  createBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationscreateBatchArgs>>;
-  update?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsupdateArgs>>;
-  updateBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsupdateBatchArgs>>;
-  delete?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
-  script?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsscriptArgs>>;
-  scriptBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsscriptBatchArgs>>;
-  addThingsItem?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsaddThingsItemArgs>>;
-  addThingsItemBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsaddThingsItemBatchArgs>>;
-  updateThings?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsupdateThingsArgs>>;
-  updateThingsBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsupdateThingsBatchArgs>>;
-  linkThings?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationslinkThingsArgs>>;
-  linkThingsBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationslinkThingsBatchArgs>>;
-  unlinkThings?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsunlinkThingsArgs>>;
-  unlinkThingsBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsunlinkThingsBatchArgs>>;
-  deleteThings?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsdeleteThingsArgs>>;
-  deleteThingsBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsdeleteThingsBatchArgs>>;
-  appendContentToDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsappendContentToDescriptionArgs>>;
-  appendContentToDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsappendContentToDescriptionBatchArgs>>;
-  prependContentToDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsprependContentToDescriptionArgs>>;
-  prependContentToDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsprependContentToDescriptionBatchArgs>>;
-  overwriteDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsoverwriteDescriptionArgs>>;
-  overwriteDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsoverwriteDescriptionBatchArgs>>;
-  notifyCreatedBy?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsnotifyCreatedByArgs>>;
-  notifyCreatedByBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsnotifyCreatedByBatchArgs>>;
-  notifyUsers?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsnotifyUsersArgs>>;
-  notifyUsersBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsTypeOperationsnotifyUsersBatchArgs>>;
   countOfEntities?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   listEntities?: Resolver<Maybe<Array<Maybe<ResolversTypes['Entity']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -2243,22 +1259,16 @@ export type MutationResultResolvers<ContextType = MeshContext, ParentType extend
 }>;
 
 export type MutationResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  events?: Resolver<Maybe<ResolversTypes['ThingsEventOperations']>, ParentType, ContextType, Partial<MutationeventsArgs>>;
   ideas?: Resolver<Maybe<ResolversTypes['ThingsIdeaOperations']>, ParentType, ContextType, Partial<MutationideasArgs>>;
   things?: Resolver<Maybe<ResolversTypes['ThingsThingOperations']>, ParentType, ContextType, Partial<MutationthingsArgs>>;
-  types?: Resolver<Maybe<ResolversTypes['ThingsTypeOperations']>, ParentType, ContextType, Partial<MutationtypesArgs>>;
 }>;
 
 export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
-  ThingsEvent?: ThingsEventResolvers<ContextType>;
-  ThingsEventOperations?: ThingsEventOperationsResolvers<ContextType>;
   ThingsIdea?: ThingsIdeaResolvers<ContextType>;
   ThingsIdeaOperations?: ThingsIdeaOperationsResolvers<ContextType>;
   ThingsThing?: ThingsThingResolvers<ContextType>;
   ThingsThingOperations?: ThingsThingOperationsResolvers<ContextType>;
-  ThingsType?: ThingsTypeResolvers<ContextType>;
-  ThingsTypeOperations?: ThingsTypeOperationsResolvers<ContextType>;
   FiberyUser?: FiberyUserResolvers<ContextType>;
   DateRange?: DateRangeResolvers<ContextType>;
   RichField?: RichFieldResolvers<ContextType>;
