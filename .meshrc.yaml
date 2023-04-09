@@ -11,7 +11,7 @@ sources:
 serve:
   browser: false # don't open browser on mesh start
   cors: 
-    origin: "https://alpha.near.org"
+    origin: ["https://alpha.near.org", "https://temp.everything.dev"]
     allowedHeaders: ["Content-Type", "X-Everything"]
     credentials: true # lol somebody educate me, is this secure?
     maxAge: 86400 # should we be generating a CSRF token client side then verifying against server key?

@@ -1176,7 +1176,7 @@ const rootStore = new MeshStore('.mesh', new FsStoreStorageAdapter({
   validate: false
 });
 
-export const rawServeConfig: YamlConfig.Config['serve'] = {"browser":false,"cors":{"origin":"https://alpha.near.org","allowedHeaders":["Content-Type","X-Everything"],"credentials":true,"maxAge":86400,"preflightContinue":false,"optionsSuccessStatus":204}} as any
+export const rawServeConfig: YamlConfig.Config['serve'] = {"browser":false,"cors":{"origin":["https://alpha.near.org","https://temp.everything.dev"],"allowedHeaders":["Content-Type","X-Everything"],"credentials":true,"maxAge":86400,"preflightContinue":false,"optionsSuccessStatus":204}} as any
 export async function getMeshOptions(): Promise<GetMeshOptions> {
 const pubsub = new PubSub();
 const sourcesStore = rootStore.child('sources');
@@ -1245,7 +1245,7 @@ export function createBuiltMeshHTTPHandler<TServerContext = {}>(): MeshHTTPHandl
   return createMeshHTTPHandler<TServerContext>({
     baseDir,
     getBuiltMesh: getBuiltMesh,
-    rawServeConfig: {"browser":false,"cors":{"origin":"https://alpha.near.org","allowedHeaders":["Content-Type","X-Everything"],"credentials":true,"maxAge":86400,"preflightContinue":false,"optionsSuccessStatus":204}},
+    rawServeConfig: {"browser":false,"cors":{"origin":["https://alpha.near.org","https://temp.everything.dev"],"allowedHeaders":["Content-Type","X-Everything"],"credentials":true,"maxAge":86400,"preflightContinue":false,"optionsSuccessStatus":204}},
   })
 }
 
