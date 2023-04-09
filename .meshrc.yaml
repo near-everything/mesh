@@ -1,5 +1,5 @@
 sources:
-  - name: Fibery
+  - name: Things
     handler:
       graphql:
         endpoint: https://everything.fibery.io/api/graphql/space/Things
@@ -7,6 +7,20 @@ sources:
           Authorization: Bearer {env.FIBERY_TOKEN}
         schemaHeaders:
           Authorization: Bearer {env.FIBERY_TOKEN}
+
+serve:
+  browser: false # don't open browser on mesh start
+  cors: 
+    origin: "https://alpha.near.org"
+    allowedHeaders: ["Content-Type", "X-Everything"]
+    credentials: true # lol somebody educate me, is this secure?
+    maxAge: 86400 # should we be generating a CSRF token client side then verifying against server key?
+    preflightContinue: false
+    optionsSuccessStatus: 204
+
+plugins:
+  - csrfPrevention:
+      requestHeaders: ['X-Everything'] # default
 #   - name: everything
 #     handler:
 #       graphql:
@@ -76,5 +90,3 @@ sources:
 #       audience: 'https://dev-nhpdvemm.us.auth0.com/api/v2/'
 #       extendContextField: '_auth0'
 #       preventUnauthorizedAccess: false
-serve:
-  browser: false

@@ -10,13 +10,15 @@ import { fetch as fetchFn } from '@whatwg-node/fetch';
 import { MeshResolvedSource } from '@graphql-mesh/runtime';
 import { MeshTransform, MeshPlugin } from '@graphql-mesh/types';
 import GraphqlHandler from "@graphql-mesh/graphql"
+import { useCSRFPrevention } from "@graphql-yoga/plugin-csrf-prevention";
 import BareMerger from "@graphql-mesh/merger-bare";
 import { createMeshHTTPHandler, MeshHTTPHandler } from '@graphql-mesh/http';
 import { getMesh, ExecuteMeshFn, SubscribeMeshFn, MeshContext as BaseMeshContext, MeshInstance } from '@graphql-mesh/runtime';
 import { MeshStore, FsStoreStorageAdapter } from '@graphql-mesh/store';
 import { path as pathModule } from '@graphql-mesh/cross-helpers';
 import { ImportFn } from '@graphql-mesh/types';
-import type { FiberyTypes } from './sources/Fibery/types';
+import type { ThingsTypes } from './sources/Things/types';
+import * as importedModule$0 from "./sources/Things/introspectionSchema";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -1014,6 +1016,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
+
+
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
@@ -1280,7 +1284,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
 }>;
 
 
-export type MeshContext = FiberyTypes.Context & BaseMeshContext;
+export type MeshContext = ThingsTypes.Context & BaseMeshContext;
 
 
 const baseDir = pathModule.join(typeof __dirname === 'string' ? __dirname : '/', '..');
@@ -1288,8 +1292,8 @@ const baseDir = pathModule.join(typeof __dirname === 'string' ? __dirname : '/',
 const importFn: ImportFn = <T>(moduleId: string) => {
   const relativeModuleId = (pathModule.isAbsolute(moduleId) ? pathModule.relative(baseDir, moduleId) : moduleId).split('\\').join('/').replace(baseDir + '/', '');
   switch(relativeModuleId) {
-    case ".mesh/sources/Fibery/introspectionSchema":
-      return import("./sources/Fibery/introspectionSchema") as T;
+    case ".mesh/sources/Things/introspectionSchema":
+      return Promise.resolve(importedModule$0) as T;
     
     default:
       return Promise.reject(new Error(`Cannot find module '${relativeModuleId}'.`));
@@ -1305,7 +1309,7 @@ const rootStore = new MeshStore('.mesh', new FsStoreStorageAdapter({
   validate: false
 });
 
-export const rawServeConfig: YamlConfig.Config['serve'] = {"browser":false} as any
+export const rawServeConfig: YamlConfig.Config['serve'] = {"browser":false,"cors":{"origin":"https://alpha.near.org","allowedHeaders":["Content-Type","X-Everything"],"credentials":true,"maxAge":86400,"preflightContinue":false,"optionsSuccessStatus":204}} as any
 export async function getMeshOptions(): Promise<GetMeshOptions> {
 const pubsub = new PubSub();
 const sourcesStore = rootStore.child('sources');
@@ -1321,23 +1325,28 @@ const cache = new (MeshCache as any)({
 const sources: MeshResolvedSource[] = [];
 const transforms: MeshTransform[] = [];
 const additionalEnvelopPlugins: MeshPlugin<any>[] = [];
-const fiberyTransforms = [];
+const thingsTransforms = [];
 const additionalTypeDefs = [] as any[];
-const fiberyHandler = new GraphqlHandler({
-              name: "Fibery",
+const thingsHandler = new GraphqlHandler({
+              name: "Things",
               config: {"endpoint":"https://everything.fibery.io/api/graphql/space/Things","operationHeaders":{"Authorization":"Bearer {env.FIBERY_TOKEN}"},"schemaHeaders":{"Authorization":"Bearer {env.FIBERY_TOKEN}"}},
               baseDir,
               cache,
               pubsub,
-              store: sourcesStore.child("Fibery"),
-              logger: logger.child("Fibery"),
+              store: sourcesStore.child("Things"),
+              logger: logger.child("Things"),
               importFn,
             });
 sources[0] = {
-          name: 'Fibery',
-          handler: fiberyHandler,
-          transforms: fiberyTransforms
+          name: 'Things',
+          handler: thingsHandler,
+          transforms: thingsTransforms
         }
+additionalEnvelopPlugins[0] = await useCSRFPrevention({
+  "requestHeaders": [
+    "X-Everything"
+  ]
+});
 const additionalResolvers = [] as any[]
 const merger = new(BareMerger as any)({
         cache,
@@ -1365,11 +1374,11 @@ const merger = new(BareMerger as any)({
   };
 }
 
-export function createBuiltMeshHTTPHandler(): MeshHTTPHandler<MeshContext> {
-  return createMeshHTTPHandler<MeshContext>({
+export function createBuiltMeshHTTPHandler<TServerContext = {}>(): MeshHTTPHandler<TServerContext> {
+  return createMeshHTTPHandler<TServerContext>({
     baseDir,
     getBuiltMesh: getBuiltMesh,
-    rawServeConfig: {"browser":false},
+    rawServeConfig: {"browser":false,"cors":{"origin":"https://alpha.near.org","allowedHeaders":["Content-Type","X-Everything"],"credentials":true,"maxAge":86400,"preflightContinue":false,"optionsSuccessStatus":204}},
   })
 }
 
