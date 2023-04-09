@@ -70,7 +70,6 @@ export type QueryfindIdeasArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  thing?: InputMaybe<ThingsThingFilter>;
   name?: InputMaybe<StringFilter>;
 };
 
@@ -86,9 +85,7 @@ export type QueryfindThingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<StringFilter>;
-  type?: InputMaybe<StringFilter>;
 };
 
 /** Available fields and relations for Things/Idea */
@@ -105,8 +102,6 @@ export type ThingsIdea = {
   rank?: Maybe<Scalars['Float']>;
   /** fibery/created-by */
   createdBy?: Maybe<FiberyUser>;
-  /** Things/Thing */
-  thing?: Maybe<ThingsThing>;
   /** Things/description */
   description?: Maybe<RichField>;
   /** Things/name */
@@ -116,8 +111,6 @@ export type ThingsIdea = {
 export type ThingsIdeaInput = {
   /** fibery/rank */
   rank?: InputMaybe<Scalars['Float']>;
-  /** Things/Thing */
-  thing?: InputMaybe<ThingsThingFilter>;
   /** Things/name */
   name?: InputMaybe<Scalars['String']>;
 };
@@ -135,8 +128,6 @@ export type ThingsIdeaOrder = {
   rank?: InputMaybe<Order>;
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserOrder>;
-  /** Things/Thing */
-  thing?: InputMaybe<ThingsThingOrder>;
   /** Things/name */
   name?: InputMaybe<Order>;
 };
@@ -157,18 +148,6 @@ export type ThingsIdeaOperations = {
   script?: Maybe<MutationResult>;
   /** Batch Script. Execute Javascript code */
   scriptBatch?: Maybe<MutationResult>;
-  /** Add Thing. Create new Thing and link to Idea */
-  addThing?: Maybe<MutationResult>;
-  /** Batch Add Thing. Create new Thing and link to Idea */
-  addThingBatch?: Maybe<MutationResult>;
-  /** Update Thing. Update Thing linked to Idea */
-  updateThing?: Maybe<MutationResult>;
-  /** Batch Update Thing. Update Thing linked to Idea */
-  updateThingBatch?: Maybe<MutationResult>;
-  /** Unlink Thing. Unlink Thing from Idea while not deleting it */
-  unlinkThing?: Maybe<MutationResult>;
-  /** Delete Thing. Delete Thing linked to Idea */
-  deleteThing?: Maybe<MutationResult>;
   /** Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
   appendContentToDescription?: Maybe<MutationResult>;
   /** Batch Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
@@ -199,7 +178,6 @@ export type ThingsIdeaOperations = {
 /** Available operations which can be done with found ideas via provided query or created */
 export type ThingsIdeaOperationscreateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  thing?: InputMaybe<ThingsThingFilter>;
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -213,7 +191,6 @@ export type ThingsIdeaOperationscreateBatchArgs = {
 /** Available operations which can be done with found ideas via provided query or created */
 export type ThingsIdeaOperationsupdateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  thing?: InputMaybe<ThingsThingFilter>;
   name?: InputMaybe<Scalars['String']>;
 };
 
@@ -233,36 +210,6 @@ export type ThingsIdeaOperationsscriptArgs = {
 /** Available operations which can be done with found ideas via provided query or created */
 export type ThingsIdeaOperationsscriptBatchArgs = {
   data?: InputMaybe<Array<InputMaybe<ScriptInput>>>;
-};
-
-
-/** Available operations which can be done with found ideas via provided query or created */
-export type ThingsIdeaOperationsaddThingArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
-  name?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found ideas via provided query or created */
-export type ThingsIdeaOperationsaddThingBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsThingInput>>>;
-};
-
-
-/** Available operations which can be done with found ideas via provided query or created */
-export type ThingsIdeaOperationsupdateThingArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
-  name?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found ideas via provided query or created */
-export type ThingsIdeaOperationsupdateThingBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsThingInput>>>;
 };
 
 
@@ -348,8 +295,6 @@ export type ThingsIdeaFilter = {
   rank?: InputMaybe<FloatFilter>;
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserFilter>;
-  /** Things/Thing */
-  thing?: InputMaybe<ThingsThingFilter>;
   /** Things/name */
   name?: InputMaybe<StringFilter>;
 };
@@ -378,23 +323,15 @@ export type ThingsThing = {
   createdBy?: Maybe<FiberyUser>;
   /** Things/Description */
   description?: Maybe<RichField>;
-  /** Things/Idea */
-  idea?: Maybe<ThingsIdea>;
   /** Things/Name */
   name?: Maybe<Scalars['String']>;
-  /** Things/Type */
-  type?: Maybe<Scalars['String']>;
 };
 
 export type ThingsThingInput = {
   /** fibery/rank */
   rank?: InputMaybe<Scalars['Float']>;
-  /** Things/Idea */
-  idea?: InputMaybe<ThingsIdeaFilter>;
   /** Things/Name */
   name?: InputMaybe<Scalars['String']>;
-  /** Things/Type */
-  type?: InputMaybe<Scalars['String']>;
 };
 
 export type ThingsThingOrder = {
@@ -410,12 +347,8 @@ export type ThingsThingOrder = {
   rank?: InputMaybe<Order>;
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserOrder>;
-  /** Things/Idea */
-  idea?: InputMaybe<ThingsIdeaOrder>;
   /** Things/Name */
   name?: InputMaybe<Order>;
-  /** Things/Type */
-  type?: InputMaybe<Order>;
 };
 
 /** Available operations which can be done with found things via provided query or created */
@@ -446,18 +379,6 @@ export type ThingsThingOperations = {
   overwriteDescription?: Maybe<MutationResult>;
   /** Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
   overwriteDescriptionBatch?: Maybe<MutationResult>;
-  /** Add Idea. Create new Idea and link to Thing */
-  addIdea?: Maybe<MutationResult>;
-  /** Batch Add Idea. Create new Idea and link to Thing */
-  addIdeaBatch?: Maybe<MutationResult>;
-  /** Update Idea. Update Idea linked to Thing */
-  updateIdea?: Maybe<MutationResult>;
-  /** Batch Update Idea. Update Idea linked to Thing */
-  updateIdeaBatch?: Maybe<MutationResult>;
-  /** Unlink Idea. Unlink Idea from Thing while not deleting it */
-  unlinkIdea?: Maybe<MutationResult>;
-  /** Delete Idea. Delete Idea linked to Thing */
-  deleteIdea?: Maybe<MutationResult>;
   /** Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
   notifyCreatedBy?: Maybe<MutationResult>;
   /** Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
@@ -476,9 +397,7 @@ export type ThingsThingOperations = {
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationscreateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -491,9 +410,7 @@ export type ThingsThingOperationscreateBatchArgs = {
 /** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsupdateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<Scalars['String']>;
-  type?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -552,34 +469,6 @@ export type ThingsThingOperationsoverwriteDescriptionBatchArgs = {
 
 
 /** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsaddIdeaArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  thing?: InputMaybe<ThingsThingFilter>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsaddIdeaBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsIdeaInput>>>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsupdateIdeaArgs = {
-  rank?: InputMaybe<Scalars['Float']>;
-  thing?: InputMaybe<ThingsThingFilter>;
-  name?: InputMaybe<Scalars['String']>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
-export type ThingsThingOperationsupdateIdeaBatchArgs = {
-  data?: InputMaybe<Array<InputMaybe<ThingsIdeaInput>>>;
-};
-
-
-/** Available operations which can be done with found things via provided query or created */
 export type ThingsThingOperationsnotifyCreatedByArgs = {
   subject?: InputMaybe<Scalars['String']>;
   message?: InputMaybe<Scalars['String']>;
@@ -625,12 +514,8 @@ export type ThingsThingFilter = {
   rank?: InputMaybe<FloatFilter>;
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserFilter>;
-  /** Things/Idea */
-  idea?: InputMaybe<ThingsIdeaFilter>;
   /** Things/Name */
   name?: InputMaybe<StringFilter>;
-  /** Things/Type */
-  type?: InputMaybe<StringFilter>;
 };
 
 export type ThingsThingCollectionFilter = {
@@ -913,7 +798,6 @@ export type MutationideasArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  thing?: InputMaybe<ThingsThingFilter>;
   name?: InputMaybe<StringFilter>;
 };
 
@@ -929,9 +813,7 @@ export type MutationthingsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  idea?: InputMaybe<ThingsIdeaFilter>;
   name?: InputMaybe<StringFilter>;
-  type?: InputMaybe<StringFilter>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -1128,7 +1010,6 @@ export type ThingsIdeaResolvers<ContextType = MeshContext, ParentType extends Re
   modificationDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   rank?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   createdBy?: Resolver<Maybe<ResolversTypes['FiberyUser']>, ParentType, ContextType>;
-  thing?: Resolver<Maybe<ResolversTypes['ThingsThing']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['RichField']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1142,12 +1023,6 @@ export type ThingsIdeaOperationsResolvers<ContextType = MeshContext, ParentType 
   delete?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
   script?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsIdeaOperationsscriptArgs>>;
   scriptBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsIdeaOperationsscriptBatchArgs>>;
-  addThing?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsIdeaOperationsaddThingArgs>>;
-  addThingBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsIdeaOperationsaddThingBatchArgs>>;
-  updateThing?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsIdeaOperationsupdateThingArgs>>;
-  updateThingBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsIdeaOperationsupdateThingBatchArgs>>;
-  unlinkThing?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
-  deleteThing?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
   appendContentToDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsIdeaOperationsappendContentToDescriptionArgs>>;
   appendContentToDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsIdeaOperationsappendContentToDescriptionBatchArgs>>;
   prependContentToDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsIdeaOperationsprependContentToDescriptionArgs>>;
@@ -1171,9 +1046,7 @@ export type ThingsThingResolvers<ContextType = MeshContext, ParentType extends R
   rank?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   createdBy?: Resolver<Maybe<ResolversTypes['FiberyUser']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['RichField']>, ParentType, ContextType>;
-  idea?: Resolver<Maybe<ResolversTypes['ThingsIdea']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1191,12 +1064,6 @@ export type ThingsThingOperationsResolvers<ContextType = MeshContext, ParentType
   prependContentToDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsprependContentToDescriptionBatchArgs>>;
   overwriteDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsoverwriteDescriptionArgs>>;
   overwriteDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsoverwriteDescriptionBatchArgs>>;
-  addIdea?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsaddIdeaArgs>>;
-  addIdeaBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsaddIdeaBatchArgs>>;
-  updateIdea?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsupdateIdeaArgs>>;
-  updateIdeaBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsupdateIdeaBatchArgs>>;
-  unlinkIdea?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
-  deleteIdea?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
   notifyCreatedBy?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsnotifyCreatedByArgs>>;
   notifyCreatedByBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsnotifyCreatedByBatchArgs>>;
   notifyUsers?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsThingOperationsnotifyUsersArgs>>;

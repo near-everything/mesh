@@ -246,26 +246,6 @@ const schemaAST = {
               "kind": "InputValueDefinition",
               "description": {
                 "kind": "StringValue",
-                "value": "Things/Thing",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "thing"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsThingFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
                 "value": "Things/name",
                 "block": true
               },
@@ -476,52 +456,12 @@ const schemaAST = {
               "kind": "InputValueDefinition",
               "description": {
                 "kind": "StringValue",
-                "value": "Things/Idea",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "idea"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsIdeaFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
                 "value": "Things/Name",
                 "block": true
               },
               "name": {
                 "kind": "Name",
                 "value": "name"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "StringFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Type",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "type"
               },
               "type": {
                 "kind": "NamedType",
@@ -691,27 +631,6 @@ const schemaAST = {
           "kind": "FieldDefinition",
           "description": {
             "kind": "StringValue",
-            "value": "Things/Thing",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "thing"
-          },
-          "arguments": [],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "ThingsThing"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
             "value": "Things/description",
             "block": true
           },
@@ -777,26 +696,6 @@ const schemaAST = {
             "name": {
               "kind": "Name",
               "value": "Float"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "InputValueDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Things/Thing",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "thing"
-          },
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "ThingsThingFilter"
             }
           },
           "directives": []
@@ -955,26 +854,6 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "description": {
             "kind": "StringValue",
-            "value": "Things/Thing",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "thing"
-          },
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "ThingsThingOrder"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "InputValueDefinition",
-          "description": {
-            "kind": "StringValue",
             "value": "Things/name",
             "block": true
           },
@@ -1034,26 +913,6 @@ const schemaAST = {
                 "name": {
                   "kind": "Name",
                   "value": "Float"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Thing",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "thing"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsThingFilter"
                 }
               },
               "directives": []
@@ -1156,26 +1015,6 @@ const schemaAST = {
                 "name": {
                   "kind": "Name",
                   "value": "Float"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Thing",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "thing"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsThingFilter"
                 }
               },
               "directives": []
@@ -1344,332 +1183,6 @@ const schemaAST = {
               "directives": []
             }
           ],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Add Thing. Create new Thing and link to Idea",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "addThing"
-          },
-          "arguments": [
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "fibery/rank",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "rank"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "Float"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Idea",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "idea"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsIdeaFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Name",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "name"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "String"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Type",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "type"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "String"
-                }
-              },
-              "directives": []
-            }
-          ],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Batch Add Thing. Create new Thing and link to Idea",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "addThingBatch"
-          },
-          "arguments": [
-            {
-              "kind": "InputValueDefinition",
-              "name": {
-                "kind": "Name",
-                "value": "data"
-              },
-              "type": {
-                "kind": "ListType",
-                "type": {
-                  "kind": "NamedType",
-                  "name": {
-                    "kind": "Name",
-                    "value": "ThingsThingInput"
-                  }
-                }
-              },
-              "directives": []
-            }
-          ],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Update Thing. Update Thing linked to Idea",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "updateThing"
-          },
-          "arguments": [
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "fibery/rank",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "rank"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "Float"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Idea",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "idea"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsIdeaFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Name",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "name"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "String"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Type",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "type"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "String"
-                }
-              },
-              "directives": []
-            }
-          ],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Batch Update Thing. Update Thing linked to Idea",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "updateThingBatch"
-          },
-          "arguments": [
-            {
-              "kind": "InputValueDefinition",
-              "name": {
-                "kind": "Name",
-                "value": "data"
-              },
-              "type": {
-                "kind": "ListType",
-                "type": {
-                  "kind": "NamedType",
-                  "name": {
-                    "kind": "Name",
-                    "value": "ThingsThingInput"
-                  }
-                }
-              },
-              "directives": []
-            }
-          ],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Unlink Thing. Unlink Thing from Idea while not deleting it",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "unlinkThing"
-          },
-          "arguments": [],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Delete Thing. Delete Thing linked to Idea",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "deleteThing"
-          },
-          "arguments": [],
           "type": {
             "kind": "NamedType",
             "name": {
@@ -2442,26 +1955,6 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "description": {
             "kind": "StringValue",
-            "value": "Things/Thing",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "thing"
-          },
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "ThingsThingFilter"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "InputValueDefinition",
-          "description": {
-            "kind": "StringValue",
             "value": "Things/name",
             "block": true
           },
@@ -2741,54 +2234,12 @@ const schemaAST = {
           "kind": "FieldDefinition",
           "description": {
             "kind": "StringValue",
-            "value": "Things/Idea",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "idea"
-          },
-          "arguments": [],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "ThingsIdea"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
             "value": "Things/Name",
             "block": true
           },
           "name": {
             "kind": "Name",
             "value": "name"
-          },
-          "arguments": [],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "String"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Things/Type",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "type"
           },
           "arguments": [],
           "type": {
@@ -2835,52 +2286,12 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "description": {
             "kind": "StringValue",
-            "value": "Things/Idea",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "idea"
-          },
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "ThingsIdeaFilter"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "InputValueDefinition",
-          "description": {
-            "kind": "StringValue",
             "value": "Things/Name",
             "block": true
           },
           "name": {
             "kind": "Name",
             "value": "name"
-          },
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "String"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "InputValueDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Things/Type",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "type"
           },
           "type": {
             "kind": "NamedType",
@@ -3025,52 +2436,12 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "description": {
             "kind": "StringValue",
-            "value": "Things/Idea",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "idea"
-          },
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "ThingsIdeaOrder"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "InputValueDefinition",
-          "description": {
-            "kind": "StringValue",
             "value": "Things/Name",
             "block": true
           },
           "name": {
             "kind": "Name",
             "value": "name"
-          },
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "Order"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "InputValueDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Things/Type",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "type"
           },
           "type": {
             "kind": "NamedType",
@@ -3132,52 +2503,12 @@ const schemaAST = {
               "kind": "InputValueDefinition",
               "description": {
                 "kind": "StringValue",
-                "value": "Things/Idea",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "idea"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsIdeaFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
                 "value": "Things/Name",
                 "block": true
               },
               "name": {
                 "kind": "Name",
                 "value": "name"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "String"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Type",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "type"
               },
               "type": {
                 "kind": "NamedType",
@@ -3274,52 +2605,12 @@ const schemaAST = {
               "kind": "InputValueDefinition",
               "description": {
                 "kind": "StringValue",
-                "value": "Things/Idea",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "idea"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsIdeaFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
                 "value": "Things/Name",
                 "block": true
               },
               "name": {
                 "kind": "Name",
                 "value": "name"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "String"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Type",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "type"
               },
               "type": {
                 "kind": "NamedType",
@@ -3720,292 +3011,6 @@ const schemaAST = {
               "directives": []
             }
           ],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Add Idea. Create new Idea and link to Thing",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "addIdea"
-          },
-          "arguments": [
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "fibery/rank",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "rank"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "Float"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Thing",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "thing"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsThingFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/name",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "name"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "String"
-                }
-              },
-              "directives": []
-            }
-          ],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Batch Add Idea. Create new Idea and link to Thing",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "addIdeaBatch"
-          },
-          "arguments": [
-            {
-              "kind": "InputValueDefinition",
-              "name": {
-                "kind": "Name",
-                "value": "data"
-              },
-              "type": {
-                "kind": "ListType",
-                "type": {
-                  "kind": "NamedType",
-                  "name": {
-                    "kind": "Name",
-                    "value": "ThingsIdeaInput"
-                  }
-                }
-              },
-              "directives": []
-            }
-          ],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Update Idea. Update Idea linked to Thing",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "updateIdea"
-          },
-          "arguments": [
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "fibery/rank",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "rank"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "Float"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Thing",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "thing"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsThingFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/name",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "name"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "String"
-                }
-              },
-              "directives": []
-            }
-          ],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Batch Update Idea. Update Idea linked to Thing",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "updateIdeaBatch"
-          },
-          "arguments": [
-            {
-              "kind": "InputValueDefinition",
-              "name": {
-                "kind": "Name",
-                "value": "data"
-              },
-              "type": {
-                "kind": "ListType",
-                "type": {
-                  "kind": "NamedType",
-                  "name": {
-                    "kind": "Name",
-                    "value": "ThingsIdeaInput"
-                  }
-                }
-              },
-              "directives": []
-            }
-          ],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Unlink Idea. Unlink Idea from Thing while not deleting it",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "unlinkIdea"
-          },
-          "arguments": [],
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "MutationResult"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "FieldDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Delete Idea. Delete Idea linked to Thing",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "deleteIdea"
-          },
-          "arguments": [],
           "type": {
             "kind": "NamedType",
             "name": {
@@ -4532,52 +3537,12 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "description": {
             "kind": "StringValue",
-            "value": "Things/Idea",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "idea"
-          },
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "ThingsIdeaFilter"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "InputValueDefinition",
-          "description": {
-            "kind": "StringValue",
             "value": "Things/Name",
             "block": true
           },
           "name": {
             "kind": "Name",
             "value": "name"
-          },
-          "type": {
-            "kind": "NamedType",
-            "name": {
-              "kind": "Name",
-              "value": "StringFilter"
-            }
-          },
-          "directives": []
-        },
-        {
-          "kind": "InputValueDefinition",
-          "description": {
-            "kind": "StringValue",
-            "value": "Things/Type",
-            "block": true
-          },
-          "name": {
-            "kind": "Name",
-            "value": "type"
           },
           "type": {
             "kind": "NamedType",
@@ -7102,26 +6067,6 @@ const schemaAST = {
               "kind": "InputValueDefinition",
               "description": {
                 "kind": "StringValue",
-                "value": "Things/Thing",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "thing"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsThingFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
                 "value": "Things/name",
                 "block": true
               },
@@ -7329,52 +6274,12 @@ const schemaAST = {
               "kind": "InputValueDefinition",
               "description": {
                 "kind": "StringValue",
-                "value": "Things/Idea",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "idea"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "ThingsIdeaFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
                 "value": "Things/Name",
                 "block": true
               },
               "name": {
                 "kind": "Name",
                 "value": "name"
-              },
-              "type": {
-                "kind": "NamedType",
-                "name": {
-                  "kind": "Name",
-                  "value": "StringFilter"
-                }
-              },
-              "directives": []
-            },
-            {
-              "kind": "InputValueDefinition",
-              "description": {
-                "kind": "StringValue",
-                "value": "Things/Type",
-                "block": true
-              },
-              "name": {
-                "kind": "Name",
-                "value": "type"
               },
               "type": {
                 "kind": "NamedType",
