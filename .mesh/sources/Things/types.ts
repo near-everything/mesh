@@ -39,6 +39,14 @@ export type Query = {
    */
   findIdeas?: Maybe<Array<Maybe<ThingsIdea>>>;
   /**
+   * Find ThingsPost records.
+   *
+   * By default, offset equals to 0 and limit equals to 100
+   *
+   * ```{findPosts{id,name}}```
+   */
+  findPosts?: Maybe<Array<Maybe<ThingsPost>>>;
+  /**
    * Find ThingsThing records.
    *
    * By default, offset equals to 0 and limit equals to 100
@@ -68,6 +76,21 @@ export type QueryfindDocumentsArgs = {
 /** Below the list of queries available for database. */
 export type QueryfindIdeasArgs = {
   orderBy?: InputMaybe<ThingsIdeaOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<IDFilter>;
+  publicId?: InputMaybe<StringFilter>;
+  creationDate?: InputMaybe<StringFilter>;
+  modificationDate?: InputMaybe<StringFilter>;
+  rank?: InputMaybe<FloatFilter>;
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  name?: InputMaybe<StringFilter>;
+};
+
+
+/** Below the list of queries available for database. */
+export type QueryfindPostsArgs = {
+  orderBy?: InputMaybe<ThingsPostOrder>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<IDFilter>;
@@ -540,6 +563,225 @@ export type ThingsIdeaCollectionFilter = {
   containsAny?: InputMaybe<Array<InputMaybe<ThingsIdeaFilter>>>;
   notContains?: InputMaybe<Array<InputMaybe<ThingsIdeaFilter>>>;
   notContainsAny?: InputMaybe<Array<InputMaybe<ThingsIdeaFilter>>>;
+};
+
+/** Available fields and relations for Things/Post */
+export type ThingsPost = {
+  /** fibery/id */
+  id?: Maybe<Scalars['ID']>;
+  /** fibery/public-id */
+  publicId?: Maybe<Scalars['String']>;
+  /** fibery/creation-date */
+  creationDate?: Maybe<Scalars['String']>;
+  /** fibery/modification-date */
+  modificationDate?: Maybe<Scalars['String']>;
+  /** fibery/rank */
+  rank?: Maybe<Scalars['Float']>;
+  /** fibery/created-by */
+  createdBy?: Maybe<FiberyUser>;
+  /** Things/description */
+  description?: Maybe<RichField>;
+  /** Things/name */
+  name?: Maybe<Scalars['String']>;
+};
+
+export type ThingsPostInput = {
+  /** fibery/rank */
+  rank?: InputMaybe<Scalars['Float']>;
+  /** Things/name */
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type ThingsPostOrder = {
+  /** fibery/id */
+  id?: InputMaybe<Order>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<Order>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<Order>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<Order>;
+  /** fibery/rank */
+  rank?: InputMaybe<Order>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserOrder>;
+  /** Things/name */
+  name?: InputMaybe<Order>;
+};
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperations = {
+  /** Create. Create a new Post and specify field values */
+  create?: Maybe<MutationResult>;
+  /** Batch Create. Create a new Post and specify field values */
+  createBatch?: Maybe<MutationResult>;
+  /** Update. Set new values for fields */
+  update?: Maybe<MutationResult>;
+  /** Batch Update. Set new values for fields */
+  updateBatch?: Maybe<MutationResult>;
+  /** Delete. Delete Post */
+  delete?: Maybe<MutationResult>;
+  /** Script. Execute Javascript code */
+  script?: Maybe<MutationResult>;
+  /** Batch Script. Execute Javascript code */
+  scriptBatch?: Maybe<MutationResult>;
+  /** Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  appendContentToDescription?: Maybe<MutationResult>;
+  /** Batch Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  appendContentToDescriptionBatch?: Maybe<MutationResult>;
+  /** Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  prependContentToDescription?: Maybe<MutationResult>;
+  /** Batch Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  prependContentToDescriptionBatch?: Maybe<MutationResult>;
+  /** Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  overwriteDescription?: Maybe<MutationResult>;
+  /** Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  overwriteDescriptionBatch?: Maybe<MutationResult>;
+  /** Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyCreatedBy?: Maybe<MutationResult>;
+  /** Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyCreatedByBatch?: Maybe<MutationResult>;
+  /** Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyUsers?: Maybe<MutationResult>;
+  /** Batch Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyUsersBatch?: Maybe<MutationResult>;
+  /** countOfEntities. Count of found or created posts to be modified */
+  countOfEntities?: Maybe<Scalars['Int']>;
+  /** listEntities. List of found or created posts to be modified */
+  listEntities?: Maybe<Array<Maybe<Entity>>>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationscreateArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationscreateBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsPostInput>>>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsupdateArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsupdateBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsPostInput>>>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsscriptArgs = {
+  script?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsscriptBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ScriptInput>>>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsappendContentToDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsappendContentToDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<AppendContentToDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsprependContentToDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsprependContentToDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<PrependContentToDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsoverwriteDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsoverwriteDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<OverwriteDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsnotifyCreatedByArgs = {
+  subject?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsnotifyCreatedByBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<NotifyCreatedByInput>>>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsnotifyUsersArgs = {
+  to?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
+  subject?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
+  noEmptySend?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Available operations which can be done with found posts via provided query or created */
+export type ThingsPostOperationsnotifyUsersBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<NotifyUsersInput>>>;
+};
+
+/** Filter for Things/Post */
+export type ThingsPostFilter = {
+  orderBy?: InputMaybe<ThingsPostOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  /** fibery/id */
+  id?: InputMaybe<IDFilter>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<StringFilter>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<StringFilter>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<StringFilter>;
+  /** fibery/rank */
+  rank?: InputMaybe<FloatFilter>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  /** Things/name */
+  name?: InputMaybe<StringFilter>;
+};
+
+export type ThingsPostCollectionFilter = {
+  isEmpty?: InputMaybe<Scalars['Boolean']>;
+  contains?: InputMaybe<Array<InputMaybe<ThingsPostFilter>>>;
+  containsAny?: InputMaybe<Array<InputMaybe<ThingsPostFilter>>>;
+  notContains?: InputMaybe<Array<InputMaybe<ThingsPostFilter>>>;
+  notContainsAny?: InputMaybe<Array<InputMaybe<ThingsPostFilter>>>;
 };
 
 /** Available fields and relations for Things/Thing */
@@ -1023,6 +1265,17 @@ export type Mutation = {
    * Modify selected entities using multiple actions (update, link and etc.)
    * ```
    * mutation {
+   *     posts(id:{is: "AAAA-BBBB-CCCC"}){
+   *         update(name:"Updated"){message}
+   *     }
+   * }
+   * ```
+   */
+  posts?: Maybe<ThingsPostOperations>;
+  /**
+   * Modify selected entities using multiple actions (update, link and etc.)
+   * ```
+   * mutation {
    *     things(id:{is: "AAAA-BBBB-CCCC"}){
    *         update(name:"Updated"){message}
    *     }
@@ -1065,6 +1318,21 @@ export type MutationideasArgs = {
 
 
 /** Use mutations to modify database */
+export type MutationpostsArgs = {
+  orderBy?: InputMaybe<ThingsPostOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<IDFilter>;
+  publicId?: InputMaybe<StringFilter>;
+  creationDate?: InputMaybe<StringFilter>;
+  modificationDate?: InputMaybe<StringFilter>;
+  rank?: InputMaybe<FloatFilter>;
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  name?: InputMaybe<StringFilter>;
+};
+
+
+/** Use mutations to modify database */
 export type MutationthingsArgs = {
   orderBy?: InputMaybe<ThingsThingOrder>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1093,6 +1361,12 @@ By default, offset equals to 0 and limit equals to 100
 
 ```{findIdeas{id,name}}``` **/
   findIdeas: InContextSdkMethod<Query['findIdeas'], QueryfindIdeasArgs, MeshContext>,
+  /** Find ThingsPost records.
+
+By default, offset equals to 0 and limit equals to 100
+
+```{findPosts{id,name}}``` **/
+  findPosts: InContextSdkMethod<Query['findPosts'], QueryfindPostsArgs, MeshContext>,
   /** Find ThingsThing records.
 
 By default, offset equals to 0 and limit equals to 100
@@ -1120,6 +1394,15 @@ mutation {
 }
 ``` **/
   ideas: InContextSdkMethod<Mutation['ideas'], MutationideasArgs, MeshContext>,
+  /** Modify selected entities using multiple actions (update, link and etc.)
+```
+mutation {
+    posts(id:{is: "AAAA-BBBB-CCCC"}){
+        update(name:"Updated"){message}
+    }
+}
+``` **/
+  posts: InContextSdkMethod<Mutation['posts'], MutationpostsArgs, MeshContext>,
   /** Modify selected entities using multiple actions (update, link and etc.)
 ```
 mutation {
