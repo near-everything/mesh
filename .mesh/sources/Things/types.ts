@@ -39,6 +39,14 @@ export type Query = {
    */
   findIdeas?: Maybe<Array<Maybe<ThingsIdea>>>;
   /**
+   * Find ThingsPerson records.
+   *
+   * By default, offset equals to 0 and limit equals to 100
+   *
+   * ```{findPeople{id,name}}```
+   */
+  findPeople?: Maybe<Array<Maybe<ThingsPerson>>>;
+  /**
    * Find ThingsPost records.
    *
    * By default, offset equals to 0 and limit equals to 100
@@ -85,6 +93,24 @@ export type QueryfindIdeasArgs = {
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
   name?: InputMaybe<StringFilter>;
+};
+
+
+/** Below the list of queries available for database. */
+export type QueryfindPeopleArgs = {
+  orderBy?: InputMaybe<ThingsPersonOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<IDFilter>;
+  publicId?: InputMaybe<StringFilter>;
+  creationDate?: InputMaybe<StringFilter>;
+  modificationDate?: InputMaybe<StringFilter>;
+  rank?: InputMaybe<FloatFilter>;
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  accountId?: InputMaybe<StringFilter>;
+  email?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  widgetSrc?: InputMaybe<StringFilter>;
 };
 
 
@@ -563,6 +589,255 @@ export type ThingsIdeaCollectionFilter = {
   containsAny?: InputMaybe<Array<InputMaybe<ThingsIdeaFilter>>>;
   notContains?: InputMaybe<Array<InputMaybe<ThingsIdeaFilter>>>;
   notContainsAny?: InputMaybe<Array<InputMaybe<ThingsIdeaFilter>>>;
+};
+
+/** Available fields and relations for Things/Person */
+export type ThingsPerson = {
+  /** fibery/id */
+  id?: Maybe<Scalars['ID']>;
+  /** fibery/public-id */
+  publicId?: Maybe<Scalars['String']>;
+  /** fibery/creation-date */
+  creationDate?: Maybe<Scalars['String']>;
+  /** fibery/modification-date */
+  modificationDate?: Maybe<Scalars['String']>;
+  /** fibery/rank */
+  rank?: Maybe<Scalars['Float']>;
+  /** fibery/created-by */
+  createdBy?: Maybe<FiberyUser>;
+  /** Things/accountId */
+  accountId?: Maybe<Scalars['String']>;
+  /** Things/description */
+  description?: Maybe<RichField>;
+  /** Things/email */
+  email?: Maybe<Scalars['String']>;
+  /** Things/name */
+  name?: Maybe<Scalars['String']>;
+  /** Things/widgetSrc */
+  widgetSrc?: Maybe<Scalars['String']>;
+};
+
+export type ThingsPersonInput = {
+  /** fibery/rank */
+  rank?: InputMaybe<Scalars['Float']>;
+  /** Things/accountId */
+  accountId?: InputMaybe<Scalars['String']>;
+  /** Things/email */
+  email?: InputMaybe<Scalars['String']>;
+  /** Things/name */
+  name?: InputMaybe<Scalars['String']>;
+  /** Things/widgetSrc */
+  widgetSrc?: InputMaybe<Scalars['String']>;
+};
+
+export type ThingsPersonOrder = {
+  /** fibery/id */
+  id?: InputMaybe<Order>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<Order>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<Order>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<Order>;
+  /** fibery/rank */
+  rank?: InputMaybe<Order>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserOrder>;
+  /** Things/accountId */
+  accountId?: InputMaybe<Order>;
+  /** Things/email */
+  email?: InputMaybe<Order>;
+  /** Things/name */
+  name?: InputMaybe<Order>;
+  /** Things/widgetSrc */
+  widgetSrc?: InputMaybe<Order>;
+};
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperations = {
+  /** Create. Create a new Person and specify field values */
+  create?: Maybe<MutationResult>;
+  /** Batch Create. Create a new Person and specify field values */
+  createBatch?: Maybe<MutationResult>;
+  /** Update. Set new values for fields */
+  update?: Maybe<MutationResult>;
+  /** Batch Update. Set new values for fields */
+  updateBatch?: Maybe<MutationResult>;
+  /** Delete. Delete Person */
+  delete?: Maybe<MutationResult>;
+  /** Script. Execute Javascript code */
+  script?: Maybe<MutationResult>;
+  /** Batch Script. Execute Javascript code */
+  scriptBatch?: Maybe<MutationResult>;
+  /** Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  appendContentToDescription?: Maybe<MutationResult>;
+  /** Batch Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  appendContentToDescriptionBatch?: Maybe<MutationResult>;
+  /** Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  prependContentToDescription?: Maybe<MutationResult>;
+  /** Batch Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  prependContentToDescriptionBatch?: Maybe<MutationResult>;
+  /** Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  overwriteDescription?: Maybe<MutationResult>;
+  /** Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  overwriteDescriptionBatch?: Maybe<MutationResult>;
+  /** Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyCreatedBy?: Maybe<MutationResult>;
+  /** Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyCreatedByBatch?: Maybe<MutationResult>;
+  /** Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyUsers?: Maybe<MutationResult>;
+  /** Batch Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyUsersBatch?: Maybe<MutationResult>;
+  /** countOfEntities. Count of found or created people to be modified */
+  countOfEntities?: Maybe<Scalars['Int']>;
+  /** listEntities. List of found or created people to be modified */
+  listEntities?: Maybe<Array<Maybe<Entity>>>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationscreateArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  accountId?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  widgetSrc?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationscreateBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsPersonInput>>>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsupdateArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  accountId?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  widgetSrc?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsupdateBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsPersonInput>>>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsscriptArgs = {
+  script?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsscriptBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ScriptInput>>>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsappendContentToDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsappendContentToDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<AppendContentToDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsprependContentToDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsprependContentToDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<PrependContentToDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsoverwriteDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsoverwriteDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<OverwriteDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsnotifyCreatedByArgs = {
+  subject?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsnotifyCreatedByBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<NotifyCreatedByInput>>>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsnotifyUsersArgs = {
+  to?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
+  subject?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
+  noEmptySend?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Available operations which can be done with found people via provided query or created */
+export type ThingsPersonOperationsnotifyUsersBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<NotifyUsersInput>>>;
+};
+
+/** Filter for Things/Person */
+export type ThingsPersonFilter = {
+  orderBy?: InputMaybe<ThingsPersonOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  /** fibery/id */
+  id?: InputMaybe<IDFilter>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<StringFilter>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<StringFilter>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<StringFilter>;
+  /** fibery/rank */
+  rank?: InputMaybe<FloatFilter>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  /** Things/accountId */
+  accountId?: InputMaybe<StringFilter>;
+  /** Things/email */
+  email?: InputMaybe<StringFilter>;
+  /** Things/name */
+  name?: InputMaybe<StringFilter>;
+  /** Things/widgetSrc */
+  widgetSrc?: InputMaybe<StringFilter>;
+};
+
+export type ThingsPersonCollectionFilter = {
+  isEmpty?: InputMaybe<Scalars['Boolean']>;
+  contains?: InputMaybe<Array<InputMaybe<ThingsPersonFilter>>>;
+  containsAny?: InputMaybe<Array<InputMaybe<ThingsPersonFilter>>>;
+  notContains?: InputMaybe<Array<InputMaybe<ThingsPersonFilter>>>;
+  notContainsAny?: InputMaybe<Array<InputMaybe<ThingsPersonFilter>>>;
 };
 
 /** Available fields and relations for Things/Post */
@@ -1265,6 +1540,17 @@ export type Mutation = {
    * Modify selected entities using multiple actions (update, link and etc.)
    * ```
    * mutation {
+   *     people(id:{is: "AAAA-BBBB-CCCC"}){
+   *         update(name:"Updated"){message}
+   *     }
+   * }
+   * ```
+   */
+  people?: Maybe<ThingsPersonOperations>;
+  /**
+   * Modify selected entities using multiple actions (update, link and etc.)
+   * ```
+   * mutation {
    *     posts(id:{is: "AAAA-BBBB-CCCC"}){
    *         update(name:"Updated"){message}
    *     }
@@ -1318,6 +1604,24 @@ export type MutationideasArgs = {
 
 
 /** Use mutations to modify database */
+export type MutationpeopleArgs = {
+  orderBy?: InputMaybe<ThingsPersonOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<IDFilter>;
+  publicId?: InputMaybe<StringFilter>;
+  creationDate?: InputMaybe<StringFilter>;
+  modificationDate?: InputMaybe<StringFilter>;
+  rank?: InputMaybe<FloatFilter>;
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  accountId?: InputMaybe<StringFilter>;
+  email?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  widgetSrc?: InputMaybe<StringFilter>;
+};
+
+
+/** Use mutations to modify database */
 export type MutationpostsArgs = {
   orderBy?: InputMaybe<ThingsPostOrder>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1361,6 +1665,12 @@ By default, offset equals to 0 and limit equals to 100
 
 ```{findIdeas{id,name}}``` **/
   findIdeas: InContextSdkMethod<Query['findIdeas'], QueryfindIdeasArgs, MeshContext>,
+  /** Find ThingsPerson records.
+
+By default, offset equals to 0 and limit equals to 100
+
+```{findPeople{id,name}}``` **/
+  findPeople: InContextSdkMethod<Query['findPeople'], QueryfindPeopleArgs, MeshContext>,
   /** Find ThingsPost records.
 
 By default, offset equals to 0 and limit equals to 100
@@ -1394,6 +1704,15 @@ mutation {
 }
 ``` **/
   ideas: InContextSdkMethod<Mutation['ideas'], MutationideasArgs, MeshContext>,
+  /** Modify selected entities using multiple actions (update, link and etc.)
+```
+mutation {
+    people(id:{is: "AAAA-BBBB-CCCC"}){
+        update(name:"Updated"){message}
+    }
+}
+``` **/
+  people: InContextSdkMethod<Mutation['people'], MutationpeopleArgs, MeshContext>,
   /** Modify selected entities using multiple actions (update, link and etc.)
 ```
 mutation {
