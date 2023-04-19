@@ -31,6 +31,14 @@ export type Query = {
    */
   findDocuments?: Maybe<Array<Maybe<ThingsDocument>>>;
   /**
+   * Find ThingsEvent records.
+   *
+   * By default, offset equals to 0 and limit equals to 100
+   *
+   * ```{findEvents{id,name}}```
+   */
+  findEvents?: Maybe<Array<Maybe<ThingsEvent>>>;
+  /**
    * Find ThingsIdea records.
    *
    * By default, offset equals to 0 and limit equals to 100
@@ -78,6 +86,27 @@ export type QueryfindDocumentsArgs = {
   createdBy?: InputMaybe<FiberyUserFilter>;
   author?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
+};
+
+
+/** Below the list of queries available for database. */
+export type QueryfindEventsArgs = {
+  orderBy?: InputMaybe<ThingsEventOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<IDFilter>;
+  publicId?: InputMaybe<StringFilter>;
+  creationDate?: InputMaybe<StringFilter>;
+  modificationDate?: InputMaybe<StringFilter>;
+  rank?: InputMaybe<FloatFilter>;
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  allDay?: InputMaybe<BooleanFilter>;
+  endStr?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  source?: InputMaybe<StringFilter>;
+  startStr?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  url?: InputMaybe<StringFilter>;
 };
 
 
@@ -370,6 +399,285 @@ export type ThingsDocumentCollectionFilter = {
   containsAny?: InputMaybe<Array<InputMaybe<ThingsDocumentFilter>>>;
   notContains?: InputMaybe<Array<InputMaybe<ThingsDocumentFilter>>>;
   notContainsAny?: InputMaybe<Array<InputMaybe<ThingsDocumentFilter>>>;
+};
+
+/** Available fields and relations for Things/Event */
+export type ThingsEvent = {
+  /** fibery/id */
+  id?: Maybe<Scalars['ID']>;
+  /** fibery/public-id */
+  publicId?: Maybe<Scalars['String']>;
+  /** fibery/creation-date */
+  creationDate?: Maybe<Scalars['String']>;
+  /** fibery/modification-date */
+  modificationDate?: Maybe<Scalars['String']>;
+  /** fibery/rank */
+  rank?: Maybe<Scalars['Float']>;
+  /** fibery/created-by */
+  createdBy?: Maybe<FiberyUser>;
+  /** Things/allDay */
+  allDay?: Maybe<Scalars['Boolean']>;
+  /** Things/description */
+  description?: Maybe<RichField>;
+  /** Things/endStr */
+  endStr?: Maybe<Scalars['String']>;
+  /** Things/name */
+  name?: Maybe<Scalars['String']>;
+  /** Things/source */
+  source?: Maybe<Scalars['String']>;
+  /** Things/startStr */
+  startStr?: Maybe<Scalars['String']>;
+  /** Things/title */
+  title?: Maybe<Scalars['String']>;
+  /** Things/url */
+  url?: Maybe<Scalars['String']>;
+};
+
+export type ThingsEventInput = {
+  /** fibery/rank */
+  rank?: InputMaybe<Scalars['Float']>;
+  /** Things/allDay */
+  allDay?: InputMaybe<Scalars['Boolean']>;
+  /** Things/endStr */
+  endStr?: InputMaybe<Scalars['String']>;
+  /** Things/name */
+  name?: InputMaybe<Scalars['String']>;
+  /** Things/source */
+  source?: InputMaybe<Scalars['String']>;
+  /** Things/startStr */
+  startStr?: InputMaybe<Scalars['String']>;
+  /** Things/title */
+  title?: InputMaybe<Scalars['String']>;
+  /** Things/url */
+  url?: InputMaybe<Scalars['String']>;
+};
+
+export type ThingsEventOrder = {
+  /** fibery/id */
+  id?: InputMaybe<Order>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<Order>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<Order>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<Order>;
+  /** fibery/rank */
+  rank?: InputMaybe<Order>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserOrder>;
+  /** Things/allDay */
+  allDay?: InputMaybe<Order>;
+  /** Things/endStr */
+  endStr?: InputMaybe<Order>;
+  /** Things/name */
+  name?: InputMaybe<Order>;
+  /** Things/source */
+  source?: InputMaybe<Order>;
+  /** Things/startStr */
+  startStr?: InputMaybe<Order>;
+  /** Things/title */
+  title?: InputMaybe<Order>;
+  /** Things/url */
+  url?: InputMaybe<Order>;
+};
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperations = {
+  /** Create. Create a new Event and specify field values */
+  create?: Maybe<MutationResult>;
+  /** Batch Create. Create a new Event and specify field values */
+  createBatch?: Maybe<MutationResult>;
+  /** Update. Set new values for fields */
+  update?: Maybe<MutationResult>;
+  /** Batch Update. Set new values for fields */
+  updateBatch?: Maybe<MutationResult>;
+  /** Delete. Delete Event */
+  delete?: Maybe<MutationResult>;
+  /** Script. Execute Javascript code */
+  script?: Maybe<MutationResult>;
+  /** Batch Script. Execute Javascript code */
+  scriptBatch?: Maybe<MutationResult>;
+  /** Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  appendContentToDescription?: Maybe<MutationResult>;
+  /** Batch Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  appendContentToDescriptionBatch?: Maybe<MutationResult>;
+  /** Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  prependContentToDescription?: Maybe<MutationResult>;
+  /** Batch Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  prependContentToDescriptionBatch?: Maybe<MutationResult>;
+  /** Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  overwriteDescription?: Maybe<MutationResult>;
+  /** Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  overwriteDescriptionBatch?: Maybe<MutationResult>;
+  /** Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyCreatedBy?: Maybe<MutationResult>;
+  /** Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyCreatedByBatch?: Maybe<MutationResult>;
+  /** Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyUsers?: Maybe<MutationResult>;
+  /** Batch Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyUsersBatch?: Maybe<MutationResult>;
+  /** countOfEntities. Count of found or created events to be modified */
+  countOfEntities?: Maybe<Scalars['Int']>;
+  /** listEntities. List of found or created events to be modified */
+  listEntities?: Maybe<Array<Maybe<Entity>>>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationscreateArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  allDay?: InputMaybe<Scalars['Boolean']>;
+  endStr?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  startStr?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationscreateBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsEventInput>>>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsupdateArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  allDay?: InputMaybe<Scalars['Boolean']>;
+  endStr?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  source?: InputMaybe<Scalars['String']>;
+  startStr?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsupdateBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsEventInput>>>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsscriptArgs = {
+  script?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsscriptBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ScriptInput>>>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsappendContentToDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsappendContentToDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<AppendContentToDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsprependContentToDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsprependContentToDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<PrependContentToDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsoverwriteDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsoverwriteDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<OverwriteDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsnotifyCreatedByArgs = {
+  subject?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsnotifyCreatedByBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<NotifyCreatedByInput>>>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsnotifyUsersArgs = {
+  to?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
+  subject?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
+  noEmptySend?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Available operations which can be done with found events via provided query or created */
+export type ThingsEventOperationsnotifyUsersBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<NotifyUsersInput>>>;
+};
+
+/** Filter for Things/Event */
+export type ThingsEventFilter = {
+  orderBy?: InputMaybe<ThingsEventOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  /** fibery/id */
+  id?: InputMaybe<IDFilter>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<StringFilter>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<StringFilter>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<StringFilter>;
+  /** fibery/rank */
+  rank?: InputMaybe<FloatFilter>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  /** Things/allDay */
+  allDay?: InputMaybe<BooleanFilter>;
+  /** Things/endStr */
+  endStr?: InputMaybe<StringFilter>;
+  /** Things/name */
+  name?: InputMaybe<StringFilter>;
+  /** Things/source */
+  source?: InputMaybe<StringFilter>;
+  /** Things/startStr */
+  startStr?: InputMaybe<StringFilter>;
+  /** Things/title */
+  title?: InputMaybe<StringFilter>;
+  /** Things/url */
+  url?: InputMaybe<StringFilter>;
+};
+
+export type ThingsEventCollectionFilter = {
+  isEmpty?: InputMaybe<Scalars['Boolean']>;
+  contains?: InputMaybe<Array<InputMaybe<ThingsEventFilter>>>;
+  containsAny?: InputMaybe<Array<InputMaybe<ThingsEventFilter>>>;
+  notContains?: InputMaybe<Array<InputMaybe<ThingsEventFilter>>>;
+  notContainsAny?: InputMaybe<Array<InputMaybe<ThingsEventFilter>>>;
 };
 
 /** Available fields and relations for Things/Idea */
@@ -1529,6 +1837,17 @@ export type Mutation = {
    * Modify selected entities using multiple actions (update, link and etc.)
    * ```
    * mutation {
+   *     events(id:{is: "AAAA-BBBB-CCCC"}){
+   *         update(name:"Updated"){message}
+   *     }
+   * }
+   * ```
+   */
+  events?: Maybe<ThingsEventOperations>;
+  /**
+   * Modify selected entities using multiple actions (update, link and etc.)
+   * ```
+   * mutation {
    *     ideas(id:{is: "AAAA-BBBB-CCCC"}){
    *         update(name:"Updated"){message}
    *     }
@@ -1585,6 +1904,27 @@ export type MutationdocumentsArgs = {
   createdBy?: InputMaybe<FiberyUserFilter>;
   author?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
+};
+
+
+/** Use mutations to modify database */
+export type MutationeventsArgs = {
+  orderBy?: InputMaybe<ThingsEventOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<IDFilter>;
+  publicId?: InputMaybe<StringFilter>;
+  creationDate?: InputMaybe<StringFilter>;
+  modificationDate?: InputMaybe<StringFilter>;
+  rank?: InputMaybe<FloatFilter>;
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  allDay?: InputMaybe<BooleanFilter>;
+  endStr?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+  source?: InputMaybe<StringFilter>;
+  startStr?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  url?: InputMaybe<StringFilter>;
 };
 
 
@@ -1659,6 +1999,12 @@ By default, offset equals to 0 and limit equals to 100
 
 ```{findDocuments{id,name}}``` **/
   findDocuments: InContextSdkMethod<Query['findDocuments'], QueryfindDocumentsArgs, MeshContext>,
+  /** Find ThingsEvent records.
+
+By default, offset equals to 0 and limit equals to 100
+
+```{findEvents{id,name}}``` **/
+  findEvents: InContextSdkMethod<Query['findEvents'], QueryfindEventsArgs, MeshContext>,
   /** Find ThingsIdea records.
 
 By default, offset equals to 0 and limit equals to 100
@@ -1695,6 +2041,15 @@ mutation {
 }
 ``` **/
   documents: InContextSdkMethod<Mutation['documents'], MutationdocumentsArgs, MeshContext>,
+  /** Modify selected entities using multiple actions (update, link and etc.)
+```
+mutation {
+    events(id:{is: "AAAA-BBBB-CCCC"}){
+        update(name:"Updated"){message}
+    }
+}
+``` **/
+  events: InContextSdkMethod<Mutation['events'], MutationeventsArgs, MeshContext>,
   /** Modify selected entities using multiple actions (update, link and etc.)
 ```
 mutation {
