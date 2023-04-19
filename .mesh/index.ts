@@ -122,6 +122,7 @@ export type QueryfindEventsArgs = {
   end?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
   start?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
   allDay?: InputMaybe<BooleanFilter>;
   source?: InputMaybe<StringFilter>;
   url?: InputMaybe<StringFilter>;
@@ -442,6 +443,8 @@ export type ThingsEvent = {
   name?: Maybe<Scalars['String']>;
   /** Things/Start */
   start?: Maybe<Scalars['String']>;
+  /** Things/Title */
+  title?: Maybe<Scalars['String']>;
   /** Things/allDay */
   allDay?: Maybe<Scalars['Boolean']>;
   /** Things/description */
@@ -461,10 +464,10 @@ export type ThingsEventInput = {
   contacts?: InputMaybe<Scalars['String']>;
   /** Things/End */
   end?: InputMaybe<Scalars['String']>;
-  /** Things/Name */
-  name?: InputMaybe<Scalars['String']>;
   /** Things/Start */
   start?: InputMaybe<Scalars['String']>;
+  /** Things/Title */
+  title?: InputMaybe<Scalars['String']>;
   /** Things/allDay */
   allDay?: InputMaybe<Scalars['Boolean']>;
   /** Things/source */
@@ -496,6 +499,8 @@ export type ThingsEventOrder = {
   name?: InputMaybe<Order>;
   /** Things/Start */
   start?: InputMaybe<Order>;
+  /** Things/Title */
+  title?: InputMaybe<Order>;
   /** Things/allDay */
   allDay?: InputMaybe<Order>;
   /** Things/source */
@@ -556,8 +561,8 @@ export type ThingsEventOperationscreateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
   contacts?: InputMaybe<Scalars['String']>;
   end?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
   start?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
   allDay?: InputMaybe<Scalars['Boolean']>;
   source?: InputMaybe<Scalars['String']>;
   url?: InputMaybe<Scalars['String']>;
@@ -576,8 +581,8 @@ export type ThingsEventOperationsupdateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
   contacts?: InputMaybe<Scalars['String']>;
   end?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
   start?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
   allDay?: InputMaybe<Scalars['Boolean']>;
   source?: InputMaybe<Scalars['String']>;
   url?: InputMaybe<Scalars['String']>;
@@ -693,6 +698,8 @@ export type ThingsEventFilter = {
   name?: InputMaybe<StringFilter>;
   /** Things/Start */
   start?: InputMaybe<StringFilter>;
+  /** Things/Title */
+  title?: InputMaybe<StringFilter>;
   /** Things/allDay */
   allDay?: InputMaybe<BooleanFilter>;
   /** Things/source */
@@ -2022,6 +2029,7 @@ export type MutationeventsArgs = {
   end?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
   start?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
   allDay?: InputMaybe<BooleanFilter>;
   source?: InputMaybe<StringFilter>;
   url?: InputMaybe<StringFilter>;
@@ -2387,6 +2395,7 @@ export type ThingsEventResolvers<ContextType = MeshContext, ParentType extends R
   end?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   start?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   allDay?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['RichField']>, ParentType, ContextType>;
   source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

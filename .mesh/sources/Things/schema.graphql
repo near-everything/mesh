@@ -66,6 +66,8 @@ type Query {
     name: StringFilter
     """Things/Start"""
     start: StringFilter
+    """Things/Title"""
+    title: StringFilter
     """Things/allDay"""
     allDay: BooleanFilter
     """Things/source"""
@@ -398,6 +400,8 @@ type ThingsEvent {
   name: String
   """Things/Start"""
   start: String
+  """Things/Title"""
+  title: String
   """Things/allDay"""
   allDay: Boolean
   """Things/description"""
@@ -417,10 +421,10 @@ input ThingsEventInput {
   contacts: String
   """Things/End"""
   end: String
-  """Things/Name"""
-  name: String
   """Things/Start"""
   start: String
+  """Things/Title"""
+  title: String
   """Things/allDay"""
   allDay: Boolean
   """Things/source"""
@@ -452,6 +456,8 @@ input ThingsEventOrder {
   name: Order
   """Things/Start"""
   start: Order
+  """Things/Title"""
+  title: Order
   """Things/allDay"""
   allDay: Order
   """Things/source"""
@@ -474,10 +480,10 @@ type ThingsEventOperations {
     contacts: String
     """Things/End"""
     end: String
-    """Things/Name"""
-    name: String
     """Things/Start"""
     start: String
+    """Things/Title"""
+    title: String
     """Things/allDay"""
     allDay: Boolean
     """Things/source"""
@@ -497,10 +503,10 @@ type ThingsEventOperations {
     contacts: String
     """Things/End"""
     end: String
-    """Things/Name"""
-    name: String
     """Things/Start"""
     start: String
+    """Things/Title"""
+    title: String
     """Things/allDay"""
     allDay: Boolean
     """Things/source"""
@@ -621,6 +627,8 @@ input ThingsEventFilter {
   name: StringFilter
   """Things/Start"""
   start: StringFilter
+  """Things/Title"""
+  title: StringFilter
   """Things/allDay"""
   allDay: BooleanFilter
   """Things/source"""
@@ -1754,6 +1762,8 @@ type Mutation {
     name: StringFilter
     """Things/Start"""
     start: StringFilter
+    """Things/Title"""
+    title: StringFilter
     """Things/allDay"""
     allDay: BooleanFilter
     """Things/source"""
