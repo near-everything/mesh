@@ -118,13 +118,14 @@ export type QueryfindEventsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  allDay?: InputMaybe<BooleanFilter>;
-  endStr?: InputMaybe<StringFilter>;
+  contacts?: InputMaybe<StringFilter>;
+  end?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
+  start?: InputMaybe<StringFilter>;
+  allDay?: InputMaybe<BooleanFilter>;
   source?: InputMaybe<StringFilter>;
-  startStr?: InputMaybe<StringFilter>;
-  title?: InputMaybe<StringFilter>;
   url?: InputMaybe<StringFilter>;
+  state?: InputMaybe<WorkflowStateThingsEventFilter>;
 };
 
 
@@ -433,41 +434,45 @@ export type ThingsEvent = {
   rank?: Maybe<Scalars['Float']>;
   /** fibery/created-by */
   createdBy?: Maybe<FiberyUser>;
+  /** Things/Contacts */
+  contacts?: Maybe<Scalars['String']>;
+  /** Things/End */
+  end?: Maybe<Scalars['String']>;
+  /** Things/Name */
+  name?: Maybe<Scalars['String']>;
+  /** Things/Start */
+  start?: Maybe<Scalars['String']>;
   /** Things/allDay */
   allDay?: Maybe<Scalars['Boolean']>;
   /** Things/description */
   description?: Maybe<RichField>;
-  /** Things/endStr */
-  endStr?: Maybe<Scalars['String']>;
-  /** Things/name */
-  name?: Maybe<Scalars['String']>;
   /** Things/source */
   source?: Maybe<Scalars['String']>;
-  /** Things/startStr */
-  startStr?: Maybe<Scalars['String']>;
-  /** Things/title */
-  title?: Maybe<Scalars['String']>;
   /** Things/url */
   url?: Maybe<Scalars['String']>;
+  /** workflow/state */
+  state?: Maybe<WorkflowStateThingsEvent>;
 };
 
 export type ThingsEventInput = {
   /** fibery/rank */
   rank?: InputMaybe<Scalars['Float']>;
+  /** Things/Contacts */
+  contacts?: InputMaybe<Scalars['String']>;
+  /** Things/End */
+  end?: InputMaybe<Scalars['String']>;
+  /** Things/Name */
+  name?: InputMaybe<Scalars['String']>;
+  /** Things/Start */
+  start?: InputMaybe<Scalars['String']>;
   /** Things/allDay */
   allDay?: InputMaybe<Scalars['Boolean']>;
-  /** Things/endStr */
-  endStr?: InputMaybe<Scalars['String']>;
-  /** Things/name */
-  name?: InputMaybe<Scalars['String']>;
   /** Things/source */
   source?: InputMaybe<Scalars['String']>;
-  /** Things/startStr */
-  startStr?: InputMaybe<Scalars['String']>;
-  /** Things/title */
-  title?: InputMaybe<Scalars['String']>;
   /** Things/url */
   url?: InputMaybe<Scalars['String']>;
+  /** workflow/state */
+  state?: InputMaybe<WorkflowStateThingsEventFilter>;
 };
 
 export type ThingsEventOrder = {
@@ -483,20 +488,22 @@ export type ThingsEventOrder = {
   rank?: InputMaybe<Order>;
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserOrder>;
+  /** Things/Contacts */
+  contacts?: InputMaybe<Order>;
+  /** Things/End */
+  end?: InputMaybe<Order>;
+  /** Things/Name */
+  name?: InputMaybe<Order>;
+  /** Things/Start */
+  start?: InputMaybe<Order>;
   /** Things/allDay */
   allDay?: InputMaybe<Order>;
-  /** Things/endStr */
-  endStr?: InputMaybe<Order>;
-  /** Things/name */
-  name?: InputMaybe<Order>;
   /** Things/source */
   source?: InputMaybe<Order>;
-  /** Things/startStr */
-  startStr?: InputMaybe<Order>;
-  /** Things/title */
-  title?: InputMaybe<Order>;
   /** Things/url */
   url?: InputMaybe<Order>;
+  /** workflow/state */
+  state?: InputMaybe<WorkflowStateThingsEventOrder>;
 };
 
 /** Available operations which can be done with found events via provided query or created */
@@ -527,6 +534,8 @@ export type ThingsEventOperations = {
   overwriteDescription?: Maybe<MutationResult>;
   /** Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
   overwriteDescriptionBatch?: Maybe<MutationResult>;
+  /** Move to final state. Move Event to final state */
+  moveToFinalState?: Maybe<MutationResult>;
   /** Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
   notifyCreatedBy?: Maybe<MutationResult>;
   /** Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
@@ -545,13 +554,14 @@ export type ThingsEventOperations = {
 /** Available operations which can be done with found events via provided query or created */
 export type ThingsEventOperationscreateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  allDay?: InputMaybe<Scalars['Boolean']>;
-  endStr?: InputMaybe<Scalars['String']>;
+  contacts?: InputMaybe<Scalars['String']>;
+  end?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['String']>;
+  allDay?: InputMaybe<Scalars['Boolean']>;
   source?: InputMaybe<Scalars['String']>;
-  startStr?: InputMaybe<Scalars['String']>;
-  title?: InputMaybe<Scalars['String']>;
   url?: InputMaybe<Scalars['String']>;
+  state?: InputMaybe<WorkflowStateThingsEventFilter>;
 };
 
 
@@ -564,13 +574,14 @@ export type ThingsEventOperationscreateBatchArgs = {
 /** Available operations which can be done with found events via provided query or created */
 export type ThingsEventOperationsupdateArgs = {
   rank?: InputMaybe<Scalars['Float']>;
-  allDay?: InputMaybe<Scalars['Boolean']>;
-  endStr?: InputMaybe<Scalars['String']>;
+  contacts?: InputMaybe<Scalars['String']>;
+  end?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
+  start?: InputMaybe<Scalars['String']>;
+  allDay?: InputMaybe<Scalars['Boolean']>;
   source?: InputMaybe<Scalars['String']>;
-  startStr?: InputMaybe<Scalars['String']>;
-  title?: InputMaybe<Scalars['String']>;
   url?: InputMaybe<Scalars['String']>;
+  state?: InputMaybe<WorkflowStateThingsEventFilter>;
 };
 
 
@@ -674,20 +685,22 @@ export type ThingsEventFilter = {
   rank?: InputMaybe<FloatFilter>;
   /** fibery/created-by */
   createdBy?: InputMaybe<FiberyUserFilter>;
+  /** Things/Contacts */
+  contacts?: InputMaybe<StringFilter>;
+  /** Things/End */
+  end?: InputMaybe<StringFilter>;
+  /** Things/Name */
+  name?: InputMaybe<StringFilter>;
+  /** Things/Start */
+  start?: InputMaybe<StringFilter>;
   /** Things/allDay */
   allDay?: InputMaybe<BooleanFilter>;
-  /** Things/endStr */
-  endStr?: InputMaybe<StringFilter>;
-  /** Things/name */
-  name?: InputMaybe<StringFilter>;
   /** Things/source */
   source?: InputMaybe<StringFilter>;
-  /** Things/startStr */
-  startStr?: InputMaybe<StringFilter>;
-  /** Things/title */
-  title?: InputMaybe<StringFilter>;
   /** Things/url */
   url?: InputMaybe<StringFilter>;
+  /** workflow/state */
+  state?: InputMaybe<WorkflowStateThingsEventFilter>;
 };
 
 export type ThingsEventCollectionFilter = {
@@ -1681,6 +1694,75 @@ export type FiberyUserCollectionFilter = {
   notContainsAny?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
 };
 
+/** Available fields and relations for workflow/state_Things/Event */
+export type WorkflowStateThingsEvent = {
+  /** fibery/id */
+  id?: Maybe<Scalars['ID']>;
+  /** fibery/public-id */
+  publicId?: Maybe<Scalars['String']>;
+  /** fibery/rank */
+  rank?: Maybe<Scalars['Float']>;
+  /** enum/icon */
+  icon?: Maybe<Scalars['String']>;
+  /** enum/name */
+  name?: Maybe<Scalars['String']>;
+  /** workflow/Final */
+  final?: Maybe<Scalars['Boolean']>;
+};
+
+export type WorkflowStateThingsEventInput = {
+  /** fibery/rank */
+  rank?: InputMaybe<Scalars['Float']>;
+  /** enum/icon */
+  icon?: InputMaybe<Scalars['String']>;
+  /** enum/name */
+  name?: InputMaybe<Scalars['String']>;
+  /** workflow/Final */
+  final?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type WorkflowStateThingsEventOrder = {
+  /** fibery/id */
+  id?: InputMaybe<Order>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<Order>;
+  /** fibery/rank */
+  rank?: InputMaybe<Order>;
+  /** enum/icon */
+  icon?: InputMaybe<Order>;
+  /** enum/name */
+  name?: InputMaybe<Order>;
+  /** workflow/Final */
+  final?: InputMaybe<Order>;
+};
+
+/** Filter for workflow/state_Things/Event */
+export type WorkflowStateThingsEventFilter = {
+  orderBy?: InputMaybe<WorkflowStateThingsEventOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  /** fibery/id */
+  id?: InputMaybe<IDFilter>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<StringFilter>;
+  /** fibery/rank */
+  rank?: InputMaybe<FloatFilter>;
+  /** enum/icon */
+  icon?: InputMaybe<StringFilter>;
+  /** enum/name */
+  name?: InputMaybe<StringFilter>;
+  /** workflow/Final */
+  final?: InputMaybe<BooleanFilter>;
+};
+
+export type WorkflowStateThingsEventCollectionFilter = {
+  isEmpty?: InputMaybe<Scalars['Boolean']>;
+  contains?: InputMaybe<Array<InputMaybe<WorkflowStateThingsEventFilter>>>;
+  containsAny?: InputMaybe<Array<InputMaybe<WorkflowStateThingsEventFilter>>>;
+  notContains?: InputMaybe<Array<InputMaybe<WorkflowStateThingsEventFilter>>>;
+  notContainsAny?: InputMaybe<Array<InputMaybe<WorkflowStateThingsEventFilter>>>;
+};
+
 export type StringFilter = {
   is?: InputMaybe<Scalars['String']>;
   isNot?: InputMaybe<Scalars['String']>;
@@ -1936,13 +2018,14 @@ export type MutationeventsArgs = {
   modificationDate?: InputMaybe<StringFilter>;
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
-  allDay?: InputMaybe<BooleanFilter>;
-  endStr?: InputMaybe<StringFilter>;
+  contacts?: InputMaybe<StringFilter>;
+  end?: InputMaybe<StringFilter>;
   name?: InputMaybe<StringFilter>;
+  start?: InputMaybe<StringFilter>;
+  allDay?: InputMaybe<BooleanFilter>;
   source?: InputMaybe<StringFilter>;
-  startStr?: InputMaybe<StringFilter>;
-  title?: InputMaybe<StringFilter>;
   url?: InputMaybe<StringFilter>;
+  state?: InputMaybe<WorkflowStateThingsEventFilter>;
 };
 
 
@@ -2141,6 +2224,11 @@ export type ResolversTypes = ResolversObject<{
   FiberyUserOrder: FiberyUserOrder;
   FiberyUserFilter: FiberyUserFilter;
   FiberyUserCollectionFilter: FiberyUserCollectionFilter;
+  WorkflowStateThingsEvent: ResolverTypeWrapper<WorkflowStateThingsEvent>;
+  WorkflowStateThingsEventInput: WorkflowStateThingsEventInput;
+  WorkflowStateThingsEventOrder: WorkflowStateThingsEventOrder;
+  WorkflowStateThingsEventFilter: WorkflowStateThingsEventFilter;
+  WorkflowStateThingsEventCollectionFilter: WorkflowStateThingsEventCollectionFilter;
   StringFilter: StringFilter;
   FloatFilter: FloatFilter;
   IDFilter: IDFilter;
@@ -2214,6 +2302,11 @@ export type ResolversParentTypes = ResolversObject<{
   FiberyUserOrder: FiberyUserOrder;
   FiberyUserFilter: FiberyUserFilter;
   FiberyUserCollectionFilter: FiberyUserCollectionFilter;
+  WorkflowStateThingsEvent: WorkflowStateThingsEvent;
+  WorkflowStateThingsEventInput: WorkflowStateThingsEventInput;
+  WorkflowStateThingsEventOrder: WorkflowStateThingsEventOrder;
+  WorkflowStateThingsEventFilter: WorkflowStateThingsEventFilter;
+  WorkflowStateThingsEventCollectionFilter: WorkflowStateThingsEventCollectionFilter;
   StringFilter: StringFilter;
   FloatFilter: FloatFilter;
   IDFilter: IDFilter;
@@ -2290,14 +2383,15 @@ export type ThingsEventResolvers<ContextType = MeshContext, ParentType extends R
   modificationDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   rank?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   createdBy?: Resolver<Maybe<ResolversTypes['FiberyUser']>, ParentType, ContextType>;
+  contacts?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  end?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  start?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   allDay?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['RichField']>, ParentType, ContextType>;
-  endStr?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   source?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  startStr?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  state?: Resolver<Maybe<ResolversTypes['WorkflowStateThingsEvent']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -2315,6 +2409,7 @@ export type ThingsEventOperationsResolvers<ContextType = MeshContext, ParentType
   prependContentToDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsprependContentToDescriptionBatchArgs>>;
   overwriteDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsoverwriteDescriptionArgs>>;
   overwriteDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsoverwriteDescriptionBatchArgs>>;
+  moveToFinalState?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
   notifyCreatedBy?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsnotifyCreatedByArgs>>;
   notifyCreatedByBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsnotifyCreatedByBatchArgs>>;
   notifyUsers?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEventOperationsnotifyUsersArgs>>;
@@ -2479,6 +2574,16 @@ export type FiberyUserResolvers<ContextType = MeshContext, ParentType extends Re
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
+export type WorkflowStateThingsEventResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['WorkflowStateThingsEvent'] = ResolversParentTypes['WorkflowStateThingsEvent']> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  publicId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  rank?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  icon?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  final?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
 export type DateRangeResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['DateRange'] = ResolversParentTypes['DateRange']> = ResolversObject<{
   start?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   end?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -2547,6 +2652,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   ThingsThing?: ThingsThingResolvers<ContextType>;
   ThingsThingOperations?: ThingsThingOperationsResolvers<ContextType>;
   FiberyUser?: FiberyUserResolvers<ContextType>;
+  WorkflowStateThingsEvent?: WorkflowStateThingsEventResolvers<ContextType>;
   DateRange?: DateRangeResolvers<ContextType>;
   RichField?: RichFieldResolvers<ContextType>;
   Document?: DocumentResolvers<ContextType>;

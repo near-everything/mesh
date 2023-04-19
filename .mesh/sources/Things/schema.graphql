@@ -58,20 +58,22 @@ type Query {
     rank: FloatFilter
     """fibery/created-by"""
     createdBy: FiberyUserFilter
+    """Things/Contacts"""
+    contacts: StringFilter
+    """Things/End"""
+    end: StringFilter
+    """Things/Name"""
+    name: StringFilter
+    """Things/Start"""
+    start: StringFilter
     """Things/allDay"""
     allDay: BooleanFilter
-    """Things/endStr"""
-    endStr: StringFilter
-    """Things/name"""
-    name: StringFilter
     """Things/source"""
     source: StringFilter
-    """Things/startStr"""
-    startStr: StringFilter
-    """Things/title"""
-    title: StringFilter
     """Things/url"""
     url: StringFilter
+    """workflow/state"""
+    state: WorkflowStateThingsEventFilter
   ): [ThingsEvent]
   """
   Find ThingsIdea records.
@@ -388,41 +390,45 @@ type ThingsEvent {
   rank: Float
   """fibery/created-by"""
   createdBy: FiberyUser
+  """Things/Contacts"""
+  contacts: String
+  """Things/End"""
+  end: String
+  """Things/Name"""
+  name: String
+  """Things/Start"""
+  start: String
   """Things/allDay"""
   allDay: Boolean
   """Things/description"""
   description: RichField
-  """Things/endStr"""
-  endStr: String
-  """Things/name"""
-  name: String
   """Things/source"""
   source: String
-  """Things/startStr"""
-  startStr: String
-  """Things/title"""
-  title: String
   """Things/url"""
   url: String
+  """workflow/state"""
+  state: WorkflowStateThingsEvent
 }
 
 input ThingsEventInput {
   """fibery/rank"""
   rank: Float
+  """Things/Contacts"""
+  contacts: String
+  """Things/End"""
+  end: String
+  """Things/Name"""
+  name: String
+  """Things/Start"""
+  start: String
   """Things/allDay"""
   allDay: Boolean
-  """Things/endStr"""
-  endStr: String
-  """Things/name"""
-  name: String
   """Things/source"""
   source: String
-  """Things/startStr"""
-  startStr: String
-  """Things/title"""
-  title: String
   """Things/url"""
   url: String
+  """workflow/state"""
+  state: WorkflowStateThingsEventFilter
 }
 
 input ThingsEventOrder {
@@ -438,20 +444,22 @@ input ThingsEventOrder {
   rank: Order
   """fibery/created-by"""
   createdBy: FiberyUserOrder
+  """Things/Contacts"""
+  contacts: Order
+  """Things/End"""
+  end: Order
+  """Things/Name"""
+  name: Order
+  """Things/Start"""
+  start: Order
   """Things/allDay"""
   allDay: Order
-  """Things/endStr"""
-  endStr: Order
-  """Things/name"""
-  name: Order
   """Things/source"""
   source: Order
-  """Things/startStr"""
-  startStr: Order
-  """Things/title"""
-  title: Order
   """Things/url"""
   url: Order
+  """workflow/state"""
+  state: WorkflowStateThingsEventOrder
 }
 
 """
@@ -462,20 +470,22 @@ type ThingsEventOperations {
   create(
     """fibery/rank"""
     rank: Float
+    """Things/Contacts"""
+    contacts: String
+    """Things/End"""
+    end: String
+    """Things/Name"""
+    name: String
+    """Things/Start"""
+    start: String
     """Things/allDay"""
     allDay: Boolean
-    """Things/endStr"""
-    endStr: String
-    """Things/name"""
-    name: String
     """Things/source"""
     source: String
-    """Things/startStr"""
-    startStr: String
-    """Things/title"""
-    title: String
     """Things/url"""
     url: String
+    """workflow/state"""
+    state: WorkflowStateThingsEventFilter
   ): MutationResult
   """Batch Create. Create a new Event and specify field values"""
   createBatch(data: [ThingsEventInput]): MutationResult
@@ -483,20 +493,22 @@ type ThingsEventOperations {
   update(
     """fibery/rank"""
     rank: Float
+    """Things/Contacts"""
+    contacts: String
+    """Things/End"""
+    end: String
+    """Things/Name"""
+    name: String
+    """Things/Start"""
+    start: String
     """Things/allDay"""
     allDay: Boolean
-    """Things/endStr"""
-    endStr: String
-    """Things/name"""
-    name: String
     """Things/source"""
     source: String
-    """Things/startStr"""
-    startStr: String
-    """Things/title"""
-    title: String
     """Things/url"""
     url: String
+    """workflow/state"""
+    state: WorkflowStateThingsEventFilter
   ): MutationResult
   """Batch Update. Set new values for fields"""
   updateBatch(data: [ThingsEventInput]): MutationResult
@@ -542,6 +554,8 @@ type ThingsEventOperations {
   Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
   """
   overwriteDescriptionBatch(data: [OverwriteDescriptionInput]): MutationResult
+  """Move to final state. Move Event to final state"""
+  moveToFinalState: MutationResult
   """
   Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt;
   """
@@ -599,20 +613,22 @@ input ThingsEventFilter {
   rank: FloatFilter
   """fibery/created-by"""
   createdBy: FiberyUserFilter
+  """Things/Contacts"""
+  contacts: StringFilter
+  """Things/End"""
+  end: StringFilter
+  """Things/Name"""
+  name: StringFilter
+  """Things/Start"""
+  start: StringFilter
   """Things/allDay"""
   allDay: BooleanFilter
-  """Things/endStr"""
-  endStr: StringFilter
-  """Things/name"""
-  name: StringFilter
   """Things/source"""
   source: StringFilter
-  """Things/startStr"""
-  startStr: StringFilter
-  """Things/title"""
-  title: StringFilter
   """Things/url"""
   url: StringFilter
+  """workflow/state"""
+  state: WorkflowStateThingsEventFilter
 }
 
 input ThingsEventCollectionFilter {
@@ -1444,6 +1460,75 @@ input FiberyUserCollectionFilter {
   notContainsAny: [FiberyUserFilter]
 }
 
+"""Available fields and relations for workflow/state_Things/Event"""
+type WorkflowStateThingsEvent {
+  """fibery/id"""
+  id: ID
+  """fibery/public-id"""
+  publicId: String
+  """fibery/rank"""
+  rank: Float
+  """enum/icon"""
+  icon: String
+  """enum/name"""
+  name: String
+  """workflow/Final"""
+  final: Boolean
+}
+
+input WorkflowStateThingsEventInput {
+  """fibery/rank"""
+  rank: Float
+  """enum/icon"""
+  icon: String
+  """enum/name"""
+  name: String
+  """workflow/Final"""
+  final: Boolean
+}
+
+input WorkflowStateThingsEventOrder {
+  """fibery/id"""
+  id: Order
+  """fibery/public-id"""
+  publicId: Order
+  """fibery/rank"""
+  rank: Order
+  """enum/icon"""
+  icon: Order
+  """enum/name"""
+  name: Order
+  """workflow/Final"""
+  final: Order
+}
+
+"""Filter for workflow/state_Things/Event"""
+input WorkflowStateThingsEventFilter {
+  orderBy: WorkflowStateThingsEventOrder
+  limit: Int
+  offset: Int
+  """fibery/id"""
+  id: IDFilter
+  """fibery/public-id"""
+  publicId: StringFilter
+  """fibery/rank"""
+  rank: FloatFilter
+  """enum/icon"""
+  icon: StringFilter
+  """enum/name"""
+  name: StringFilter
+  """workflow/Final"""
+  final: BooleanFilter
+}
+
+input WorkflowStateThingsEventCollectionFilter {
+  isEmpty: Boolean
+  contains: [WorkflowStateThingsEventFilter]
+  containsAny: [WorkflowStateThingsEventFilter]
+  notContains: [WorkflowStateThingsEventFilter]
+  notContainsAny: [WorkflowStateThingsEventFilter]
+}
+
 input StringFilter {
   is: String
   isNot: String
@@ -1661,20 +1746,22 @@ type Mutation {
     rank: FloatFilter
     """fibery/created-by"""
     createdBy: FiberyUserFilter
+    """Things/Contacts"""
+    contacts: StringFilter
+    """Things/End"""
+    end: StringFilter
+    """Things/Name"""
+    name: StringFilter
+    """Things/Start"""
+    start: StringFilter
     """Things/allDay"""
     allDay: BooleanFilter
-    """Things/endStr"""
-    endStr: StringFilter
-    """Things/name"""
-    name: StringFilter
     """Things/source"""
     source: StringFilter
-    """Things/startStr"""
-    startStr: StringFilter
-    """Things/title"""
-    title: StringFilter
     """Things/url"""
     url: StringFilter
+    """workflow/state"""
+    state: WorkflowStateThingsEventFilter
   ): ThingsEventOperations
   """
   Modify selected entities using multiple actions (update, link and etc.)
