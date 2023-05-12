@@ -49,6 +49,14 @@ export type Query = {
    */
   findDocuments?: Maybe<Array<Maybe<ThingsDocument>>>;
   /**
+   * Find ThingsEmail records.
+   *
+   * By default, offset equals to 0 and limit equals to 100
+   *
+   * ```{findEmails{id,name}}```
+   */
+  findEmails?: Maybe<Array<Maybe<ThingsEmail>>>;
+  /**
    * Find ThingsEvent records.
    *
    * By default, offset equals to 0 and limit equals to 100
@@ -103,6 +111,21 @@ export type QueryfindDocumentsArgs = {
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
   author?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+};
+
+
+/** Below the list of queries available for database. */
+export type QueryfindEmailsArgs = {
+  orderBy?: InputMaybe<ThingsEmailOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<IDFilter>;
+  publicId?: InputMaybe<StringFilter>;
+  creationDate?: InputMaybe<StringFilter>;
+  modificationDate?: InputMaybe<StringFilter>;
+  rank?: InputMaybe<FloatFilter>;
+  createdBy?: InputMaybe<FiberyUserFilter>;
   name?: InputMaybe<StringFilter>;
 };
 
@@ -419,6 +442,225 @@ export type ThingsDocumentCollectionFilter = {
   containsAny?: InputMaybe<Array<InputMaybe<ThingsDocumentFilter>>>;
   notContains?: InputMaybe<Array<InputMaybe<ThingsDocumentFilter>>>;
   notContainsAny?: InputMaybe<Array<InputMaybe<ThingsDocumentFilter>>>;
+};
+
+/** Available fields and relations for Things/Email */
+export type ThingsEmail = {
+  /** fibery/id */
+  id?: Maybe<Scalars['ID']>;
+  /** fibery/public-id */
+  publicId?: Maybe<Scalars['String']>;
+  /** fibery/creation-date */
+  creationDate?: Maybe<Scalars['String']>;
+  /** fibery/modification-date */
+  modificationDate?: Maybe<Scalars['String']>;
+  /** fibery/rank */
+  rank?: Maybe<Scalars['Float']>;
+  /** fibery/created-by */
+  createdBy?: Maybe<FiberyUser>;
+  /** Things/Description */
+  description?: Maybe<RichField>;
+  /** Things/Name */
+  name?: Maybe<Scalars['String']>;
+};
+
+export type ThingsEmailInput = {
+  /** fibery/rank */
+  rank?: InputMaybe<Scalars['Float']>;
+  /** Things/Name */
+  name?: InputMaybe<Scalars['String']>;
+};
+
+export type ThingsEmailOrder = {
+  /** fibery/id */
+  id?: InputMaybe<Order>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<Order>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<Order>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<Order>;
+  /** fibery/rank */
+  rank?: InputMaybe<Order>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserOrder>;
+  /** Things/Name */
+  name?: InputMaybe<Order>;
+};
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperations = {
+  /** Create. Create a new Email and specify field values */
+  create?: Maybe<MutationResult>;
+  /** Batch Create. Create a new Email and specify field values */
+  createBatch?: Maybe<MutationResult>;
+  /** Update. Set new values for fields */
+  update?: Maybe<MutationResult>;
+  /** Batch Update. Set new values for fields */
+  updateBatch?: Maybe<MutationResult>;
+  /** Delete. Delete Email */
+  delete?: Maybe<MutationResult>;
+  /** Script. Execute Javascript code */
+  script?: Maybe<MutationResult>;
+  /** Batch Script. Execute Javascript code */
+  scriptBatch?: Maybe<MutationResult>;
+  /** Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  appendContentToDescription?: Maybe<MutationResult>;
+  /** Batch Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  appendContentToDescriptionBatch?: Maybe<MutationResult>;
+  /** Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  prependContentToDescription?: Maybe<MutationResult>;
+  /** Batch Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  prependContentToDescriptionBatch?: Maybe<MutationResult>;
+  /** Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  overwriteDescription?: Maybe<MutationResult>;
+  /** Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt; */
+  overwriteDescriptionBatch?: Maybe<MutationResult>;
+  /** Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyCreatedBy?: Maybe<MutationResult>;
+  /** Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyCreatedByBatch?: Maybe<MutationResult>;
+  /** Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyUsers?: Maybe<MutationResult>;
+  /** Batch Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt; */
+  notifyUsersBatch?: Maybe<MutationResult>;
+  /** countOfEntities. Count of found or created emails to be modified */
+  countOfEntities?: Maybe<Scalars['Int']>;
+  /** listEntities. List of found or created emails to be modified */
+  listEntities?: Maybe<Array<Maybe<Entity>>>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationscreateArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationscreateBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsEmailInput>>>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsupdateArgs = {
+  rank?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsupdateBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ThingsEmailInput>>>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsscriptArgs = {
+  script?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsscriptBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<ScriptInput>>>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsappendContentToDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsappendContentToDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<AppendContentToDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsprependContentToDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsprependContentToDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<PrependContentToDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsoverwriteDescriptionArgs = {
+  value?: InputMaybe<Scalars['String']>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsoverwriteDescriptionBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<OverwriteDescriptionInput>>>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsnotifyCreatedByArgs = {
+  subject?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsnotifyCreatedByBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<NotifyCreatedByInput>>>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsnotifyUsersArgs = {
+  to?: InputMaybe<Array<InputMaybe<FiberyUserFilter>>>;
+  subject?: InputMaybe<Scalars['String']>;
+  message?: InputMaybe<Scalars['String']>;
+  notifyAuthor?: InputMaybe<Scalars['Boolean']>;
+  noEmptySend?: InputMaybe<Scalars['Boolean']>;
+};
+
+
+/** Available operations which can be done with found emails via provided query or created */
+export type ThingsEmailOperationsnotifyUsersBatchArgs = {
+  data?: InputMaybe<Array<InputMaybe<NotifyUsersInput>>>;
+};
+
+/** Filter for Things/Email */
+export type ThingsEmailFilter = {
+  orderBy?: InputMaybe<ThingsEmailOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  /** fibery/id */
+  id?: InputMaybe<IDFilter>;
+  /** fibery/public-id */
+  publicId?: InputMaybe<StringFilter>;
+  /** fibery/creation-date */
+  creationDate?: InputMaybe<StringFilter>;
+  /** fibery/modification-date */
+  modificationDate?: InputMaybe<StringFilter>;
+  /** fibery/rank */
+  rank?: InputMaybe<FloatFilter>;
+  /** fibery/created-by */
+  createdBy?: InputMaybe<FiberyUserFilter>;
+  /** Things/Name */
+  name?: InputMaybe<StringFilter>;
+};
+
+export type ThingsEmailCollectionFilter = {
+  isEmpty?: InputMaybe<Scalars['Boolean']>;
+  contains?: InputMaybe<Array<InputMaybe<ThingsEmailFilter>>>;
+  containsAny?: InputMaybe<Array<InputMaybe<ThingsEmailFilter>>>;
+  notContains?: InputMaybe<Array<InputMaybe<ThingsEmailFilter>>>;
+  notContainsAny?: InputMaybe<Array<InputMaybe<ThingsEmailFilter>>>;
 };
 
 /** Available fields and relations for Things/Event */
@@ -1944,6 +2186,17 @@ export type Mutation = {
    * Modify selected entities using multiple actions (update, link and etc.)
    * ```
    * mutation {
+   *     emails(id:{is: "AAAA-BBBB-CCCC"}){
+   *         update(name:"Updated"){message}
+   *     }
+   * }
+   * ```
+   */
+  emails?: Maybe<ThingsEmailOperations>;
+  /**
+   * Modify selected entities using multiple actions (update, link and etc.)
+   * ```
+   * mutation {
    *     events(id:{is: "AAAA-BBBB-CCCC"}){
    *         update(name:"Updated"){message}
    *     }
@@ -2010,6 +2263,21 @@ export type MutationdocumentsArgs = {
   rank?: InputMaybe<FloatFilter>;
   createdBy?: InputMaybe<FiberyUserFilter>;
   author?: InputMaybe<StringFilter>;
+  name?: InputMaybe<StringFilter>;
+};
+
+
+/** Use mutations to modify database */
+export type MutationemailsArgs = {
+  orderBy?: InputMaybe<ThingsEmailOrder>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<IDFilter>;
+  publicId?: InputMaybe<StringFilter>;
+  creationDate?: InputMaybe<StringFilter>;
+  modificationDate?: InputMaybe<StringFilter>;
+  rank?: InputMaybe<FloatFilter>;
+  createdBy?: InputMaybe<FiberyUserFilter>;
   name?: InputMaybe<StringFilter>;
 };
 
@@ -2197,6 +2465,12 @@ export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ThingsDocumentFilter: ThingsDocumentFilter;
   ThingsDocumentCollectionFilter: ThingsDocumentCollectionFilter;
+  ThingsEmail: ResolverTypeWrapper<ThingsEmail>;
+  ThingsEmailInput: ThingsEmailInput;
+  ThingsEmailOrder: ThingsEmailOrder;
+  ThingsEmailOperations: ResolverTypeWrapper<ThingsEmailOperations>;
+  ThingsEmailFilter: ThingsEmailFilter;
+  ThingsEmailCollectionFilter: ThingsEmailCollectionFilter;
   ThingsEvent: ResolverTypeWrapper<ThingsEvent>;
   ThingsEventInput: ThingsEventInput;
   ThingsEventOrder: ThingsEventOrder;
@@ -2275,6 +2549,12 @@ export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
   ThingsDocumentFilter: ThingsDocumentFilter;
   ThingsDocumentCollectionFilter: ThingsDocumentCollectionFilter;
+  ThingsEmail: ThingsEmail;
+  ThingsEmailInput: ThingsEmailInput;
+  ThingsEmailOrder: ThingsEmailOrder;
+  ThingsEmailOperations: ThingsEmailOperations;
+  ThingsEmailFilter: ThingsEmailFilter;
+  ThingsEmailCollectionFilter: ThingsEmailCollectionFilter;
   ThingsEvent: ThingsEvent;
   ThingsEventInput: ThingsEventInput;
   ThingsEventOrder: ThingsEventOrder;
@@ -2341,6 +2621,7 @@ export type ResolversParentTypes = ResolversObject<{
 export type QueryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   me?: Resolver<Maybe<ResolversTypes['FiberyUser']>, ParentType, ContextType>;
   findDocuments?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingsDocument']>>>, ParentType, ContextType, Partial<QueryfindDocumentsArgs>>;
+  findEmails?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingsEmail']>>>, ParentType, ContextType, Partial<QueryfindEmailsArgs>>;
   findEvents?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingsEvent']>>>, ParentType, ContextType, Partial<QueryfindEventsArgs>>;
   findIdeas?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingsIdea']>>>, ParentType, ContextType, Partial<QueryfindIdeasArgs>>;
   findPeople?: Resolver<Maybe<Array<Maybe<ResolversTypes['ThingsPerson']>>>, ParentType, ContextType, Partial<QueryfindPeopleArgs>>;
@@ -2379,6 +2660,41 @@ export type ThingsDocumentOperationsResolvers<ContextType = MeshContext, ParentT
   notifyCreatedByBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsDocumentOperationsnotifyCreatedByBatchArgs>>;
   notifyUsers?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsDocumentOperationsnotifyUsersArgs>>;
   notifyUsersBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsDocumentOperationsnotifyUsersBatchArgs>>;
+  countOfEntities?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  listEntities?: Resolver<Maybe<Array<Maybe<ResolversTypes['Entity']>>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ThingsEmailResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ThingsEmail'] = ResolversParentTypes['ThingsEmail']> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  publicId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  creationDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  modificationDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  rank?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  createdBy?: Resolver<Maybe<ResolversTypes['FiberyUser']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['RichField']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type ThingsEmailOperationsResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['ThingsEmailOperations'] = ResolversParentTypes['ThingsEmailOperations']> = ResolversObject<{
+  create?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationscreateArgs>>;
+  createBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationscreateBatchArgs>>;
+  update?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsupdateArgs>>;
+  updateBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsupdateBatchArgs>>;
+  delete?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType>;
+  script?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsscriptArgs>>;
+  scriptBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsscriptBatchArgs>>;
+  appendContentToDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsappendContentToDescriptionArgs>>;
+  appendContentToDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsappendContentToDescriptionBatchArgs>>;
+  prependContentToDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsprependContentToDescriptionArgs>>;
+  prependContentToDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsprependContentToDescriptionBatchArgs>>;
+  overwriteDescription?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsoverwriteDescriptionArgs>>;
+  overwriteDescriptionBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsoverwriteDescriptionBatchArgs>>;
+  notifyCreatedBy?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsnotifyCreatedByArgs>>;
+  notifyCreatedByBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsnotifyCreatedByBatchArgs>>;
+  notifyUsers?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsnotifyUsersArgs>>;
+  notifyUsersBatch?: Resolver<Maybe<ResolversTypes['MutationResult']>, ParentType, ContextType, Partial<ThingsEmailOperationsnotifyUsersBatchArgs>>;
   countOfEntities?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   listEntities?: Resolver<Maybe<Array<Maybe<ResolversTypes['Entity']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -2639,6 +2955,7 @@ export type MutationResultResolvers<ContextType = MeshContext, ParentType extend
 
 export type MutationResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
   documents?: Resolver<Maybe<ResolversTypes['ThingsDocumentOperations']>, ParentType, ContextType, Partial<MutationdocumentsArgs>>;
+  emails?: Resolver<Maybe<ResolversTypes['ThingsEmailOperations']>, ParentType, ContextType, Partial<MutationemailsArgs>>;
   events?: Resolver<Maybe<ResolversTypes['ThingsEventOperations']>, ParentType, ContextType, Partial<MutationeventsArgs>>;
   ideas?: Resolver<Maybe<ResolversTypes['ThingsIdeaOperations']>, ParentType, ContextType, Partial<MutationideasArgs>>;
   people?: Resolver<Maybe<ResolversTypes['ThingsPersonOperations']>, ParentType, ContextType, Partial<MutationpeopleArgs>>;
@@ -2650,6 +2967,8 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   ThingsDocument?: ThingsDocumentResolvers<ContextType>;
   ThingsDocumentOperations?: ThingsDocumentOperationsResolvers<ContextType>;
+  ThingsEmail?: ThingsEmailResolvers<ContextType>;
+  ThingsEmailOperations?: ThingsEmailOperationsResolvers<ContextType>;
   ThingsEvent?: ThingsEventResolvers<ContextType>;
   ThingsEventOperations?: ThingsEventOperationsResolvers<ContextType>;
   ThingsIdea?: ThingsIdeaResolvers<ContextType>;

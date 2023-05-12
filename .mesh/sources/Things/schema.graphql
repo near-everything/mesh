@@ -36,6 +36,32 @@ type Query {
     name: StringFilter
   ): [ThingsDocument]
   """
+  Find ThingsEmail records.
+  
+  By default, offset equals to 0 and limit equals to 100
+  
+  ```{findEmails{id,name}}```
+  """
+  findEmails(
+    orderBy: ThingsEmailOrder
+    limit: Int
+    offset: Int
+    """fibery/id"""
+    id: IDFilter
+    """fibery/public-id"""
+    publicId: StringFilter
+    """fibery/creation-date"""
+    creationDate: StringFilter
+    """fibery/modification-date"""
+    modificationDate: StringFilter
+    """fibery/rank"""
+    rank: FloatFilter
+    """fibery/created-by"""
+    createdBy: FiberyUserFilter
+    """Things/Name"""
+    name: StringFilter
+  ): [ThingsEmail]
+  """
   Find ThingsEvent records.
   
   By default, offset equals to 0 and limit equals to 100
@@ -376,6 +402,183 @@ input ThingsDocumentCollectionFilter {
   containsAny: [ThingsDocumentFilter]
   notContains: [ThingsDocumentFilter]
   notContainsAny: [ThingsDocumentFilter]
+}
+
+"""Available fields and relations for Things/Email"""
+type ThingsEmail {
+  """fibery/id"""
+  id: ID
+  """fibery/public-id"""
+  publicId: String
+  """fibery/creation-date"""
+  creationDate: String
+  """fibery/modification-date"""
+  modificationDate: String
+  """fibery/rank"""
+  rank: Float
+  """fibery/created-by"""
+  createdBy: FiberyUser
+  """Things/Description"""
+  description: RichField
+  """Things/Name"""
+  name: String
+}
+
+input ThingsEmailInput {
+  """fibery/rank"""
+  rank: Float
+  """Things/Name"""
+  name: String
+}
+
+input ThingsEmailOrder {
+  """fibery/id"""
+  id: Order
+  """fibery/public-id"""
+  publicId: Order
+  """fibery/creation-date"""
+  creationDate: Order
+  """fibery/modification-date"""
+  modificationDate: Order
+  """fibery/rank"""
+  rank: Order
+  """fibery/created-by"""
+  createdBy: FiberyUserOrder
+  """Things/Name"""
+  name: Order
+}
+
+"""
+Available operations which can be done with found emails via provided query or created
+"""
+type ThingsEmailOperations {
+  """Create. Create a new Email and specify field values"""
+  create(
+    """fibery/rank"""
+    rank: Float
+    """Things/Name"""
+    name: String
+  ): MutationResult
+  """Batch Create. Create a new Email and specify field values"""
+  createBatch(data: [ThingsEmailInput]): MutationResult
+  """Update. Set new values for fields"""
+  update(
+    """fibery/rank"""
+    rank: Float
+    """Things/Name"""
+    name: String
+  ): MutationResult
+  """Batch Update. Set new values for fields"""
+  updateBatch(data: [ThingsEmailInput]): MutationResult
+  """Delete. Delete Email"""
+  delete: MutationResult
+  """Script. Execute Javascript code"""
+  script(
+    """Script code"""
+    script: String
+  ): MutationResult
+  """Batch Script. Execute Javascript code"""
+  scriptBatch(data: [ScriptInput]): MutationResult
+  """
+  Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  appendContentToDescription(
+    """Document"""
+    value: String
+  ): MutationResult
+  """
+  Batch Append content to Description. Append content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  appendContentToDescriptionBatch(data: [AppendContentToDescriptionInput]): MutationResult
+  """
+  Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  prependContentToDescription(
+    """Document"""
+    value: String
+  ): MutationResult
+  """
+  Batch Prepend content to Description. Prepend content to document. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  prependContentToDescriptionBatch(data: [PrependContentToDescriptionInput]): MutationResult
+  """
+  Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  overwriteDescription(
+    """Document"""
+    value: String
+  ): MutationResult
+  """
+  Batch Overwrite Description. Replace document content. Markdown template is supported. For example **{{Name}}**, {{Bugs:Name,Status.Name}}, &lt;%= new Date()%&gt;, &lt;%= Entity.Id%&gt;, &lt;%= Entity.Type%&gt;
+  """
+  overwriteDescriptionBatch(data: [OverwriteDescriptionInput]): MutationResult
+  """
+  Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt;
+  """
+  notifyCreatedBy(
+    """Subject"""
+    subject: String
+    """Message"""
+    message: String
+    """Notify the author of modifications"""
+    notifyAuthor: Boolean
+  ): MutationResult
+  """
+  Batch Notify Created By. Send in-app notification (slack or email if configured) to Created By. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt;
+  """
+  notifyCreatedByBatch(data: [NotifyCreatedByInput]): MutationResult
+  """
+  Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt;
+  """
+  notifyUsers(
+    """To"""
+    to: [FiberyUserFilter]
+    """Subject"""
+    subject: String
+    """Message"""
+    message: String
+    """Notify the author of modifications"""
+    notifyAuthor: Boolean
+    """Don&#39;t notify if there are no entities to be processed"""
+    noEmptySend: Boolean
+  ): MutationResult
+  """
+  Batch Notify Users. Send in-app notification (slack or email if configured) to specified users. Text templating is supported. For example: Something happened with {{Name}} on &lt;%= new Date()%&gt;
+  """
+  notifyUsersBatch(data: [NotifyUsersInput]): MutationResult
+  """countOfEntities. Count of found or created emails to be modified"""
+  countOfEntities: Int
+  """listEntities. List of found or created emails to be modified"""
+  listEntities: [Entity]
+}
+
+"""Filter for Things/Email"""
+input ThingsEmailFilter {
+  orderBy: ThingsEmailOrder
+  limit: Int
+  offset: Int
+  """fibery/id"""
+  id: IDFilter
+  """fibery/public-id"""
+  publicId: StringFilter
+  """fibery/creation-date"""
+  creationDate: StringFilter
+  """fibery/modification-date"""
+  modificationDate: StringFilter
+  """fibery/rank"""
+  rank: FloatFilter
+  """fibery/created-by"""
+  createdBy: FiberyUserFilter
+  """Things/Name"""
+  name: StringFilter
+}
+
+input ThingsEmailCollectionFilter {
+  isEmpty: Boolean
+  contains: [ThingsEmailFilter]
+  containsAny: [ThingsEmailFilter]
+  notContains: [ThingsEmailFilter]
+  notContainsAny: [ThingsEmailFilter]
 }
 
 """Available fields and relations for Things/Event"""
@@ -1728,6 +1931,35 @@ type Mutation {
     """Things/name"""
     name: StringFilter
   ): ThingsDocumentOperations
+  """
+  Modify selected entities using multiple actions (update, link and etc.)
+  ```
+  mutation {
+      emails(id:{is: "AAAA-BBBB-CCCC"}){
+          update(name:"Updated"){message}
+      }
+  }
+  ```
+  """
+  emails(
+    orderBy: ThingsEmailOrder
+    limit: Int
+    offset: Int
+    """fibery/id"""
+    id: IDFilter
+    """fibery/public-id"""
+    publicId: StringFilter
+    """fibery/creation-date"""
+    creationDate: StringFilter
+    """fibery/modification-date"""
+    modificationDate: StringFilter
+    """fibery/rank"""
+    rank: FloatFilter
+    """fibery/created-by"""
+    createdBy: FiberyUserFilter
+    """Things/Name"""
+    name: StringFilter
+  ): ThingsEmailOperations
   """
   Modify selected entities using multiple actions (update, link and etc.)
   ```
